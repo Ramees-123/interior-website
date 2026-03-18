@@ -1,14 +1,17 @@
 <!-- Hero Section -->
 <section class="hero" (click)="nextSlide()" style="cursor:pointer;">
   <div class="hero-image">
-    @for (image of heroImages; track $index) {
-      <img 
-        [src]="image" 
-        alt="Luxury Interior" 
-        class="hero-slider-image"
-        [class.active]="isActive($index)" 
-      />
-    }
+    <img 
+      *ngFor="let image of heroImages; let i = index"
+      [src]="image" 
+      alt="Luxury Interior" 
+      class="hero-slider-image"
+      [class.active]="isActive(i)"
+      [attr.fetchpriority]="i === 0 ? 'high' : 'auto'"
+      [attr.loading]="i === 0 ? 'eager' : 'lazy'"
+      width="1920"
+      height="1080"
+    />
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-content" #heroContent>
@@ -56,21 +59,39 @@
     </div>
     <div class="projects-grid">
       <div class="project-card reveal-image fade-in-up">
-        <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80" alt="Modern Living Room" />
+        <img 
+          src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80" 
+          alt="Modern Living Room"
+          width="800"
+          height="600"
+          loading="lazy"
+        />
         <div class="project-info">
           <h3>Modern Living Space</h3>
           <p>Calicut, Kerala</p>
         </div>
       </div>
       <div class="project-card reveal-image fade-in-up">
-        <img src="https://images.unsplash.com/photo-1615529328331-f8917597711f?w=800&q=80" alt="Luxury Bedroom" />
+        <img 
+          src="https://images.unsplash.com/photo-1615529328331-f8917597711f?w=800&q=80" 
+          alt="Luxury Bedroom"
+          width="800"
+          height="600"
+          loading="lazy"
+        />
         <div class="project-info">
           <h3>Luxury Bedroom Suite</h3>
           <p>Kochi, Kerala</p>
         </div>
       </div>
       <div class="project-card reveal-image fade-in-up">
-        <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&q=80" alt="Elegant Kitchen" />
+        <img 
+          src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&q=80" 
+          alt="Elegant Kitchen"
+          width="800"
+          height="600"
+          loading="lazy"
+        />
         <div class="project-info">
           <h3>Elegant Kitchen Design</h3>
           <p>Thrissur, Kerala</p>

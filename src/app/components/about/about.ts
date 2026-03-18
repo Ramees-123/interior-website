@@ -10,7 +10,6 @@ export class About implements AfterViewInit {
   @ViewChild('designVideo', { static: false }) videoElement!: ElementRef<HTMLVideoElement>;
   @ViewChild('videoOverlay', { static: false }) overlayElement!: ElementRef<HTMLDivElement>;
   @ViewChild('playButton', { static: false }) playButtonElement!: ElementRef<HTMLDivElement>;
-  @ViewChild('videoTrigger', { static: false }) triggerElement!: ElementRef<HTMLDivElement>;
 
   ngAfterViewInit() {
     console.log('About component initialized, setting up video functionality');
@@ -23,18 +22,16 @@ export class About implements AfterViewInit {
     const video = this.videoElement?.nativeElement;
     const overlay = this.overlayElement?.nativeElement;
     const playButton = this.playButtonElement?.nativeElement;
-    const trigger = this.triggerElement?.nativeElement;
     const wrapper = document.querySelector('.video-wrapper') as HTMLElement;
     
     console.log('Elements found:', {
       video: !!video,
       overlay: !!overlay,
       playButton: !!playButton,
-      trigger: !!trigger,
       wrapper: !!wrapper
     });
 
-    if (video && overlay && playButton && trigger && wrapper) {
+    if (video && overlay && playButton && wrapper) {
       // Direct play function
       const playVideo = () => {
         console.log('Play function called');
@@ -91,7 +88,6 @@ export class About implements AfterViewInit {
       // Add click events to all interactive elements
       overlay.addEventListener('click', playVideo);
       playButton.addEventListener('click', playVideo);
-      trigger.addEventListener('click', playVideo);
       
       // Video state handlers
       video.addEventListener('play', () => {

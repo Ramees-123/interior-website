@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy, signal, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgFor } from '@angular/common';
-import gsap from 'gsap';
 
 @Component({
   selector: 'app-home',
@@ -34,7 +33,12 @@ export class Home implements OnInit, OnDestroy, AfterViewInit {
   }
   
   ngAfterViewInit() {
-    this.animateHeroContent();
+    // Add CSS animation classes for hero content
+    if (this.heroContent?.nativeElement) {
+      setTimeout(() => {
+        this.heroContent.nativeElement.classList.add('hero-content-visible');
+      }, 500);
+    }
   }
   
   ngOnDestroy() {
@@ -67,35 +71,17 @@ export class Home implements OnInit, OnDestroy, AfterViewInit {
     this.isAnimating = true;
     
     const nextIndex = (this.currentImageIndex() + 1) % this.heroImages.length;
+    this.currentImageIndex.set(nextIndex);
     
-    // Animate out current content
-    gsap.to(this.heroContent?.nativeElement, {
-      opacity: 0,
-      y: -30,
-      duration: 1,
-      ease: 'power2.in',
-      onComplete: () => {
-        this.currentImageIndex.set(nextIndex);
-        
-        // Animate in new content
-        gsap.fromTo(this.heroContent?.nativeElement, 
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 1.5, ease: 'power2.out' }
-        );
-        
-        setTimeout(() => {
-          this.isAnimating = false;
-        }, 1500);
-      }
-    });
-  }
-  
-  animateHeroContent() {
+    // Use CSS transitions for smooth content changes
     if (this.heroContent?.nativeElement) {
-      gsap.fromTo(this.heroContent.nativeElement,
-        { opacity: 0, y: 40 },
-        { opacity: 1, y: 0, duration: 2, ease: 'power3.out', delay: 0.5 }
-      );
+      this.heroContent.nativeElement.classList.remove('hero-content-visible');
+      setTimeout(() => {
+        this.heroContent.nativeElement.classList.add('hero-content-visible');
+        this.isAnimating = false;
+      }, 500);
+    } else {
+      this.isAnimating = false;
     }
   }
   

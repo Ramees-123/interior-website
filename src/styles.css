@@ -3,7 +3,7 @@
    ======================================== */
 
 /* Google Fonts Import - Premium Typography */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
 
 /* CSS Variables - Luxury Design System */
 :root {
@@ -16,13 +16,6 @@
   --color-white: #FFFFFF;
   --color-charcoal: #2C2C2C;
   --color-gold: #D4AF37;
-  --color-rose-gold: #B76E79;
-  --color-emerald: #50C878;
-  --color-sapphire: #0F52BA;
-  
-  /* Form Colors */
-  --form-bg: #E8E2D9;
-  --form-accent: #C4A77D;
   
   /* Typography */
   --font-primary: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
@@ -80,23 +73,24 @@ h1, h2, h3, h4 {
 }
 
 h1 {
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: clamp(1.75rem, 5vw, 4rem);
   line-height: 1.2;
 }
 
 h2 {
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(1.5rem, 4vw, 3rem);
   margin-bottom: var(--spacing-md);
 }
 
 h3 {
-  font-size: 1.5rem;
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
   margin-bottom: var(--spacing-sm);
 }
 
 p {
   color: var(--color-warm-gray);
   margin-bottom: 1rem;
+  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
 }
 
 /* Links */
@@ -111,6 +105,32 @@ img {
   max-width: 100%;
   height: auto;
   display: block;
+  /* Optimize image rendering for faster display */
+  image-rendering: -webkit-optimize-contrast;
+  /* Prevent layout shift by maintaining aspect ratio */
+  aspect-ratio: auto;
+  /* Improve image quality during transitions */
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  /* Enable hardware acceleration */
+  will-change: auto;
+}
+
+/* Optimize images with explicit dimensions */
+img[width][height] {
+  aspect-ratio: attr(width) / attr(height);
+}
+
+/* Loading state animations */
+img[loading="lazy"] {
+  background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0.2), rgba(255,255,255,0.1));
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
 /* Container */
@@ -381,11 +401,11 @@ section {
 
 .btn-primary {
   display: inline-block;
-  padding: 1rem 2.5rem;
+  padding: clamp(0.8rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2.5rem);
   background: var(--color-dark-brown);
   color: var(--color-white);
   font-family: var(--font-secondary);
-  font-size: 0.85rem;
+  font-size: clamp(0.75rem, 1.2vw, 0.85rem);
   font-weight: 500;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -403,11 +423,11 @@ section {
 
 .btn-secondary {
   display: inline-block;
-  padding: 1rem 2.5rem;
+  padding: clamp(0.8rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2.5rem);
   background: transparent;
   color: var(--color-white);
   font-family: var(--font-secondary);
-  font-size: 0.85rem;
+  font-size: clamp(0.75rem, 1.2vw, 0.85rem);
   font-weight: 500;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -425,10 +445,13 @@ section {
    RESPONSIVE
    ======================================== */
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 2rem;
+  }
+  
   :root {
     --spacing-lg: 3rem;
-    --spacing-xl: 4rem;
   }
   
   section {
@@ -436,10 +459,51 @@ section {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   :root {
     --spacing-md: 1.5rem;
-    --spacing-lg: 2rem;
-    --spacing-xl: 3rem;
+    --spacing-lg: 2.5rem;
+    --spacing-xl: 3.5rem;
+  }
+  
+  .container {
+    padding: 0 1.5rem;
+  }
+  
+  section {
+    padding: var(--spacing-lg) 0;
+  }
+  
+  .btn-primary,
+  .btn-secondary {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 0.75rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2.5rem;
+  }
+  
+  .container {
+    padding: 0 1rem;
+  }
+  
+  section {
+    padding: var(--spacing-lg) 0;
+  }
+  
+  .btn-primary,
+  .btn-secondary {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 0.5rem 0;
   }
 }

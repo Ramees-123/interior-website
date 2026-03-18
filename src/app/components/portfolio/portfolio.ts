@@ -199,7 +199,7 @@ export class Portfolio implements OnInit, AfterViewInit, OnDestroy {
     const interval = this.slideshowIntervals.get(slideshowId);
     if (interval) {
       clearInterval(interval);
-      this.slideshowIntervals.set(slideshowId, null);
+      this.slideshowIntervals.delete(slideshowId);
     }
   }
 

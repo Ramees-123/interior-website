@@ -15,15 +15,29 @@ main > .why-choose-us,
 main > .process-section,
 main > .testimonials,
 main > .cta {
-  margin-top: 120px; /* Account for header height */
+  margin-top: clamp(60px, 8vw, 120px);
 }
 
 /* Fix page-banner sections (About, Services, Portfolio, Contact) */
 main .page-banner {
-  margin-top: 120px; /* Account for header height */
+  margin-top: clamp(60px, 8vw, 120px);
 }
 
 /* Adjust for smaller screens */
+@media (max-width: 1024px) {
+  main section:first-child,
+  main > .hero,
+  main > .intro,
+  main > .featured-projects,
+  main > .why-choose-us,
+  main > .process-section,
+  main > .testimonials,
+  main > .cta,
+  main .page-banner {
+    margin-top: clamp(50px, 6vw, 90px);
+  }
+}
+
 @media (max-width: 768px) {
   main section:first-child,
   main > .hero,
@@ -34,7 +48,21 @@ main .page-banner {
   main > .testimonials,
   main > .cta,
   main .page-banner {
-    margin-top: 80px; /* Smaller header on mobile */
+    margin-top: clamp(45px, 5vw, 70px);
+  }
+}
+
+@media (max-width: 480px) {
+  main section:first-child,
+  main > .hero,
+  main > .intro,
+  main > .featured-projects,
+  main > .why-choose-us,
+  main > .process-section,
+  main > .testimonials,
+  main > .cta,
+  main .page-banner {
+    margin-top: clamp(40px, 4vw, 60px);
   }
 }
 
@@ -85,7 +113,7 @@ main .page-banner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2rem 3rem;
+  padding: clamp(1rem, 3vw, 2rem) clamp(1rem, 4vw, 3rem);
   max-width: 1400px;
   margin: 0 auto;
   position: relative;
@@ -113,8 +141,8 @@ main .page-banner {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 40px;
-  height: 40px;
+  width: clamp(32px, 8vw, 40px);
+  height: clamp(32px, 8vw, 40px);
   background: none;
   border: none;
   cursor: pointer;
@@ -129,7 +157,7 @@ main .page-banner {
 
 .hamburger span {
   display: block;
-  width: 28px;
+  width: clamp(20px, 6vw, 28px);
   height: 2px;
   /* dark brown on transparent header, switch to dark when header has scrolled */
   background: var(--color-dark-brown);
@@ -172,7 +200,7 @@ main .page-banner {
 
 /* Image logo replacements */
 .logo-image {
-  max-height: 72px; /* larger logo by default */
+  max-height: clamp(40px, 10vw, 72px); /* responsive logo sizing */
   width: auto;
   display: block;
   transition: all 0.4s ease;
@@ -180,7 +208,7 @@ main .page-banner {
 }
 
 .header.scrolled .logo-image {
-  max-height: 60px;
+  max-height: clamp(35px, 8vw, 60px);
 }
 
 .footer-logo-image {
@@ -243,10 +271,10 @@ main .page-banner {
 
 .company-title {
   font-family: 'Playfair Display', 'Cormorant Garamond', 'DM Serif Display', serif;
-  font-size: 1.25rem;
+  font-size: clamp(0.95rem, 3vw, 1.25rem);
   font-weight: 500;
   color: #2C241F;
-  letter-spacing: 5px;
+  letter-spacing: clamp(3px, 1.5vw, 5px);
   text-transform: uppercase;
   line-height: 1.2;
   transition: all 0.3s ease;
@@ -254,10 +282,10 @@ main .page-banner {
 
 .company-subtitle {
   font-family: 'Poppins', 'Montserrat', Arial, sans-serif;
-  font-size: 0.6rem;
+  font-size: clamp(0.45rem, 1.2vw, 0.6rem);
   font-weight: 500;
   color: #2C241F;
-  letter-spacing: 8px;
+  letter-spacing: clamp(5px, 2vw, 8px);
   text-transform: uppercase;
   opacity: 0.75;
   transition: all 0.3s ease;
@@ -560,16 +588,83 @@ main .page-banner {
 }
 
 /* Responsive */
+@media (max-width: 1024px) {
+  .header-container {
+    padding: 1.2rem 2rem;
+  }
+  
+  .menu-text {
+    font-size: 2.5rem;
+  }
+}
+
 @media (max-width: 768px) {
   .header-container {
     padding: 1rem 1.5rem;
+  }
+  
+  .logo-container {
+    gap: 0.25rem;
+    margin-top: -40px;
+  }
+  
+  .header.scrolled .logo-container {
+    transform: scale(0.85);
   }
   
   .menu-text {
     font-size: 2rem;
   }
   
+  .menu-nav {
+    gap: 1.5rem;
+  }
+  
   .footer {
-    padding: 3rem 1.5rem;
+    padding: 2.5rem 1rem;
+  }
+  
+  .footer-container {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-container {
+    padding: 0.8rem 1rem;
+  }
+  
+  .logo-container {
+    margin-top: -50px;
+    gap: 0.2rem;
+  }
+  
+  .company-name {
+    gap: 0.2rem;
+  }
+  
+  .header.scrolled .logo-container {
+    transform: scale(0.75);
+  }
+  
+  .menu-text {
+    font-size: 1.5rem;
+  }
+  
+  .menu-nav {
+    gap: 1rem;
+    margin-top: 80px;
+  }
+  
+  .menu-link {
+    gap: 1rem;
+  }
+  
+  .footer {
+    padding: 2rem 1rem;
+  }
+  
+  .footer-info {
+    gap: 0.25rem;
   }
 }
