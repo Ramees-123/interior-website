@@ -46,7 +46,24 @@ export class App implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // Initialize any non-GSAP animations or effects here
+    // Initialize loader hide after animation completes
+    this.initMobileLoader();
+  }
+
+  private initMobileLoader() {
+    const loader = document.getElementById('mobileLoader');
+    if (loader) {
+      setTimeout(() => {
+        loader.classList.add('hidden');
+      }, 2000); // 2 seconds to match animation duration
+      
+      // Fallback: force hide if not already hidden
+      setTimeout(() => {
+        if (!loader.classList.contains('hidden')) {
+          loader.classList.add('hidden');
+        }
+      }, 4000);
+    }
   }
 
   toggleMenu() {

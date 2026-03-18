@@ -1,4 +1,114 @@
 /* ========================================
+   MOBILE-FIRST PREMIUM LOADER ANIMATION
+   ======================================== */
+.mobile-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #f5f3f0 0%, #faf8f5 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.mobile-loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.loader-logo {
+  width: 100px;
+  height: 50px;
+  opacity: 0;
+  transform: scale(0.85);
+  animation: logoFadeInLoader 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes logoFadeInLoader {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.company-title-loader {
+  font-family: 'Playfair Display', 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #2C241F;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: fadeInText 1s ease-out 0.5s forwards;
+}
+
+.company-subtitle-loader {
+  font-family: 'Poppins', 'Montserrat', Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #2C241F;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: fadeInText 1s ease-out 0.7s forwards;
+  white-space: nowrap;
+}
+
+@keyframes fadeInText {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.loader-progress {
+  position: absolute;
+  bottom: 10%;
+  width: 80%;
+  max-width: 280px;
+  height: 2px;
+  background: rgba(44, 36, 31, 0.1);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.loader-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #d4af37, #e5c158, #d4af37);
+  width: 0%;
+  animation: progressLoad 1.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+}
+
+@keyframes progressLoad {
+  0% { width: 0%; }
+  80% { width: 90%; }
+  100% { width: 100%; }
+}
+
+/* ========================================
    MAIN CONTENT
    ======================================== */
 main {
