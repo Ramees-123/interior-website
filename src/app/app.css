@@ -75,7 +75,9 @@
   text-transform: uppercase;
   opacity: 0;
   animation: fadeInText 1s ease-out 0.7s forwards;
-  white-space: nowrap;
+  max-width: 140px;
+  line-height: 1.4;
+  text-align: center;
 }
 
 @keyframes fadeInText {

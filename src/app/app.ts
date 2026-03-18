@@ -1,5 +1,5 @@
 import { Component, signal, HostListener, AfterViewInit } from '@angular/core';
-import { RouterOutlet, RouterLink, Router, NavigationEnd } from '@angular/router';
+import { RouterOutlet, RouterLink, Router, NavigationEnd, NavigationStart } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -14,12 +14,18 @@ export class App implements AfterViewInit {
   transparentHeader = true; // used to toggle transparent background on home
 
   constructor(private router: Router) {
-    // update header background whenever navigation ends
+    // Show loader when navigation starts, hide when it ends
     this.router.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+        // Show loader when user clicks a link
+        this.showLoader();
+      }
       if (event instanceof NavigationEnd) {
         this.transparentHeader = event.urlAfterRedirects === '/';
-        // close menu when navigation completes
+        // Close menu when navigation completes
         this.closeMenu();
+        // Hide loader after navigation completes
+        this.hideLoader();
       }
     });
   }
@@ -46,8 +52,32 @@ export class App implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // Initialize loader hide after animation completes
-    this.initMobileLoader();
+    // Initialize loader hide after initial page load animation completes
+    this.hideLoader();
+  }
+
+  private showLoader() {
+    const loader = document.getElementById('mobileLoader');
+    if (loader) {
+      // Remove hidden class to show loader
+      loader.classList.remove('hidden');
+    }
+  }
+
+  private hideLoader() {
+    const loader = document.getElementById('mobileLoader');
+    if (loader) {
+      setTimeout(() => {
+        loader.classList.add('hidden');
+      }, 2000); // 2 seconds to match animation duration
+      
+      // Fallback: force hide if not already hidden
+      setTimeout(() => {
+        if (!loader.classList.contains('hidden')) {
+          loader.classList.add('hidden');
+        }
+      }, 4000);
+    }
   }
 
   private initMobileLoader() {
