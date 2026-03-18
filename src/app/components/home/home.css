@@ -1,4 +1,123 @@
 /* ========================================
+   LOGO SECTION WITH EST. 2015 BADGE
+   ======================================== */
+.logo-section {
+  position: relative;
+  padding: 4rem 0 3rem;
+  background: var(--color-white);
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.logo-image {
+  max-height: 80px;
+  width: auto;
+  display: block;
+  transition: all 0.4s ease;
+  filter: drop-shadow(0 2px 4px rgba(74, 64, 53, 0.1));
+  aspect-ratio: 2 / 1;
+  object-fit: contain;
+}
+
+.logo-text-fallback {
+  display: none;
+  font-family: var(--font-primary);
+  font-size: 1.2rem;
+  color: var(--color-dark-brown);
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.company-title {
+  font-family: 'Playfair Display', 'Cormorant Garamond', 'DM Serif Display', serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #2C241F;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  line-height: 1.2;
+  transition: all 0.3s ease;
+}
+
+.company-subtitle {
+  font-family: 'Poppins', 'Montserrat', Arial, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #2C241F;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  opacity: 0.75;
+  transition: all 0.3s ease;
+}
+
+.logo-badge {
+  display: inline-block;
+  padding: 0.5rem 1.2rem;
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  color: var(--color-gold);
+  font-family: var(--font-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-top: 1rem;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  animation: fadeIn 1s ease-out 0.2s both;
+  z-index: 10;
+}
+
+/* Fix positioning for large screens to prevent background content overlap */
+@media (min-width: 1024px) {
+  .logo-section {
+    padding: 5rem 0 4rem;
+  }
+  
+  .logo-container {
+    gap: 1rem;
+    max-width: 1400px;
+  }
+  
+  .logo-badge {
+    margin-top: 1.5rem;
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (min-width: 1400px) {
+  .logo-section {
+    padding: 6rem 0 5rem;
+  }
+  
+  .logo-container {
+    gap: 1.2rem;
+    max-width: 1600px;
+  }
+  
+  .logo-badge {
+    margin-top: 2rem;
+    padding: 0.7rem 1.8rem;
+    font-size: 1rem;
+  }
+}
+
+/* ========================================
    PREMIUM HERO SECTION
    ======================================== */
 .hero {
@@ -73,6 +192,11 @@
   max-width: 900px;
   padding: 0 clamp(1rem, 4vw, 2rem);
   z-index: 2;
+  /* Ensure proper spacing on all devices */
+  margin: 0 auto;
+  position: relative;
+  /* Add proper vertical spacing to prevent overlap with logo section */
+  margin-top: clamp(150px, 20vw, 250px);
 }
 
 .hero-badge {
@@ -90,6 +214,7 @@
   border-radius: 30px;
   backdrop-filter: blur(10px);
   animation: fadeIn 1s ease-out 0.2s both;
+  margin-top:35px ;
 }
 
 .hero-tagline {
@@ -149,7 +274,7 @@
 /* controls and indicators */
 .carousel-dots {
   position: absolute;
-  bottom: clamp(2rem, 3vw, 3.5rem);
+  bottom: clamp(5rem, 6vw, 7rem);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -173,7 +298,7 @@
 
 .scroll-indicator {
   position: absolute;
-  bottom: clamp(1rem, 2vw, 3rem);
+  bottom: clamp(2rem, 5vw, 6rem);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -181,6 +306,7 @@
   align-items: center;
   gap: 0.5rem;
   animation: fadeIn 2s ease-out 1s both;
+  display: none; /* Hidden by default on all screens */
 }
 
 .scroll-indicator span {
@@ -202,6 +328,41 @@
   0%, 100% { opacity: 0.5; }
   50% { opacity: 1; }
 } 
+
+/* Show scroll indicator only on mobile devices */
+@media (max-width: 768px) {
+  .scroll-indicator {
+    display: flex;
+  }
+}
+
+/* Hide scroll indicator on tablets and larger screens */
+@media (min-width: 769px) {
+  .scroll-indicator {
+    display: none;
+  }
+}
+
+/* Adjust positioning for large laptop screens */
+@media (min-width: 1024px) {
+  .carousel-dots {
+    bottom: 6rem; /* Move dots further down */
+  }
+  
+  .hero-actions {
+    margin-bottom: 6rem; /* Move buttons further up to create more space */
+  }
+}
+
+@media (min-width: 1400px) {
+  .carousel-dots {
+    bottom: 7rem; /* Move dots even further down on very large screens */
+  }
+  
+  .hero-actions {
+    margin-bottom: 7rem; /* Move buttons even further up on very large screens */
+  }
+}
 
 /* ========================================
    INTRO SECTION
@@ -669,7 +830,17 @@
 /* ========================================
    RESPONSIVE
    ======================================== */
+@media (max-width: 1200px) {
+  .hero-content {
+    max-width: 800px;
+  }
+}
+
 @media (max-width: 1024px) {
+  .hero-content {
+    max-width: 700px;
+  }
+  
   .projects-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
