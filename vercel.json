@@ -1,9 +1,6 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "dist/interior-website/browser",
-  "projectSettings": {
-    "nodeVersion": "18.x"
-  },
   "env": {
     "NODE_ENV": "production"
   },
