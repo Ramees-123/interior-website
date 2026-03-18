@@ -1,0 +1,37 @@
+# Node
+node_modules/
+
+# Angular
+.angular/
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Build
+dist/
+build/
+tmp/
+
+# Logs
+*.log
+
+# Large files
+*.mp4
+*.zip
+*.psd
+
+# Temporary image ignore (for repo cleanup)
+*.png
+*.jpg
+*.jpeg
+
+# IDE
+.vscode/
+.idea/
+
+# System
+.DS_Store
+Thumbs.db

@@ -1,0 +1,72 @@
+<!-- Home Anchor -->
+<a id="home"></a>
+
+<!-- Header -->
+<header class="header" [class.scrolled]="isScrolled">
+  <div class="header-container">
+    <!-- Hamburger Menu -->
+    <button class="hamburger" (click)="toggleMenu()" [class.active]="isMenuOpen">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <!-- Logo and Company Name -->
+    <div class="logo-container">
+      <a routerLink="/" class="logo">
+        <img src="assets/andspacio-logo.png" alt="Andspacio logo" class="logo-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+        <div class="logo-text-fallback" style="display:none">Andspacio</div>
+      </a>
+      <div class="company-name">
+        <div class="company-title">andspacio</div>
+        <div class="company-subtitle">INTERIOR DESIGN STUDIO</div>
+      </div>
+    </div>
+
+    <!-- Spacer for centering -->
+    <div class="header-spacer"></div>
+  </div>
+</header>
+
+<!-- Full Screen Menu Overlay -->
+<div class="menu-overlay" [class.active]="isMenuOpen" (click)="closeMenu()">
+  <nav class="menu-nav">
+    <a href="#home" (click)="scrollToTop($event); closeMenu()" class="menu-link">
+      <span class="menu-text">Home</span>
+    </a>
+    <a routerLink="/about" (click)="scrollTop(); closeMenu()" class="menu-link">
+      <span class="menu-text">About</span>
+    </a>
+    <a routerLink="/services" (click)="scrollTop(); closeMenu()" class="menu-link">
+      <span class="menu-text">Services</span>
+    </a>
+    <a routerLink="/portfolio" (click)="scrollTop(); closeMenu()" class="menu-link">
+      <span class="menu-text">Projects</span>
+    </a>
+    <a routerLink="/contact" (click)="scrollTop(); closeMenu()" class="menu-link">
+      <span class="menu-text">Get a Quote</span>
+    </a>
+  </nav>
+</div>
+
+<!-- Main Content -->
+<main>
+  <router-outlet></router-outlet>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-logo">
+  <img src="assets/andspacio-logo.png" alt="Andspacio logo" class="footer-logo-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+      <div class="footer-company">Andspacio</div>
+      <div class="footer-text-fallback" style="display:none">Andspacio</div>
+    </div>
+    <div class="footer-info">
+      <p class="footer-contact">+91 62388 35584</p>
+      <p class="footer-location">Kozhikode, Kerala</p>
+    </div>
+    <div class="footer-line"></div>
+  <p class="footer-copyright">© 2026 Andspacio. All rights reserved.</p>
+  </div>
+</footer>

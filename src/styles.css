@@ -1,0 +1,445 @@
+/* ========================================
+   LUXURY INTERIOR DESIGN - GLOBAL STYLES
+   ======================================== */
+
+/* Google Fonts Import - Premium Typography */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+/* CSS Variables - Luxury Design System */
+:root {
+  /* Color Palette - Premium & Sophisticated */
+  --color-cream: #FAF8F5;
+  --color-beige: #E8E2D9;
+  --color-warm-gray: #8B8680;
+  --color-light-brown: #C4A77D;
+  --color-dark-brown: #4A4035;
+  --color-white: #FFFFFF;
+  --color-charcoal: #2C2C2C;
+  --color-gold: #D4AF37;
+  --color-rose-gold: #B76E79;
+  --color-emerald: #50C878;
+  --color-sapphire: #0F52BA;
+  
+  /* Form Colors */
+  --form-bg: #E8E2D9;
+  --form-accent: #C4A77D;
+  
+  /* Typography */
+  --font-primary: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --font-secondary: 'Poppins', 'Montserrat', Arial, sans-serif;
+  
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  --spacing-xl: 6rem;
+  
+  /* Transitions */
+  --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-fast: all 0.3s ease;
+  --transition-premium: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  
+  /* Shadows */
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.1);
+  --shadow-medium: 0 10px 30px rgba(0, 0, 0, 0.15);
+  --shadow-hard: 0 20px 60px rgba(0, 0, 0, 0.2);
+  --shadow-glow: 0 0 30px rgba(212, 175, 55, 0.3);
+  
+  /* Borders */
+  --border-thin: 1px solid rgba(0, 0, 0, 0.1);
+  --border-medium: 2px solid rgba(0, 0, 0, 0.1);
+  --border-gold: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+/* Reset & Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-secondary);
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--color-charcoal);
+  background-color: var(--color-cream);
+  overflow-x: hidden;
+}
+
+/* Typography */
+h1, h2, h3, h4 {
+  font-family: var(--font-primary);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: var(--spacing-md);
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+p {
+  color: var(--color-warm-gray);
+  margin-bottom: 1rem;
+}
+
+/* Links */
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition-fast);
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Container */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+/* Section Spacing */
+section {
+  padding: var(--spacing-xl) 0;
+}
+
+/* Page banner logo styling for interior pages */
+.page-banner .page-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  margin-bottom: 1rem;
+  animation: fadeIn 1s ease-out;
+}
+
+.page-banner .page-logo img {
+  max-height: 72px;
+  width: auto;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.page-banner .page-logo .company-title {
+  font-family: var(--font-primary);
+  font-size: 1.1rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #2C241F;
+}
+
+.page-banner .page-logo .company-subtitle {
+  font-family: var(--font-secondary);
+  font-size: 0.6rem;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  color: #2C241F;
+  opacity: 0.75;
+}
+
+
+/* ========================================
+   PREMIUM ANIMATIONS
+   ======================================== */
+
+/* Elegant Fade In Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Slide Up Animation */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Zoom In Animation */
+@keyframes zoomIn {
+  from {
+    transform: scale(1.1);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* Premium Parallax Effect */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Gold Shine Animation */
+@keyframes goldShine {
+  0% { background-position: -200px 0; }
+  100% { background-position: 200px 0; }
+}
+
+/* Gradient Flow Animation */
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Fade In Up - For scroll animations */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  /* CSS fallback: automatically show content if JS fails or is slow */
+  animation: fadeInUpFallback 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 3s;
+}
+
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Fallback animation that triggers even without JavaScript */
+@keyframes fadeInUpFallback {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Premium Image Reveal Animation */
+.reveal-image {
+  overflow: hidden;
+  position: relative;
+}
+
+.reveal-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.6s;
+}
+
+.reveal-image:hover::before {
+  left: 100%;
+}
+
+.reveal-image img {
+  transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: grayscale(0);
+}
+
+.reveal-image:hover img {
+  transform: scale(1.05) rotate(0.5deg);
+  filter: grayscale(0.1);
+}
+
+/* Premium Hover Effects */
+.premium-hover {
+  transition: var(--transition-premium);
+  position: relative;
+  overflow: hidden;
+}
+
+.premium-hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.premium-hover:hover::before {
+  transform: translateX(100%);
+}
+
+.premium-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-medium);
+}
+
+/* Gold Accented Elements */
+.gold-accent {
+  position: relative;
+}
+
+.gold-accent::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  transition: width 0.6s ease;
+}
+
+.gold-accent:hover::after {
+  width: 100%;
+}
+
+/* Floating Animation */
+.float-element {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Scroll-triggered animations */
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.scroll-animate.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========================================
+   SCROLL REVEAL STYLES
+   ======================================== */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered animations */
+.stagger-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.stagger-reveal:nth-child(1) { transition-delay: 0.1s; }
+.stagger-reveal:nth-child(2) { transition-delay: 0.2s; }
+.stagger-reveal:nth-child(3) { transition-delay: 0.3s; }
+.stagger-reveal:nth-child(4) { transition-delay: 0.4s; }
+.stagger-reveal:nth-child(5) { transition-delay: 0.5s; }
+.stagger-reveal:nth-child(6) { transition-delay: 0.6s; }
+.stagger-reveal:nth-child(7) { transition-delay: 0.7s; }
+.stagger-reveal:nth-child(8) { transition-delay: 0.8s; }
+.stagger-reveal:nth-child(9) { transition-delay: 0.9s; }
+.stagger-reveal:nth-child(10) { transition-delay: 1.0s; }
+
+.stagger-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========================================
+   BUTTONS
+   ======================================== */
+
+.btn-primary {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background: var(--color-dark-brown);
+  color: var(--color-white);
+  font-family: var(--font-secondary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.btn-primary:hover {
+  background: var(--color-light-brown);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(74, 64, 53, 0.15);
+}
+
+.btn-secondary {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background: transparent;
+  color: var(--color-white);
+  font-family: var(--font-secondary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: 1px solid var(--color-white);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.btn-secondary:hover {
+  background: var(--color-white);
+  color: var(--color-dark-brown);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+  :root {
+    --spacing-lg: 3rem;
+    --spacing-xl: 4rem;
+  }
+  
+  section {
+    padding: var(--spacing-lg) 0;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+  }
+}

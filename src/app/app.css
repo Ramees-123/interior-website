@@ -1,0 +1,575 @@
+/* ========================================
+   MAIN CONTENT
+   ======================================== */
+main {
+  min-height: 100vh;
+  padding-top: 0;
+}
+
+/* Fix header overlap - add top margin to all page banners */
+main section:first-child,
+main > .hero,
+main > .intro,
+main > .featured-projects,
+main > .why-choose-us,
+main > .process-section,
+main > .testimonials,
+main > .cta {
+  margin-top: 120px; /* Account for header height */
+}
+
+/* Fix page-banner sections (About, Services, Portfolio, Contact) */
+main .page-banner {
+  margin-top: 120px; /* Account for header height */
+}
+
+/* Adjust for smaller screens */
+@media (max-width: 768px) {
+  main section:first-child,
+  main > .hero,
+  main > .intro,
+  main > .featured-projects,
+  main > .why-choose-us,
+  main > .process-section,
+  main > .testimonials,
+  main > .cta,
+  main .page-banner {
+    margin-top: 80px; /* Smaller header on mobile */
+  }
+}
+
+/* ========================================
+   HEADER STYLES - LUXURY REFINEMENT
+   ======================================== */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: transparent;
+  color: var(--color-dark-brown);
+  transition: all 0.3s ease;
+  padding: 1.5rem 0;
+  border-bottom: none;
+}
+
+/* header is always solid - transparent variant removed */
+
+.header.scrolled {
+  box-shadow: 0 2px 12px rgba(44, 36, 31, 0.08);
+  /* shrink a little when scrolling */
+  padding: 1rem 0;
+   background: rgba(252, 250, 247, 0.8); /* very soft beige/white */
+}
+
+
+/* Subtle shadow line under header when scrolled */
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(232, 226, 217, 0.6), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.header.scrolled::after {
+  opacity: 1;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 3rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Logo Container - Centered Layout */
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  padding: 0.25rem 0.5rem; /* additional breathing room above/below symbol */
+  margin-top: -56px; /* Adjust logo positioning */
+  /* logo and text animation added in app.ts */
+}
+
+.header.scrolled .logo-container {
+  transform: scale(0.92);
+}
+
+/* Hamburger Menu */
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+  transition: all 0.3s ease;
+}
+
+.hamburger:hover {
+  transform: scale(1.1);
+}
+
+.hamburger span {
+  display: block;
+  width: 28px;
+  height: 2px;
+  /* dark brown on transparent header, switch to dark when header has scrolled */
+  background: var(--color-dark-brown);
+  margin: 3px 0;
+  transition: all 0.3s ease;
+  border-radius: 1px;
+}
+
+.header.scrolled .hamburger span {
+  background: var(--color-dark-brown);
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -6px);
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.4s ease;
+  position: relative;
+  z-index: 1002; /* Ensure logo is always on top */
+}
+
+.logo:hover {
+  transform: translateY(-2px) scale(1.03);
+  opacity: 0.9;
+}
+
+/* Image logo replacements */
+.logo-image {
+  max-height: 72px; /* larger logo by default */
+  width: auto;
+  display: block;
+  transition: all 0.4s ease;
+  filter: drop-shadow(0 2px 4px rgba(74, 64, 53, 0.1));
+}
+
+.header.scrolled .logo-image {
+  max-height: 60px;
+}
+
+.footer-logo-image {
+  max-height: 56px;
+  width: auto;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.footer-company {
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  color: var(--color-dark-brown);
+  letter-spacing: 0.08em;
+}
+
+/* Fallback text for when logo image is missing */
+.logo-text-fallback,
+.footer-text-fallback {
+  display: none; /* shown by onerror handler if image fails to load */
+  font-family: var(--font-primary);
+  font-size: 1.1rem;
+  color: var(--color-dark-brown);
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Ensure logo is always visible */
+.logo-image {
+  display: block !important;
+  max-height: 72px;
+  width: auto;
+  transition: all 0.4s ease;
+  filter: drop-shadow(0 2px 4px rgba(74, 64, 53, 0.1));
+}
+
+.logo-text-fallback {
+  display: none !important;
+}
+
+/* Fix header logo visibility issue */
+.logo-container .logo-image {
+  display: block !important;
+}
+
+/* Ensure footer fallback aligns visually */
+.footer-logo {
+  align-items: center;
+  gap: 6px;
+}
+
+/* Company Name Styling - Premium Typography */
+.company-name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.company-title {
+  font-family: 'Playfair Display', 'Cormorant Garamond', 'DM Serif Display', serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #2C241F;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  line-height: 1.2;
+  transition: all 0.3s ease;
+}
+
+.company-subtitle {
+  font-family: 'Poppins', 'Montserrat', Arial, sans-serif;
+  font-size: 0.6rem;
+  font-weight: 500;
+  color: #2C241F;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  opacity: 0.75;
+  transition: all 0.3s ease;
+}
+
+.header.scrolled .company-title {
+  font-size: 1.1rem;
+  letter-spacing: 3.5px;
+}
+
+.header.scrolled .company-subtitle {
+  font-size: 0.6rem;
+  letter-spacing: 5px;
+}
+
+/* Logo hover effects */
+.logo-container:hover .company-title {
+  color: var(--color-light-brown);
+  letter-spacing: 6px;
+}
+
+.logo-container:hover .company-subtitle {
+  opacity: 1;
+  color: #2C241F;
+  letter-spacing: 9px;
+}
+
+.header-spacer {
+  width: 40px;
+}
+
+/* side navigation removed - icons not used */
+
+.side-nav .side-link {
+  text-decoration: none;
+}
+
+.side-nav .icon {
+  font-size: 1.3rem;
+  color: var(--color-dark-brown);
+  transition: color 0.3s ease;
+}
+
+.side-nav .side-link:hover .icon {
+  color: var(--color-beige);
+}
+
+
+/* ========================================
+   MENU OVERLAY
+   ======================================== */
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-cream);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s ease;
+}
+
+.menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Logo and company name in sidebar menu */
+.menu-header {
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 1000;
+  pointer-events: none; /* Allow clicks to pass through to menu items */
+}
+
+.menu-header .logo-image {
+  max-height: 80px;
+  width: auto;
+  filter: drop-shadow(0 2px 4px rgba(74, 64, 53, 0.2));
+}
+
+.menu-header .company-title {
+  font-size: 1.4rem;
+  letter-spacing: 6px;
+  color: var(--color-dark-brown);
+}
+
+.menu-header .company-subtitle {
+  font-size: 0.7rem;
+  letter-spacing: 8px;
+  color: var(--color-dark-brown);
+  opacity: 0.8;
+}
+
+.menu-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 120px; /* Space for logo and company name */
+}
+
+.menu-link {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.5s ease;
+}
+
+.menu-overlay.active .menu-link {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.menu-overlay.active .menu-link:nth-child(1) { transition-delay: 0.1s; }
+.menu-overlay.active .menu-link:nth-child(2) { transition-delay: 0.2s; }
+.menu-overlay.active .menu-link:nth-child(3) { transition-delay: 0.3s; }
+.menu-overlay.active .menu-link:nth-child(4) { transition-delay: 0.4s; }
+.menu-overlay.active .menu-link:nth-child(5) { transition-delay: 0.5s; }
+
+.menu-number {
+  font-family: var(--font-primary);
+  font-size: 0.9rem;
+  color: var(--color-light-brown);
+}
+
+.menu-text {
+  font-family: var(--font-primary);
+  font-size: 3rem;
+  color: var(--color-dark-brown);
+  transition: color 0.3s ease;
+}
+
+.menu-link:hover .menu-text {
+  color: var(--color-light-brown);
+}
+
+/* ========================================
+   MENU OVERLAY
+   ======================================== */
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-cream);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s ease;
+}
+
+.menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.menu-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  z-index: 1000; /* Ensure menu items are above any overlapping elements */
+}
+
+.menu-link {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.5s ease;
+  position: relative;
+  z-index: 1001; /* Ensure clickable area is on top */
+}
+
+.menu-overlay.active .menu-link {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.menu-overlay.active .menu-link:nth-child(1) { transition-delay: 0.1s; }
+.menu-overlay.active .menu-link:nth-child(2) { transition-delay: 0.2s; }
+.menu-overlay.active .menu-link:nth-child(3) { transition-delay: 0.3s; }
+.menu-overlay.active .menu-link:nth-child(4) { transition-delay: 0.4s; }
+.menu-overlay.active .menu-link:nth-child(5) { transition-delay: 0.5s; }
+
+.menu-number {
+  font-family: var(--font-primary);
+  font-size: 0.9rem;
+  color: var(--color-light-brown);
+}
+
+.menu-text {
+  font-family: var(--font-primary);
+  font-size: 3rem;
+  color: var(--color-dark-brown);
+  transition: color 0.3s ease;
+}
+
+.menu-link:hover .menu-text {
+  color: var(--color-light-brown);
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+.footer {
+  background: var(--color-white);
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.footer-container {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.footer-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.footer-logo .footer-logo-image {
+  max-height: 56px;
+  width: auto;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.footer-logo .footer-company {
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  color: var(--color-dark-brown);
+  letter-spacing: 0.08em;
+  margin-bottom: 0;
+}
+
+.footer-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0;
+}
+
+.footer-contact {
+  font-family: var(--font-secondary);
+  font-size: 1rem;
+  color: var(--color-dark-brown);
+  margin-bottom: 0;
+}
+
+.footer-location {
+  font-family: var(--font-secondary);
+  font-size: 0.9rem;
+  color: var(--color-warm-gray);
+  margin-bottom: 0;
+}
+
+.footer-line {
+  width: 60px;
+  height: 1px;
+  background: var(--color-beige);
+  margin: 0;
+}
+
+.footer-copyright {
+  font-family: var(--font-secondary);
+  font-size: 0.8rem;
+  color: var(--color-warm-gray);
+  margin-bottom: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header-container {
+    padding: 1rem 1.5rem;
+  }
+  
+  .menu-text {
+    font-size: 2rem;
+  }
+  
+  .footer {
+    padding: 3rem 1.5rem;
+  }
+}
