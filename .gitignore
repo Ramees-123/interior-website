@@ -18,15 +18,7 @@ tmp/
 # Logs
 *.log
 
-# Large files
-*.mp4
-*.zip
-*.psd
 
-# Temporary image ignore (for repo cleanup)
-*.png
-*.jpg
-*.jpeg
 
 # IDE
 .vscode/
