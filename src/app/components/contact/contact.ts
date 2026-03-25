@@ -21,6 +21,14 @@ export class Contact {
   showErrorDialog = signal(false);
   errorMessage = signal('');
   isSending = signal(false);
+  showPhoneModal = signal(false);
+  showEmailModal = signal(false);
+  
+  // Contact Information
+  private locationAddress = 'Kozhikode, Kerala';
+  private phoneNumber = '+91 62388 35584';
+  private emailAddress = 'andspacio@gmail.com';
+  private googleMapsUrl = 'https://maps.app.goo.gl/WQ6vCrF5PEztmFSw9?g_st=aw';
   
   // Web3Forms Access Key - Get free key from https://web3forms.com
   // This is a demo key - replace with your own key
@@ -131,5 +139,115 @@ export class Contact {
   
   closeErrorDialog() {
     this.showErrorDialog.set(false);
+  }
+  
+  // Location Card - Opens Google Maps
+  openLocation(event: Event) {
+    // Add ripple effect
+    this.addRippleEffect(event);
+    window.open(this.googleMapsUrl, '_blank');
+  }
+  
+  // Phone Card - Opens Modal
+  openPhoneModal(event: Event) {
+    this.addRippleEffect(event);
+    this.showPhoneModal.set(true);
+  }
+  
+  closePhoneModal() {
+    this.showPhoneModal.set(false);
+  }
+  
+  // Call Now - Initiates phone call
+  makeCall(event: Event) {
+    this.addRippleEffect(event);
+    window.location.href = `tel:${this.phoneNumber}`;
+    this.closePhoneModal();
+  }
+  
+  // WhatsApp Chat
+  chatOnWhatsApp(event: Event) {
+    this.addRippleEffect(event);
+    const message = encodeURIComponent(`Hello! I'm interested in your interior design services.`);
+    const whatsappUrl = `https://wa.me/916238835584?text=${message}`;
+    window.open(whatsappUrl, '_blank');
+    this.closePhoneModal();
+  }
+  
+  // Email Card - Opens Gmail modal
+  openEmail(event: Event) {
+    this.addRippleEffect(event);
+    this.showEmailModal.set(true);
+  }
+  
+  closeEmailModal() {
+    this.showEmailModal.set(false);
+  }
+  
+  // Send Email via Gmail
+  sendEmail(event: Event) {
+    this.addRippleEffect(event);
+    const subject = encodeURIComponent('Interior Design Inquiry');
+    const body = encodeURIComponent('Hello! I would like to discuss my interior design requirements.');
+    // Open in Gmail app/website
+    window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${this.emailAddress}&su=${subject}&body=${body}`, '_blank');
+    this.closeEmailModal();
+  }
+  
+  // Open Default Email App
+  openDefaultEmail(event: Event) {
+    this.addRippleEffect(event);
+    const subject = encodeURIComponent('Interior Design Inquiry');
+    const body = encodeURIComponent('Hello! I would like to discuss my interior design requirements.');
+    window.location.href = `mailto:${this.emailAddress}?subject=${subject}&body=${body}`;
+    this.closeEmailModal();
+  }
+  
+  // Ripple Effect for Click Animation
+  private addRippleEffect(event: Event) {
+    const target = event.currentTarget as HTMLElement;
+    const rect = target.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = (event as MouseEvent).clientX - rect.left - size / 2;
+    const y = (event as MouseEvent).clientY - rect.top - size / 2;
+    
+    const ripple = document.createElement('span');
+    ripple.style.position = 'absolute';
+    ripple.style.borderRadius = '50%';
+    ripple.style.background = 'rgba(255, 255, 255, 0.6)';
+    ripple.style.transform = 'scale(0)';
+    ripple.style.animation = 'ripple 0.6s linear';
+    ripple.style.left = `${x}px`;
+    ripple.style.top = `${y}px`;
+    ripple.style.width = `${size}px`;
+    ripple.style.height = `${size}px`;
+    ripple.style.pointerEvents = 'none';
+    ripple.style.zIndex = '10';
+    
+    target.style.position = 'relative';
+    target.style.overflow = 'hidden';
+    target.appendChild(ripple);
+    
+    setTimeout(() => {
+      ripple.remove();
+    }, 600);
+  }
+  
+  // Handle keyboard navigation for accessibility
+  handleKeyDown(event: KeyboardEvent, action: string) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      switch(action) {
+        case 'location':
+          this.openLocation(event);
+          break;
+        case 'phone':
+          this.openPhoneModal(event);
+          break;
+        case 'email':
+          this.openEmail(event);
+          break;
+      }
+    }
   }
 }
