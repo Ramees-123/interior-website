@@ -375,7 +375,12 @@
     <div class="cta-content fade-in-up">
       <h2>Have a Project in Mind?</h2>
       <p>Let's discuss your interior design requirements and create something beautiful together.</p>
-      <a href="/contact" class="btn-primary">Get a Quote</a>
+      <a routerLink="/contact" class="btn-primary" (click)="scrollToTop()">Get a Quote</a>
     </div>
   </div>
 </section>
+
+<!-- Image Preview Overlay -->
+<div class="image-preview-overlay">
+  <img class="preview-img" />
+</div>

@@ -8,11 +8,13 @@ import { CommonModule } from '@angular/common';
   styleUrl: './portfolio.css',
 })
 export class Portfolio implements OnInit, AfterViewInit, OnDestroy {
-  slideshowIntervals: Map<string, any> = new Map();
+
   currentCategory = 'all';
 
+  slideshowIntervals: Map<Element, any> = new Map();
+  pauseTimeouts: Map<Element, any> = new Map();
+
   ngOnInit() {
-    // Initialize all project slideshows
     setTimeout(() => {
       this.initializeAllSlideshows();
       this.setupCategoryFilters();
@@ -20,38 +22,33 @@ export class Portfolio implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    // Re-initialize when view is fully loaded to ensure OUR CLIENTS and Get a Quote sections load properly
     setTimeout(() => {
       this.initializeAllSlideshows();
       this.setupCategoryFilters();
       this.initializeAnimations();
+      this.initializeHoverPreview();
     }, 200);
   }
 
   ngOnDestroy() {
-    // Cleanup all slideshow intervals
-    this.slideshowIntervals.forEach((interval, slideshowId) => {
-      if (interval) {
-        clearInterval(interval);
-      }
-    });
+    this.slideshowIntervals.forEach(interval => clearInterval(interval));
   }
 
+  // ---------------- FILTER ----------------
   setupCategoryFilters() {
     const filterButtons = document.querySelectorAll('.filter-btn');
+
     filterButtons.forEach(btn => {
       btn.addEventListener('click', (e) => {
         const target = e.target as HTMLElement;
         const category = target.getAttribute('data-category');
-        
+
         if (category) {
           this.currentCategory = category;
-          
-          // Update active filter button
+
           filterButtons.forEach(b => b.classList.remove('active'));
           target.classList.add('active');
-          
-          // Filter projects
+
           this.filterProjects(category);
         }
       });
@@ -60,10 +57,10 @@ export class Portfolio implements OnInit, AfterViewInit, OnDestroy {
 
   filterProjects(category: string) {
     const projects = document.querySelectorAll('.project-item');
-    
+
     projects.forEach(project => {
       const projectCategory = project.querySelector('.project-category')?.textContent?.toLowerCase();
-      
+
       if (category === 'all' || projectCategory === category) {
         project.classList.add('show');
         project.classList.remove('hide');
@@ -74,154 +71,142 @@ export class Portfolio implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
+  // ---------------- INIT ----------------
   initializeAllSlideshows() {
-    const slideshowContainers = document.querySelectorAll('.project-slideshow');
-    
-    slideshowContainers.forEach(container => {
-      const slideshowId = container.id;
-      if (slideshowId) {
-        this.initializeSlideshow(slideshowId);
+    const containers = document.querySelectorAll('.project-slideshow');
+
+    containers.forEach(container => {
+
+      const slides = container.querySelectorAll('.slideshow-slide');
+      const prevBtn = container.querySelector('.prev-btn') as HTMLElement;
+      const nextBtn = container.querySelector('.next-btn') as HTMLElement;
+
+      if (slides.length > 0) {
+        container.setAttribute('data-index', '0');
       }
+
+      this.startSlideshow(container);
+
+      // ✅ HOVER PAUSE
+      container.addEventListener('mouseenter', () => {
+        this.stopSlideshow(container);
+      });
+
+      container.addEventListener('mouseleave', () => {
+        this.startSlideshow(container);
+      });
+
+      // ✅ NEXT / PREV CLICK (TEMP PAUSE)
+      prevBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.handleManualNavigation(container, -1);
+      });
+
+      nextBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.handleManualNavigation(container, 1);
+      });
     });
   }
 
-  initializeSlideshow(slideshowId: string) {
-    const container = document.getElementById(slideshowId);
-    if (!container) return;
+  // ---------------- MANUAL NAV ----------------
+  handleManualNavigation(container: Element, direction: number) {
+    this.stopSlideshow(container);
+    this.navigateSlideshow(container, direction);
 
+    // 🔥 resume after 3 sec
+    clearTimeout(this.pauseTimeouts.get(container));
+
+    const timeout = setTimeout(() => {
+      this.startSlideshow(container);
+    }, 3000);
+
+    this.pauseTimeouts.set(container, timeout);
+  }
+
+  navigateSlideshow(container: Element, direction: number) {
     const slides = container.querySelectorAll('.slideshow-slide');
-    const prevBtn = container.querySelector('.prev-btn') as HTMLElement;
-    const nextBtn = container.querySelector('.next-btn') as HTMLElement;
     const counter = container.querySelector('.slideshow-counter') as HTMLElement;
 
-    if (slides.length === 0) return;
+    let currentIndex = parseInt(container.getAttribute('data-index') || '0');
+    const nextIndex = (currentIndex + direction + slides.length) % slides.length;
 
-    let currentIndex = 0;
-    let isTransitioning = false;
+    slides.forEach((slide, index) => {
+      slide.classList.toggle('active', index === nextIndex);
+    });
 
-    // Start auto-slide with consistent timing for all projects
+    if (counter) {
+      counter.textContent = `${nextIndex + 1} / ${slides.length}`;
+    }
+
+    container.setAttribute('data-index', nextIndex.toString());
+  }
+
+  // ---------------- AUTO ----------------
+  startSlideshow(container: Element) {
+    this.stopSlideshow(container);
+
     const interval = setInterval(() => {
-      if (!isTransitioning) {
-        // Sequential order: 1,2,3,4,5 then back to 1
-        currentIndex = (currentIndex + 1) % slides.length;
-        this.nextSlide(slides, currentIndex, slides.length, isTransitioning, counter);
-      }
-    }, 8000); // Consistent 8 seconds for all projects
+      const slides = container.querySelectorAll('.slideshow-slide');
+      const counter = container.querySelector('.slideshow-counter') as HTMLElement;
 
-    this.slideshowIntervals.set(slideshowId, interval);
+      let currentIndex = parseInt(container.getAttribute('data-index') || '0');
+      const nextIndex = (currentIndex + 1) % slides.length;
 
-    // Manual navigation with sequential order
-    if (prevBtn) {
-      prevBtn.addEventListener('click', () => {
-        this.stopAutoSlide(slideshowId);
-        // Sequential backward: 5,4,3,2,1 then back to 5
-        currentIndex = this.prevSlide(slides, currentIndex, slides.length, isTransitioning, counter);
-        this.startAutoSlide(slideshowId);
+      slides.forEach((slide, index) => {
+        slide.classList.toggle('active', index === nextIndex);
       });
-    }
 
-    if (nextBtn) {
-      nextBtn.addEventListener('click', () => {
-        this.stopAutoSlide(slideshowId);
-        // Sequential forward: 1,2,3,4,5 then back to 1
-        currentIndex = this.nextSlide(slides, currentIndex, slides.length, isTransitioning, counter);
-        this.startAutoSlide(slideshowId);
-      });
-    }
-
-    // Pause on hover with consistent timing
-    container.addEventListener('mouseenter', () => {
-      this.stopAutoSlide(slideshowId);
-    });
-
-    container.addEventListener('mouseleave', () => {
-      setTimeout(() => {
-        this.startAutoSlide(slideshowId);
-      }, 1500); // Consistent 1.5 seconds before resuming
-    });
-  }
-
-  nextSlide(slides: NodeListOf<Element>, currentIndex: number, totalSlides: number, isTransitioning: boolean, counter: HTMLElement): number {
-    if (isTransitioning) return currentIndex;
-    
-    isTransitioning = true;
-    const newIndex = (currentIndex + 1) % totalSlides;
-    
-    // Update active slide
-    slides.forEach((slide, index) => {
-      if (index === newIndex) {
-        slide.classList.add('active');
-      } else {
-        slide.classList.remove('active');
+      if (counter) {
+        counter.textContent = `${nextIndex + 1} / ${slides.length}`;
       }
-    });
 
-    // Update counter
-    if (counter) {
-      counter.textContent = `${newIndex + 1} / ${totalSlides}`;
-    }
+      container.setAttribute('data-index', nextIndex.toString());
 
-    setTimeout(() => {
-      isTransitioning = false;
-    }, 500);
+    }, 5000);
 
-    return newIndex;
+    this.slideshowIntervals.set(container, interval);
   }
 
-  prevSlide(slides: NodeListOf<Element>, currentIndex: number, totalSlides: number, isTransitioning: boolean, counter: HTMLElement): number {
-    if (isTransitioning) return currentIndex;
-    
-    isTransitioning = true;
-    const newIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-    
-    // Update active slide
-    slides.forEach((slide, index) => {
-      if (index === newIndex) {
-        slide.classList.add('active');
-      } else {
-        slide.classList.remove('active');
-      }
-    });
-
-    // Update counter
-    if (counter) {
-      counter.textContent = `${newIndex + 1} / ${totalSlides}`;
-    }
-
-    setTimeout(() => {
-      isTransitioning = false;
-    }, 500);
-
-    return newIndex;
-  }
-
-  stopAutoSlide(slideshowId: string) {
-    const interval = this.slideshowIntervals.get(slideshowId);
+  stopSlideshow(container: Element) {
+    const interval = this.slideshowIntervals.get(container);
     if (interval) {
       clearInterval(interval);
-      this.slideshowIntervals.delete(slideshowId);
     }
   }
 
-  startAutoSlide(slideshowId: string) {
-    const container = document.getElementById(slideshowId);
-    if (!container) return;
+  // ---------------- PREVIEW ----------------
+  initializeHoverPreview() {
+    const images = document.querySelectorAll('.slideshow-slide img');
+    const overlay = document.querySelector('.image-preview-overlay') as HTMLElement;
+    const previewImg = document.querySelector('.preview-img') as HTMLImageElement;
 
-    const slides = container.querySelectorAll('.slideshow-slide');
-    if (slides.length === 0) return;
+    images.forEach(img => {
+      img.addEventListener('click', (e) => {
+        e.stopPropagation();
 
-    const interval = setInterval(() => {
-      const currentIndex = Array.from(slides).findIndex(slide => slide.classList.contains('active'));
-      if (currentIndex !== -1) {
-        this.nextSlide(slides, currentIndex, slides.length, false, container.querySelector('.slideshow-counter') as HTMLElement);
-      }
-    }, 8000); // Consistent 8 seconds for all projects
+        const container = (img as HTMLElement).closest('.project-slideshow');
 
-    this.slideshowIntervals.set(slideshowId, interval);
+        if (container) {
+          this.stopSlideshow(container);
+        }
+
+        previewImg.src = (img as HTMLImageElement).src;
+        overlay.classList.add('show');
+      });
+    });
+
+    overlay.addEventListener('click', () => {
+      overlay.classList.remove('show');
+
+      // resume all
+      document.querySelectorAll('.project-slideshow').forEach(container => {
+        this.startSlideshow(container);
+      });
+    });
   }
 
   private initializeAnimations(): void {
-    // Intersection Observer for fade-in animations for OUR CLIENTS and Get a Quote sections
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -230,21 +215,11 @@ export class Portfolio implements OnInit, AfterViewInit, OnDestroy {
       });
     }, { threshold: 0.1 });
 
-    // Observe OUR CLIENTS section
-    const clientsSection = document.querySelector('.clients-section');
-    if (clientsSection) {
-      observer.observe(clientsSection);
-    }
+    document.querySelectorAll('.section-header, .clients-section, .projects-cta')
+      .forEach(el => observer.observe(el));
+  }
 
-    // Observe Get a Quote section
-    const ctaSection = document.querySelector('.projects-cta');
-    if (ctaSection) {
-      observer.observe(ctaSection);
-    }
-
-    // Observe other sections that might need animation
-    document.querySelectorAll('.section-header').forEach(item => {
-      observer.observe(item);
-    });
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
