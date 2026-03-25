@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy, signal, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, OnInit, OnDestroy, signal, ElementRef, ViewChild, AfterViewInit, inject } from '@angular/core';
+import { RouterLink, Router } from '@angular/router';
 import { NgFor } from '@angular/common';
 
 @Component({
@@ -26,6 +26,7 @@ export class Home implements OnInit, OnDestroy, AfterViewInit {
   currentImageIndex = signal(0);
   private intervalId: any;
   private isAnimating = false;
+  private router = inject(Router);
   
   ngOnInit() {
     this.currentImageIndex.set(0);
@@ -87,5 +88,9 @@ export class Home implements OnInit, OnDestroy, AfterViewInit {
   
   isActive(index: number): boolean {
     return index === this.currentImageIndex();
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

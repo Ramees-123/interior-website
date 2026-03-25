@@ -214,7 +214,7 @@
   border-radius: 30px;
   backdrop-filter: blur(10px);
   animation: fadeIn 1s ease-out 0.2s both;
-  margin-top:35px ;
+  margin-top:68px ;
 }
 
 .hero-tagline {
@@ -272,7 +272,7 @@
 }
 
 /* controls and indicators */
-.carousel-dots {
+/* .carousel-dots {
   position: absolute;
   bottom: clamp(5rem, 6vw, 7rem);
   left: 50%;
@@ -280,6 +280,16 @@
   display: flex;
   gap: clamp(0.3rem, 1vw, 0.5rem);
   z-index: 2;
+} */
+
+.carousel-dots {
+  position: absolute;
+  bottom: 2rem; /* fixed spacing from bottom */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 3; /* ensure above content */
 }
 
 .carousel-dots span {
@@ -345,19 +355,14 @@
 
 /* Adjust positioning for large laptop screens */
 @media (min-width: 1024px) {
-  .carousel-dots {
-    bottom: 6rem; /* Move dots further down */
-  }
-  
+
   .hero-actions {
     margin-bottom: 6rem; /* Move buttons further up to create more space */
   }
 }
 
 @media (min-width: 1400px) {
-  .carousel-dots {
-    bottom: 7rem; /* Move dots even further down on very large screens */
-  }
+ 
   
   .hero-actions {
     margin-bottom: 7rem; /* Move buttons even further up on very large screens */
@@ -938,4 +943,39 @@
     width: 6px;
     height: 6px;
   }
+}
+/* Future Projects Section */
+.future-projects {
+  background: var(--color-cream);
+  padding: var(--spacing-xl) 0;
+}
+
+/* Status badge (NEW) */
+.status-badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: rgba(212, 175, 55, 0.9);
+  color: #fff;
+  font-size: 0.7rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-family: var(--font-secondary);
+  z-index: 2;
+  backdrop-filter: blur(5px);
+}
+
+/* Slight darker overlay for "future" feel */
+.future-projects .project-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.15);
+  transition: 0.4s ease;
+}
+
+.future-projects .project-card:hover::after {
+  background: rgba(0,0,0,0.05);
 }
