@@ -24,8 +24,8 @@ export class Contact {
   
   // Web3Forms Access Key - Get free key from https://web3forms.com
   // This is a demo key - replace with your own key
-  private web3formsAccessKey = 'ca81119b-cee1-4ca7-96a5-c29cd8c6f06a';
-  private destinationEmail = 'hannaamal2715@gmail.com';
+  private web3formsAccessKey = '98f39a3c-bc25-44da-8313-397262deb4fd';
+  private destinationEmail = 'andspacio@gmail.com';
   
   getErrorMessage(field: string): string {
     const control = this.contactForm.get(field);
@@ -108,7 +108,7 @@ export class Contact {
   
   sendWhatsAppMessage(formData: any) {
     // Format the message for WhatsApp
-    const whatsappNumber = '918137866292'; // 8137866292 with country code 91
+    const whatsappNumber = '916238835584'; // 8137866292 with country code 91
   const message = `*New Inquiry from Andspacio Website*\n\n` +
       `*Name:* ${formData.firstName} ${formData.lastName}\n` +
       `*Email:* ${formData.email}\n` +
