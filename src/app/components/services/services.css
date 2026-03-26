@@ -43,50 +43,36 @@
 .banner-content {
   z-index: 2;
   max-width: 900px;
-  padding: 0 2rem;
-  /* Add proper vertical spacing to prevent overlap */
-  margin-top: clamp(100px, 15vw, 200px);
+  padding: 0 clamp(1rem, 4vw, 2rem);
+  margin-top: clamp(80px, 12vw, 180px);
+  width: 100%;
 }
 
-.banner-badge {
-  display: inline-block;
-  padding: 0.5rem 1.5rem;
-  background: rgba(212, 175, 55, 0.1);
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  color: var(--color-gold);
-  font-family: var(--font-secondary);
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  margin-bottom: 2rem;
-  border-radius: 30px;
-  backdrop-filter: blur(10px);
-  animation: fadeIn 1s ease-out 0.2s both;
-}
+/* banner-badge — unified in styles.css */
 
 .banner-content h1 {
   font-family: var(--font-primary);
-  font-size: clamp(3rem, 6vw, 5rem);
-  margin-bottom: 1.5rem;
+  font-size: clamp(1.8rem, 5vw, 5rem);
+  margin-bottom: clamp(1rem, 2vw, 1.5rem);
   text-shadow: 0 6px 12px rgba(0,0,0,0.4);
   animation: fadeIn 1.2s ease-out 0.5s both;
 }
 
 .banner-content p {
-  font-size: 1.3rem;
+  font-size: clamp(0.9rem, 2vw, 1.3rem);
   line-height: 1.8;
   color: var(--color-beige);
-  margin-bottom: 3rem;
+  margin-bottom: clamp(1.5rem, 3vw, 3rem);
   opacity: 0;
   animation: fadeIn 1s ease-out 0.8s both;
 }
 
 .banner-stats {
   display: flex;
-  gap: 3rem;
+  gap: clamp(1rem, 3vw, 3rem);
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   opacity: 0;
   animation: fadeIn 1s ease-out 1.1s both;
 }
@@ -98,7 +84,7 @@
 .stat-number {
   display: block;
   font-family: var(--font-primary);
-  font-size: 2.5rem;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
   font-weight: 700;
   color: var(--color-gold);
   margin-bottom: 0.5rem;
@@ -106,7 +92,7 @@
 
 .stat-label {
   font-family: var(--font-secondary);
-  font-size: 0.8rem;
+  font-size: clamp(0.65rem, 1.2vw, 0.8rem);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-beige);
@@ -188,7 +174,7 @@
 .services-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 3rem;
+  gap: clamp(1.5rem, 3vw, 3rem);
 }
 
 .service-card {
@@ -228,7 +214,7 @@
 
 .service-image img {
   width: 100%;
-  height: 280px;
+  height: clamp(180px, 25vw, 280px);
   object-fit: cover;
   transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -238,7 +224,7 @@
 }
 
 .service-content {
-  padding: 2rem;
+  padding: clamp(1rem, 2.5vw, 2rem);
 }
 
 .service-icon {
@@ -321,7 +307,7 @@
 .features-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
+  gap: clamp(1rem, 2vw, 2rem);
 }
 
 .feature-item {
@@ -386,7 +372,7 @@
   position: relative;
   z-index: 2;
   background: rgba(255, 255, 255, 0.05);
-  padding: 4rem;
+  padding: clamp(2rem, 5vw, 4rem);
   border-radius: 20px;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -394,7 +380,7 @@
 }
 
 .services-cta .cta-content h2 {
-  font-size: 2.5rem;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
   color: var(--color-white);
   margin-bottom: 1.5rem;
   position: relative;
@@ -414,8 +400,8 @@
 
 .services-cta .cta-content p {
   color: rgba(255, 255, 255, 0.9);
-  font-size: 1.2rem;
-  margin-bottom: 2.5rem;
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
   line-height: 1.8;
 }
 
@@ -423,10 +409,10 @@
   background: linear-gradient(135deg, var(--color-gold), var(--color-light-brown));
   color: var(--color-white);
   border: none;
-  padding: 16px 50px;
+  padding: clamp(0.8rem, 2vw, 1rem) clamp(2rem, 5vw, 3rem);
   border-radius: 12px;
   font-family: var(--font-secondary);
-  font-size: 1rem;
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -466,29 +452,66 @@
 @media (max-width: 1024px) {
   .services-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    gap: 1.5rem;
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .page-banner {
+    min-height: 80vh;
   }
 }
 
 @media (max-width: 768px) {
+  .page-banner {
+    min-height: 70vh;
+  }
+
   .services-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
+
   .why-services {
     padding: var(--spacing-lg) 0;
   }
-  
+
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .service-image img {
+    height: clamp(160px, 40vw, 220px);
+  }
+
+  .services-cta {
+    padding: var(--spacing-lg) 0;
+  }
+
+  .banner-stats {
+    gap: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-banner {
+    min-height: 60vh;
+  }
+
   .features-grid {
     grid-template-columns: 1fr;
   }
-  
-  .service-image img {
-    height: 200px;
+
+  .banner-stats {
+    flex-direction: column;
+    gap: 0.5rem;
   }
-  
-  .services-cta {
-    padding: var(--spacing-lg) 0;
+
+  .services-cta .btn-primary {
+    width: 100%;
+    text-align: center;
   }
 }

@@ -1,14 +1,16 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-portfolio',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './portfolio.html',
   styleUrl: './portfolio.css',
 })
 export class Portfolio implements OnInit, AfterViewInit, OnDestroy {
 
+  private router = inject(Router);
   currentCategory = 'all';
 
   slideshowIntervals: Map<Element, any> = new Map();
@@ -221,5 +223,11 @@ export class Portfolio implements OnInit, AfterViewInit, OnDestroy {
 
   scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  goToContact() {
+    this.router.navigate(['/contact']).then(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   }
 }

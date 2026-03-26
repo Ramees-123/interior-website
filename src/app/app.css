@@ -408,9 +408,8 @@ main .page-banner {
   gap: 0.3rem;
   transition: all 0.3s ease;
   padding: 0.5rem 0.8rem;
-  min-height: 100px;
+  min-height: clamp(60px, 10vw, 100px);
   justify-content: center;
-  /* Prevent layout shift while logo loads */
   line-height: 1.1;
 }
 
@@ -1114,7 +1113,6 @@ main .page-banner {
   
   .logo-container {
     gap: 0.25rem;
-    margin-top: -40px;
   }
   
   .header.scrolled .logo-container {
@@ -1144,7 +1142,6 @@ main .page-banner {
   }
   
   .logo-container {
-    margin-top: -50px;
     gap: 0.2rem;
   }
   

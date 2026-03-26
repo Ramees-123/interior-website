@@ -93,4 +93,10 @@ export class Home implements OnInit, OnDestroy, AfterViewInit {
   scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
+  goToPortfolio() {
+    this.router.navigate(['/portfolio']).then(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 }

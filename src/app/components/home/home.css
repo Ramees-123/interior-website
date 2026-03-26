@@ -192,30 +192,12 @@
   max-width: 900px;
   padding: 0 clamp(1rem, 4vw, 2rem);
   z-index: 2;
-  /* Ensure proper spacing on all devices */
   margin: 0 auto;
   position: relative;
-  /* Add proper vertical spacing to prevent overlap with logo section */
-  margin-top: clamp(150px, 20vw, 250px);
+  margin-top: clamp(80px, 15vw, 220px);
 }
 
-.hero-badge {
-  display: inline-block;
-  padding: clamp(0.4rem, 1vw, 0.5rem) clamp(1rem, 3vw, 1.5rem);
-  background: rgba(212, 175, 55, 0.1);
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  color: var(--color-gold);
-  font-family: var(--font-secondary);
-  font-size: clamp(0.65rem, 1.5vw, 0.8rem);
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  margin-bottom: clamp(1.5rem, 3vw, 2rem);
-  border-radius: 30px;
-  backdrop-filter: blur(10px);
-  animation: fadeIn 1s ease-out 0.2s both;
-  margin-top:68px ;
-}
+/* hero-badge — unified in styles.css */
 
 .hero-tagline {
   font-family: var(--font-secondary);
@@ -451,7 +433,7 @@
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+  gap: clamp(1rem, 2vw, 2rem);
 }
 
 .project-card {
@@ -544,7 +526,7 @@
 .features-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
+  gap: clamp(1rem, 2vw, 2rem);
 }
 
 .feature-card {
@@ -625,7 +607,7 @@
 .process-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 2.5rem;
+  gap: clamp(1rem, 2vw, 2.5rem);
 }
 
 .process-card {
@@ -705,7 +687,7 @@
 .testimonials-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+  gap: clamp(1rem, 2vw, 2rem);
 }
 
 .testimonial-card {
@@ -765,7 +747,7 @@
 .cta-content {
   max-width: 700px;
   margin: 0 auto;
-  padding: 4rem 2rem;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 3vw, 2rem);
 }
 
 .cta-content h2 {
