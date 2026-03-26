@@ -285,7 +285,12 @@ main {
   padding-top: 0;
 }
 
-/* Fix header overlap - add top margin to all page banners */
+/* Fix header overlap - use CSS variable for dynamic spacing */
+main {
+  padding-top: var(--header-height);
+}
+
+/* Remove hardcoded margin-top values */
 main section:first-child,
 main > .hero,
 main > .intro,
@@ -294,60 +299,42 @@ main > .why-choose-us,
 main > .process-section,
 main > .testimonials,
 main > .cta {
-  margin-top: clamp(60px, 8vw, 120px);
+  margin-top: 0;
 }
 
 /* Fix page-banner sections (About, Services, Portfolio, Contact) */
 main .page-banner {
-  margin-top: clamp(60px, 8vw, 120px);
-}
-
-/* Adjust for smaller screens */
-@media (max-width: 1024px) {
-  main section:first-child,
-  main > .hero,
-  main > .intro,
-  main > .featured-projects,
-  main > .why-choose-us,
-  main > .process-section,
-  main > .testimonials,
-  main > .cta,
-  main .page-banner {
-    margin-top: clamp(50px, 6vw, 90px);
-  }
-}
-
-@media (max-width: 768px) {
-  main section:first-child,
-  main > .hero,
-  main > .intro,
-  main > .featured-projects,
-  main > .why-choose-us,
-  main > .process-section,
-  main > .testimonials,
-  main > .cta,
-  main .page-banner {
-    margin-top: clamp(45px, 5vw, 70px);
-  }
-}
-
-@media (max-width: 480px) {
-  main section:first-child,
-  main > .hero,
-  main > .intro,
-  main > .featured-projects,
-  main > .why-choose-us,
-  main > .process-section,
-  main > .testimonials,
-  main > .cta,
-  main .page-banner {
-    margin-top: clamp(40px, 4vw, 60px);
-  }
+  margin-top: 0;
 }
 
 /* ========================================
    HEADER STYLES - LUXURY REFINEMENT
    ======================================== */
+:root {
+  --header-height: 110px;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  :root {
+    --header-height: 90px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  :root {
+    --header-height: 75px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  :root {
+    --header-height: 65px;
+  }
+}
+
 .header {
   position: fixed;
   top: 0;
@@ -357,9 +344,12 @@ main .page-banner {
   background: rgba(252, 250, 247, 0.9);
   color: var(--color-dark-brown);
   transition: all 0.3s ease;
-  padding: 1.5rem 0;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
   border-bottom: none;
   backdrop-filter: blur(8px);
+  overflow: hidden; /* IMPORTANT: prevent content from expanding header */
 }
 
 /* header is always solid - transparent variant removed */
@@ -367,7 +357,7 @@ main .page-banner {
 .header.scrolled {
   box-shadow: 0 2px 12px rgba(44, 36, 31, 0.08);
   /* shrink a little when scrolling */
-  padding: 1rem 0;
+  height: calc(var(--header-height) - 10px);
   background: rgba(252, 250, 247, 0.95);
   backdrop-filter: blur(10px);
 }
@@ -394,10 +384,13 @@ main .page-banner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: clamp(1rem, 3vw, 2rem) clamp(1rem, 4vw, 3rem);
+  padding: 0 1.5rem;
   max-width: 1400px;
   margin: 0 auto;
   position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  height: 100%;
 }
 
 /* Logo Container - Centered Layout */
@@ -408,13 +401,16 @@ main .page-banner {
   gap: 0.3rem;
   transition: all 0.3s ease;
   padding: 0.5rem 0.8rem;
-  min-height: clamp(60px, 10vw, 100px);
   justify-content: center;
-  line-height: 1.1;
+  line-height: 1;
+  width: 100%;
+  max-width: 300px;
+  height: 100%;
 }
 
 .header.scrolled .logo-container {
   transform: scale(0.92);
+  max-width: 260px;
 }
 
 /* Hamburger Menu */
@@ -474,8 +470,8 @@ main .page-banner {
   position: relative;
   z-index: 1002;
   min-width: 120px;
-  min-height: 60px;
-  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
 .logo:hover {
@@ -485,18 +481,33 @@ main .page-banner {
 
 /* Image logo replacements */
 .logo-image {
-  max-height: clamp(40px, 10vw, 72px);
+  height: 70%;
   width: auto;
   display: block;
   transition: all 0.4s ease;
   filter: drop-shadow(0 2px 4px rgba(74, 64, 53, 0.1));
   aspect-ratio: 2 / 1;
   object-fit: contain;
+  width: 100%;
 }
 
 .header.scrolled .logo-image {
-  max-height: clamp(35px, 8vw, 60px);
+  height: 60%;
   aspect-ratio: 2 / 1;
+  width: 100%;
+}
+
+/* Responsive logo scaling with header height */
+@media (max-width: 768px) {
+  .logo-image {
+    height: 60%;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-image {
+    height: 55%;
+  }
 }
 
 .footer-logo-image {
@@ -570,22 +581,22 @@ main .page-banner {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  line-height: 1;
 }
 
 .company-title {
   font-family: var(--font-brand);
-  font-size: clamp(0.95rem, 3vw, 1.25rem);
+  font-size: clamp(0.8rem, 2vw, 1.2rem);
   font-weight: 400;
   color: var(--color-brand-gold);
   letter-spacing: 0.2em;
   text-transform: none;
-  line-height: 1.2;
   transition: all 0.3s ease;
 }
 
 .company-subtitle {
   font-family: var(--font-brand);
-  font-size: clamp(0.45rem, 1.2vw, 0.6rem);
+  font-size: clamp(0.4rem, 1vw, 0.6rem);
   font-weight: 700;
   color: var(--color-brand-black);
   letter-spacing: 0.3em;
@@ -614,6 +625,38 @@ main .page-banner {
   opacity: 1;
   color: var(--color-brand-black);
   letter-spacing: 0.35em;
+}
+
+/* Ensure logo scales responsively with container */
+.logo-container {
+  /* Add responsive scaling */
+  transform-origin: center center;
+}
+
+.logo-container .logo {
+  /* Ensure logo scales with container */
+  transform-origin: center center;
+}
+
+/* Responsive adjustments for logo scaling */
+@media (max-width: 768px) {
+  .logo-container {
+    max-width: 220px;
+  }
+  
+  .header.scrolled .logo-container {
+    max-width: 190px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-container {
+    max-width: 180px;
+  }
+  
+  .header.scrolled .logo-container {
+    max-width: 150px;
+  }
 }
 
 .header-spacer {

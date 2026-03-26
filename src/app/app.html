@@ -31,7 +31,7 @@
 
     <!-- Logo and Company Name -->
     <div class="logo-container">
-      <a routerLink="/" class="logo">
+      <a routerLink="/" class="logo" (click)="scrollTop()" style="cursor: pointer; text-decoration: none;">
         <img src="assets/andspacio-logo.png" alt="Andspacio logo" class="logo-image" loading="eager" width="120" height="60" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
         <div class="logo-text-fallback" style="display:none">Andspacio</div>
       </a>
