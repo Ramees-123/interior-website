@@ -581,28 +581,38 @@ main .page-banner {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  line-height: 1;
+  width: 100%;
+  max-width: 100%;
 }
 
 .company-title {
   font-family: var(--font-brand);
-  font-size: clamp(0.8rem, 2vw, 1.2rem);
+  font-size: clamp(0.95rem, 3vw, 1.25rem);
   font-weight: 400;
   color: var(--color-brand-gold);
   letter-spacing: 0.2em;
   text-transform: none;
+  line-height: 1.2;
   transition: all 0.3s ease;
 }
 
 .company-subtitle {
   font-family: var(--font-brand);
-  font-size: clamp(0.4rem, 1vw, 0.6rem);
+  font-size: clamp(0.45rem, 1.2vw, 0.65rem);
   font-weight: 700;
   color: var(--color-brand-black);
-  letter-spacing: 0.3em;
+  letter-spacing: clamp(0.15em, 0.5vw, 0.3em);
   text-transform: uppercase;
   opacity: 0.9;
   transition: all 0.3s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.header.scrolled .company-subtitle {
+  font-size: 0.5rem;
+  letter-spacing: 0.2em;
 }
 
 .header.scrolled .company-title {

@@ -469,7 +469,7 @@ section {
   border-radius: 30px;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  margin-bottom: 1.6rem;
+  margin-bottom: 0.6rem;
   white-space: nowrap;
   line-height: 1.4;
   animation: fadeIn 1s ease-out 0.2s both;
