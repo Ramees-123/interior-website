@@ -475,6 +475,29 @@ section {
   animation: fadeIn 1s ease-out 0.2s both;
 }
 
+/* Mobile responsive badge - ensure text visibility */
+@media (max-width: 480px) {
+  .banner-badge,
+  .hero-badge {
+    white-space: normal;
+    padding: 0.5rem 1rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    max-width: 100%;
+    word-wrap: break-word;
+    text-align: center;
+  }
+}
+
+@media (max-width: 360px) {
+  .banner-badge,
+  .hero-badge {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
 /* Home hero badge needs top spacing to clear the header */
 .hero-badge {
   margin-top: 68px;

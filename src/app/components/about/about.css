@@ -1,17 +1,17 @@
 /* ========================================
-   PREMIUM PAGE BANNER
+   BANNER IMAGE CENTER TOP POSITION
    ======================================== */
+
 .page-banner {
   position: relative;
-  height: 100vh;
-  min-height: clamp(600px, 100vh, 900px);
+  min-height: 100vh; /* FULL screen */
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  color: var(--color-white);
-  overflow: hidden;
-  background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 50%);
+  padding: 0;
+  margin: 0;
+  padding-top: 140px; /* 🔥 increase from 120px */
+  padding-bottom: 60px; /* IMPORTANT: bottom breathing space */
 }
 
 .banner-image {
@@ -20,24 +20,246 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 0;
 }
 
 .banner-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.8) saturate(1.1);
+  object-position: center;
+  opacity: 1;
+  filter: brightness(0.75) contrast(1.1);
+  transform: scale(1.05);
 }
 
-.banner-overlay {
+/* Banner content positioning */
+.banner-content {
+  position: relative;
+  z-index: 5;
+  margin-top: 47px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+/* ========================================
+   MOBILE BANNER IMAGE CENTER TOP POSITION
+   ======================================== */
+
+@media (max-width: 768px) {
+  .page-banner {
+    min-height: 75vh;
+    padding: 0;
+  }
+  
+  .banner-image {
+    padding-top: 140px; /* header clearance for mobile */
+  }
+  
+  .banner-image img {
+    opacity: 1;
+    filter: brightness(0.75) contrast(1.1);
+    transform: scale(1.05);
+  }
+  
+  .banner-content {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+
+/* ========================================
+   FIX FOR 481px – 766px DEVICES
+   ======================================== */
+
+@media (min-width: 481px) and (max-width: 766px) {
+
+  .page-banner {
+    height: auto !important;        /* remove fixed height */
+    min-height: unset !important;
+
+    padding-top: 100px;             /* header space (reduced) */
+    padding-bottom: 80px;           /* bottom space */
+
+    display: flex;
+    align-items: flex-start;        /* 🔥 FIX: no vertical centering */
+    justify-content: center;
+
+    overflow: visible;              /* allow full content */
+  }
+
+  .banner-content {
+    margin-top: 0 !important;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;    /* 🔥 FIX: prevent top cut */
+    gap: 0.8rem;
+  }
+
+  /* Badge (Since 2015) visibility fix */
+  .banner-badge {
+    font-size: 0.65rem;
+    padding: 0.4rem 1.2rem;
+    margin-bottom: 0.3rem;
+    z-index: 10;
+  }
+
+  /* Heading */
+  .banner-content h1 {
+    font-size: clamp(1.8rem, 6vw, 2.8rem);
+    margin-bottom: 0.8rem;
+  }
+
+  /* Subtitle */
+  .banner-content p {
+    font-size: clamp(0.85rem, 2.2vw, 1.1rem);
+    margin-bottom: 1rem;
+  }
+
+  /* Stats */
+  .about-stats {
+    gap: 0.6rem;
+    margin-top: 0.5rem;
+  }
+
+  .stat-item {
+    min-width: 90px;
+    padding: 0.7rem 0.5rem;
+    flex: 1;
+  }
+
+  .stat-number {
+    font-size: clamp(1.4rem, 4vw, 1.8rem);
+    margin-bottom: 0.2rem;
+  }
+
+  .stat-label {
+    font-size: 0.55rem;
+  }
+
+  /* Image safe behavior */
+  .banner-image img {
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+/* ========================================
+   FLOATING LIGHT EFFECT
+   ======================================== */
+.lux-light {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(212,175,55,0.2), transparent 70%);
+  filter: blur(60px);
+  animation: floatLight 12s infinite alternate ease-in-out;
+  z-index: 1;
+}
+
+.lux-light.one {
+  top: 10%;
+  left: 10%;
+}
+
+.lux-light.two {
+  bottom: 10%;
+  right: 10%;
+}
+
+@keyframes floatLight {
+  from { transform: translateY(0) translateX(0); }
+  to { transform: translateY(-40px) translateX(30px); }
+}
+
+/* ========================================
+   HERO CONTENT ENHANCEMENT
+   ======================================== */
+.banner-content {
+  position: relative;
+  z-index: 5;
+}
+
+/* Gold cinematic heading */
+.banner-content h1 {
+  background: linear-gradient(90deg, #ffffff, #d4af37, #ffffff);
+  background-size: 200% auto;
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: goldMove 6s linear infinite;
+}
+
+@keyframes goldMove {
+  0% { background-position: 0%; }
+  100% { background-position: 200%; }
+}
+
+/* Subtitle glow */
+.banner-content p {
+  text-shadow: 0 4px 20px rgba(0,0,0,0.6);
+}
+
+/* SVG Grain Texture Overlay */
+.banner-grain {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.3));
-  z-index: -1;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Animated Gold Hairline Rule */
+.banner-hairline {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  transform: translateX(-50%);
+  animation: hairlineDraw 2s ease-out 0.5s forwards;
+  z-index: 1;
+}
+
+@keyframes hairlineDraw {
+  from { width: 0; }
+  to { width: 120px; }
+}
+
+/* Gold Micro-divider */
+.banner-content h1::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background: var(--color-gold);
+  opacity: 0.8;
+  animation: fadeIn 1s ease-out 1s forwards;
 }
 
 .banner-content {
@@ -45,7 +267,8 @@
   max-width: 900px;
   padding: 0 clamp(1rem, 4vw, 2rem);
   /* Add proper vertical spacing to prevent overlap */
-  margin-top: clamp(100px, 15vw, 200px);
+  margin-top: 72 !important;   /* remove random push */
+  padding-top: 20px;          /* controlled spacing */
 }
 
 /* banner-badge — unified in styles.css */
@@ -54,8 +277,9 @@
   font-family: var(--font-primary);
   font-size: clamp(2rem, 6vw, 5rem);
   margin-bottom: clamp(1rem, 2vw, 1.5rem);
-  text-shadow: 0 6px 12px rgba(0,0,0,0.4);
+  text-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
   animation: fadeIn 1.2s ease-out 0.5s both;
+  font-style: italic;
 }
 
 .banner-content p {
@@ -131,6 +355,8 @@
   overflow: hidden;
   box-shadow: var(--shadow-medium);
   border: 1px solid rgba(0,0,0,0.05);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(0);
 }
 
 .about-image::before {
@@ -151,6 +377,12 @@
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.about-image:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-large);
+  border-color: rgba(212, 175, 55, 0.3);
+}
+
 .about-image:hover img {
   transform: scale(1.05);
 }
@@ -160,6 +392,7 @@
   color: var(--color-dark-brown);
   margin-bottom: 1.5rem;
   position: relative;
+  font-style: italic;
 }
 
 .about-text h2::after {
@@ -324,23 +557,42 @@
 }
 
 /* ========================================
-   PREMIUM SERVICES SECTION
+   PREMIUM SERVICES SECTION (DARK LUXURY THEME)
    ======================================== */
 section.services-section {
-  background: linear-gradient(to bottom, var(--color-white), #faf8f5);
+  background: linear-gradient(135deg, #1a1410 0%, #2C241F 100%);
   padding: var(--spacing-xl) 0;
+  position: relative;
+}
+
+/* Gold Grid Pattern Overlay */
+section.services-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(212, 175, 55, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 175, 55, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: 1;
 }
 
 .services-section .section-header {
   text-align: center;
   margin-bottom: 5rem;
+  position: relative;
+  z-index: 2;
 }
 
 .services-section .section-header h2 {
   font-size: 2.5rem;
-  color: var(--color-dark-brown);
+  color: var(--color-white);
   margin-bottom: 1rem;
   position: relative;
+  font-style: italic;
 }
 
 .services-section .section-header h2::after {
@@ -353,6 +605,14 @@ section.services-section {
   height: 3px;
   background: linear-gradient(90deg, var(--color-gold), var(--color-light-brown));
   border-radius: 2px;
+}
+
+.services-list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 5vw, 5rem);
+  position: relative;
+  z-index: 2;
 }
 
 .services-list {
@@ -592,33 +852,712 @@ section.services-section {
 }
 
 /* ========================================
-   VIDEO SECTION
+   RESPONSIVE
    ======================================== */
+@media (max-width: 768px) {
+  .about-content {
+    padding: 2rem 1.5rem;
+  }
+
+  .about-stats {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .about-team {
+    padding: 2rem 1.5rem;
+  }
+
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .team-member {
+    text-align: center;
+  }
+
+  .team-member img {
+    margin: 0 auto 1rem auto;
+  }
+}
+
+/* ========================================
+   GLOBAL LUXURY THEME (HOME PAGE MATCH)
+   ======================================== */
+
+body {
+  background: linear-gradient(180deg, #0f0c0a 0%, #1a1410 100%);
+}
+
+/* Container spacing consistency like home */
+.container {
+  max-width: 1300px;
+}
+
+/* ========================================
+   SECTION BACKGROUND LUXURY FLOW
+   ======================================== */
+
+.about-intro,
+.about-video,
+.about-team {
+  background: linear-gradient(180deg, #f8f6f2 0%, #ffffff 100%);
+}
+
+.stats-section {
+  background: linear-gradient(135deg, #1a1410, #2C241F);
+}
+
+.about-values {
+  background: linear-gradient(180deg, #f3efe9 0%, #ffffff 100%);
+}
+
+/* ========================================
+   PREMIUM SECTION DIVIDERS
+   ======================================== */
+
+section {
+  position: relative;
+}
+
+section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 120px;
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, #d4af37, transparent);
+  opacity: 0.4;
+}
+
+/* ========================================
+   TYPOGRAPHY LUXURY UPGRADE
+   ======================================== */
+
+h1, h2, h3 {
+  letter-spacing: 0.06em;
+}
+
+h2 {
+  font-weight: 500;
+}
+
+p {
+  letter-spacing: 0.02em;
+}
+
+/* ========================================
+   CARD SYSTEM (HOME STYLE)
+   ======================================== */
+
+.value-card,
+.team-card,
+.service-row {
+  background: rgba(255,255,255,0.92);
+  border-radius: 18px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+}
+
+/* subtle gradient overlay */
+.value-card::before,
+.team-card::before,
+.service-row::before {
+  background: linear-gradient(135deg, rgba(212,175,55,0.08), transparent);
+}
+
+/* ========================================
+   IMAGE CONSISTENCY (HOME STYLE)
+   ======================================== */
+
+.about-image,
+.service-image,
+.team-image {
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+/* ========================================
+   BUTTON MATCH HOME
+   ======================================== */
+
+.btn-primary {
+  background: linear-gradient(135deg, #d4af37, #c4a77d);
+  border-radius: 14px;
+  letter-spacing: 0.15em;
+}
+
+/* ========================================
+   GOLD ACCENTS EVERYWHERE
+   ======================================== */
+
+h2::after,
+.service-row h3::after,
+.values-header h2::after,
+.team-header h2::after {
+  background: linear-gradient(90deg, #d4af37, #c4a77d);
+}
+
+/* ========================================
+   STAT BOX PREMIUM ALIGNMENT
+   ======================================== */
+
+.about-stats {
+  gap: 1rem;
+}
+
+.about-stats .stat-item {
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(212,175,55,0.3);
+}
+
+/* ========================================
+   SERVICES SECTION (MATCH HOME HERO STYLE)
+   ======================================== */
+
+.services-section {
+  background: linear-gradient(135deg, #0f0c0a, #2C241F);
+}
+
+.services-section::before {
+  opacity: 0.2;
+}
+
+/* ========================================
+   VIDEO SECTION CINEMATIC LOOK
+   ======================================== */
+
+.video-wrapper {
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.video-overlay {
+  background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.7));
+}
+
+/* ========================================
+   TEAM SECTION CENTER ALIGN PREMIUM
+   ======================================== */
+
+.team-grid {
+  align-items: stretch;
+}
+
+/* ========================================
+   CTA SECTION (HOME MATCH)
+   ======================================== */
+
+.about-cta {
+  background: linear-gradient(135deg, #1a1410, #000);
+}
+
+/* glow effect */
+.about-cta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(212,175,55,0.15), transparent 70%);
+}
+
+/* ========================================
+   SMOOTH TRANSITIONS (GLOBAL)
+   ======================================== */
+
+* {
+  transition: all 0.3s ease;
+}
+
+/* ========================================
+   MOBILE PREMIUM FEEL
+   ======================================== */
+
+@media (max-width: 768px) {
+  section {
+    padding: 3rem 0;
+  }
+
+  .service-row,
+  .value-card,
+  .team-card {
+    border-radius: 14px;
+  }
+}
+
+/* ========================================
+   MASTER LUXURY UPGRADE (ALL SECTIONS)
+   ======================================== */
+
+/* -------- GLOBAL PREMIUM FEEL -------- */
+
+body {
+  background: #0f0c0a;
+}
+
+section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* subtle moving light */
+section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(212,175,55,0.08), transparent 60%);
+  animation: sectionGlowMove 12s linear infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes sectionGlowMove {
+  0% { transform: translate(0,0); }
+  100% { transform: translate(40px,40px); }
+}
+
+/* -------- PREMIUM SCROLL REVEAL -------- */
+
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(60px) scale(0.96);
+  animation: luxuryReveal 1.2s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+
+@keyframes luxuryReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* stagger */
+.fade-in-up:nth-child(1){animation-delay:.2s}
+.fade-in-up:nth-child(2){animation-delay:.4s}
+.fade-in-up:nth-child(3){animation-delay:.6s}
+.fade-in-up:nth-child(4){animation-delay:.8s}
+
+/* ========================================
+   BANNER - CINEMATIC HERO
+   ======================================== */
+
+.page-banner::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.7));
+  z-index:1;
+}
+
+.banner-content h1 {
+  background: linear-gradient(90deg,#fff,#d4af37,#fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 0.1em;
+  animation: goldShine 5s linear infinite;
+}
+
+@keyframes goldShine {
+  0% { background-position: -200px; }
+  100% { background-position: 200px; }
+}
+
+.banner-content {
+  animation: heroFloat 4s ease-in-out infinite alternate;
+}
+
+@keyframes heroFloat {
+  from { transform: translateY(0); }
+  to { transform: translateY(-15px); }
+}
+
+/* stats glow */
+.about-stats .stat-item {
+  box-shadow: 0 10px 30px rgba(212,175,55,0.2);
+}
+
+.about-stats .stat-item:hover {
+  transform: translateY(-8px) scale(1.08);
+}
+
+/* ========================================
+   ABOUT INTRO
+   ======================================== */
+
+.about-text p {
+  opacity: 0;
+  animation: textFade 1s ease forwards;
+}
+
+.about-text p:nth-child(1){animation-delay:.3s}
+.about-text p:nth-child(2){animation-delay:.6s}
+.about-text p:nth-child(3){animation-delay:.9s}
+
+@keyframes textFade {
+  to { opacity: 1; }
+}
+
+.about-image {
+  box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+}
+
+.about-image:hover {
+  transform: translateY(-10px) scale(1.02);
+}
+
+/* ========================================
+   STATS SECTION
+   ======================================== */
+
+.stats-section {
+  position: relative;
+}
+
+.stats-section::before {
+  background: radial-gradient(circle, rgba(212,175,55,0.15), transparent);
+}
+
+.stats-grid .stat-item {
+  transition: all .4s ease;
+}
+
+.stats-grid .stat-item:hover {
+  transform: scale(1.1);
+}
+
+/* ========================================
+   VALUES SECTION
+   ======================================== */
+
+.value-card {
+  transform: translateY(0);
+}
+
+.value-card:hover {
+  transform: translateY(-12px) scale(1.04);
+  box-shadow: 0 30px 70px rgba(0,0,0,0.15);
+}
+
+/* icon animation */
+.value-icon {
+  animation: iconFloat 3s ease-in-out infinite alternate;
+}
+
+@keyframes iconFloat {
+  from { transform: translateY(0); }
+  to { transform: translateY(-6px); }
+}
+
+/* ========================================
+   SERVICES SECTION (HIGH-END CARD FLOW)
+   ======================================== */
+
+.service-row {
+  transition: all .5s ease;
+}
+
+.service-row:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.2);
+}
+
+/* list animation */
+.service-row ul li {
+  opacity: 0;
+  transform: translateX(-10px);
+  animation: listFade 0.5s forwards;
+}
+
+.service-row ul li:nth-child(1){animation-delay:.2s}
+.service-row ul li:nth-child(2){animation-delay:.3s}
+.service-row ul li:nth-child(3){animation-delay:.4s}
+.service-row ul li:nth-child(4){animation-delay:.5s}
+.service-row ul li:nth-child(5){animation-delay:.6s}
+
+@keyframes listFade {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ========================================
+   VIDEO SECTION (CINEMATIC)
+   ======================================== */
+
+.video-wrapper {
+  box-shadow: 0 40px 120px rgba(0,0,0,0.4);
+}
+
+.video-wrapper:hover {
+  transform: scale(1.04);
+}
+
+.play-button {
+  animation: pulseGlow 2s infinite;
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.4); }
+  70% { box-shadow: 0 0 0 20px rgba(255,255,255,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+}
+
+/* ========================================
+   TEAM SECTION
+   ======================================== */
+
+.team-card {
+  transform: translateY(0);
+}
+
+.team-card:hover {
+  transform: translateY(-12px) scale(1.05);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.2);
+}
+
+.team-image img {
+  filter: brightness(0.95);
+}
+
+/* ========================================
+   CTA SECTION (FINAL IMPACT)
+   ======================================== */
+
+.about-cta .cta-content {
+  animation: ctaPop 1.2s ease forwards;
+}
+
+@keyframes ctaPop {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.about-cta .btn-primary {
+  animation: btnGlow 2s infinite alternate;
+}
+
+@keyframes btnGlow {
+  from { box-shadow: 0 10px 20px rgba(212,175,55,0.2); }
+  to { box-shadow: 0 20px 40px rgba(212,175,55,0.5); }
+}
+
+/* ========================================
+   PREMIUM SCROLLBAR
+   ======================================== */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(#d4af37,#c4a77d);
+  border-radius: 10px;
+}
+
+/* ========================================
+   MICRO INTERACTIONS
+   ======================================== */
+
+img {
+  transition: transform .6s ease;
+}
+
+img:hover {
+  transform: scale(1.03);
+}
+
+button, a {
+  transition: all .3s ease;
+}
+
+/* ========================================
+   REMOVE HEAVY BACKGROUND IMAGE (HERO)
+   ======================================== */
+
+.banner-image img {
+  opacity: 0.25;
+  filter: blur(4px) brightness(0.6) saturate(0.8);
+  transform: scale(1.1);
+}
+
+/* Add premium gradient overlay instead */
+.page-banner {
+  background: radial-gradient(circle at 30% 30%, rgba(212,175,55,0.15), transparent 60%),
+              linear-gradient(135deg, #0f0c0a, #1a1410);
+}
+
+/* strong luxury overlay */
+.banner-overlay {
+  background: linear-gradient(
+    135deg,
+    rgba(0,0,0,0.85),
+    rgba(20,15,10,0.95)
+  );
+}
+
+/* ========================================
+   ADD PREMIUM LIGHT TEXTURE
+   ======================================== */
+
+.page-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 3px 3px;
+  opacity: 0.3;
+}
+
+/* ========================================
+   LUXURY HERO CONTENT IMPROVE
+   ======================================== */
+
+.banner-content h1 {
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.banner-content p {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ========================================
+   REDUCE IMAGE DEPENDENCY (ALL SECTIONS)
+   ======================================== */
+
+/* make images softer premium */
+img {
+  filter: contrast(1.05) brightness(0.95);
+}
+
+/* add gradient overlay on images */
+.about-image::before,
+.service-image::before,
+.team-image::before {
+  background: linear-gradient(
+    135deg,
+    rgba(0,0,0,0.2),
+    rgba(212,175,55,0.1)
+  );
+}
+
+/* ========================================
+   PREMIUM CARD LOOK (IMAGE LESS STYLE)
+   ======================================== */
+
+.service-row {
+  background: linear-gradient(135deg, #ffffff, #f7f5f2);
+}
+
+.value-card {
+  background: linear-gradient(135deg, #ffffff, #f4f1eb);
+}
+
+.team-card {
+  background: linear-gradient(135deg, #ffffff, #f5f2ed);
+}
+
+/* ========================================
+   ADD SOFT GOLD AMBIENT LIGHT
+   ======================================== */
+
+section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 80% 20%, rgba(212,175,55,0.08), transparent 60%);
+  pointer-events: none;
+}
+
+/* ========================================
+   SERVICES SECTION (REMOVE IMAGE HEAVY LOOK)
+   ======================================== */
+
+.services-section {
+  background: linear-gradient(135deg, #0f0c0a, #1a1410);
+}
+
+.service-row .service-image img {
+  opacity: 0.9;
+  filter: brightness(0.9) contrast(1.05);
+}
+
+/* ========================================
+   VIDEO SECTION PREMIUM BACKDROP
+   ======================================== */
+
 .about-video {
-  background: var(--color-white);
-  padding: var(--spacing-xl) 0;
+  background: linear-gradient(180deg, #ffffff, #f5f2ed);
 }
 
-.video-header {
-  text-align: center;
-  margin-bottom: 3rem;
+/* ========================================
+   TEAM IMAGE PREMIUM LOOK
+   ======================================== */
+
+.team-image img {
+  filter: grayscale(10%) contrast(1.05);
 }
 
-.video-header h2 {
-  color: var(--color-dark-brown);
-  margin-bottom: 0.5rem;
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
+/* ========================================
+   CTA SECTION - HIGH END MINIMAL
+   ======================================== */
+
+.about-cta {
+  background: linear-gradient(135deg, #0f0c0a, #000000);
 }
 
-.video-header p {
-  font-size: 1.1rem;
-  color: var(--color-warm-gray);
+.about-cta .cta-content {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(15px);
 }
 
-.video-container {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 0 2rem;
+/* ========================================
+   MOBILE BANNER IMAGE VISIBILITY FIX
+   ======================================== */
+
+@media (max-width: 768px) {
+  .banner-image img {
+    opacity: 1; /* FULL visible */
+    filter: brightness(0.75) contrast(1.1);
+    transform: scale(1.05);
+  }
+  
+  .page-banner::before {
+    background: linear-gradient(
+      135deg,
+      rgba(0,0,0,0.5),   /* lighter */
+      rgba(20,15,10,0.65)
+    );
+  }
+  
+  .banner-content h1 {
+    text-shadow: 0 3px 10px rgba(0,0,0,0.7);
+  }
+
+  .banner-content p {
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  }
+  
+  .page-banner {
+    height: 75vh;
+  }
+
+  .banner-image img {
+    object-position: center; /* IMPORTANT */
+  }
+  
+  .banner-content {
+    padding-top: 160px;
+  }
 }
 
 .video-wrapper {
@@ -973,17 +1912,23 @@ section.services-section {
   
   .about-stats {
     gap: 0.5rem;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: nowrap;
   }
   
   .stat-item {
-    min-width: 100px;
-    padding: 0.6rem;
+    flex: 1;
+    min-width: 0;
+    padding: 0.6rem 0.4rem;
   }
   
   .stat-number {
-    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    font-size: 1.3rem;
     margin-bottom: 0.3rem;
+  }
+  
+  .stat-label {
+    font-size: 0.58rem;
   }
   
   .about-image img,

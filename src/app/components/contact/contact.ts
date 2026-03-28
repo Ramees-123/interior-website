@@ -1,13 +1,24 @@
 import { Component, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-contact',
-  imports: [FormsModule, ReactiveFormsModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './contact.html',
   styleUrl: './contact.css',
 })
 export class Contact {
+  // Form data model for new premium form
+  formData = {
+    name: '',
+    phone: '',
+    email: '',
+    service: '',
+    message: ''
+  };
+  
   contactForm = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
@@ -16,13 +27,14 @@ export class Contact {
     message: new FormControl('', [Validators.required])
   });
   
-  submitted = signal(false);
+  submitted = false;
   showSuccessDialog = signal(false);
   showErrorDialog = signal(false);
   errorMessage = signal('');
   isSending = signal(false);
   showPhoneModal = signal(false);
   showEmailModal = signal(false);
+  showLocationModal = signal(false);
   
   // Contact Information
   private locationAddress = 'Kozhikode, Kerala';
@@ -55,73 +67,86 @@ export class Contact {
     return field.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
   }
   
-  async onSubmit(event: Event) {
-    event.preventDefault();
-    this.submitted.set(true);
-    
-    if (this.contactForm.valid) {
-      this.isSending.set(true);
-      
-      const formData = this.contactForm.value;
-      
-      // Prepare data for Web3Forms
+  async onSubmit(contactForm: any) {
+    this.submitted = true;
+
+    if (
+      !this.formData.name?.trim() ||
+      !this.formData.phone?.trim() ||
+      !this.formData.email?.trim() ||
+      !this.formData.service?.trim() ||
+      !this.formData.message?.trim()
+    ) {
+      setTimeout(() => {
+        const firstInvalid = document.querySelector(
+          '.input-shell.invalid, .premium-select.invalid, .textarea-shell.invalid'
+        ) as HTMLElement | null;
+
+        firstInvalid?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+      }, 50);
+
+      return;
+    }
+
+    this.isSending.set(true);
+    this.errorMessage.set('');
+
+    try {
       const data = new FormData();
       data.append('access_key', this.web3formsAccessKey);
       data.append('to', this.destinationEmail);
       data.append('subject', 'New Contact Form Submission - Interior Website');
-      data.append('from_name', `${formData.firstName} ${formData.lastName}`);
-      data.append('email', formData.email || '');
-      data.append('phone', formData.phone || '');
-      data.append('message', formData.message || '');
+      data.append('from_name', this.formData.name);
+      data.append('email', this.formData.email);
+      data.append('phone', this.formData.phone);
+      data.append('message', `Service: ${this.formData.service}\n\n${this.formData.message}`);
       data.append('botcheck', '');
-      
-      try {
-        // Send to Web3Forms API
-        const response = await fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          body: data
-        });
-        
-        const result = await response.json();
-        
-        if (result.success) {
-          // Also send WhatsApp message
-          this.sendWhatsAppMessage(formData);
-          
-          // Show success dialog
-          this.showSuccessDialog.set(true);
-          
-          // Reset form
-          this.contactForm.reset();
-          this.submitted.set(false);
-        } else {
-          // Show custom error dialog
-          this.errorMessage.set('Failed to send message. Please try again later.');
-          this.showErrorDialog.set(true);
-        }
-      } catch (error) {
-        // Show custom error dialog
-        this.errorMessage.set('Network error. Please check your connection and try again.');
-        this.showErrorDialog.set(true);
-      } finally {
-        this.isSending.set(false);
-      }
-    } else {
-      // Mark all fields as touched to show errors
-      Object.keys(this.contactForm.controls).forEach(key => {
-        this.contactForm.get(key)?.markAsTouched();
+
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: data
       });
+
+      const result = await response.json();
+
+      if (result.success) {
+        this.sendWhatsAppMessage(this.formData);
+        this.showSuccessDialog.set(true);
+
+        this.formData = {
+          name: '',
+          phone: '',
+          email: '',
+          service: '',
+          message: ''
+        };
+
+        this.submitted = false;
+        contactForm.resetForm();
+      } else {
+        this.errorMessage.set('Failed to send message. Please try again later.');
+        this.showErrorDialog.set(true);
+      }
+    } catch (error) {
+      this.errorMessage.set('Network error. Please check your connection and try again.');
+      this.showErrorDialog.set(true);
+    } finally {
+      this.isSending.set(false);
     }
   }
   
   sendWhatsAppMessage(formData: any) {
     // Format the message for WhatsApp
     const whatsappNumber = '916238835584'; // 8137866292 with country code 91
-  const message = `*New Inquiry from Andspacio Website*\n\n` +
-      `*Name:* ${formData.firstName} ${formData.lastName}\n` +
-      `*Email:* ${formData.email}\n` +
-      `*Phone:* ${formData.phone}\n\n` +
-      `*Message:*\n${formData.message}`;
+    const message = `*New Inquiry from Andspacio Website*\n\n` +
+        `*Name:* ${formData.name}\n` +
+        `*Email:* ${formData.email}\n` +
+        `*Phone:* ${formData.phone}\n` +
+        `*Service:* ${formData.service}\n\n` +
+        `*Message:*\n${formData.message}`;
     
     // Encode the message for URL
     const encodedMessage = encodeURIComponent(message);
@@ -145,7 +170,11 @@ export class Contact {
   openLocation(event: Event) {
     // Add ripple effect
     this.addRippleEffect(event);
-    window.open(this.googleMapsUrl, '_blank');
+    this.showLocationModal.set(true);
+  }
+
+  closeLocationModal() {
+    this.showLocationModal.set(false);
   }
   
   // Phone Card - Opens Modal

@@ -795,40 +795,42 @@ main .page-banner {
 }
 
 /* ========================================
-   MENU OVERLAY - PREMIUM MODERN DESIGN
+   ULTRA PREMIUM INTERIOR-THEMED MENU OVERLAY
    ======================================== */
+
 .menu-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, rgba(252, 250, 247, 0.95) 0%, rgba(248, 246, 241, 0.9) 100%);
+  inset: 0;
   z-index: 999;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
+  padding: clamp(90px, 10vh, 120px) 1.2rem 2rem;
+  background:
+    /* Premium interior-inspired gradient */
+    linear-gradient(135deg, 
+      rgba(248, 246, 241, 0.98), 
+      rgba(255, 253, 248, 0.96),
+      rgba(245, 242, 236, 0.94)),
+    /* Subtle marble texture effect */
+    radial-gradient(circle at 20% 20%, rgba(212, 175, 55, 0.08), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(163, 106, 43, 0.08), transparent 40%),
+    /* Interior design pattern */
+    repeating-linear-gradient(
+      45deg,
+      rgba(255,255,255,0.05),
+      rgba(255,255,255,0.05) 1px,
+      transparent 1px,
+      transparent 8px
+    );
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   opacity: 0;
   visibility: hidden;
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  backdrop-filter: blur(10px);
-  padding-top: 120px; /* Space for header */
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s ease;
   overflow-y: auto;
-  overscroll-behavior: contain;
-  /* Modern glassmorphism effect */
-  -webkit-backdrop-filter: blur(10px);
-}
-
-.menu-overlay::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
-  pointer-events: none;
+  /* Interior-themed cursor */
+  cursor: default;
 }
 
 .menu-overlay.active {
@@ -836,79 +838,182 @@ main .page-banner {
   visibility: visible;
 }
 
-/* Premium menu container with modern design */
-.menu-nav {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.2rem;
-  z-index: 1000;
-  position: relative;
-  width: 100%;
-  max-width: 700px;
-  padding: 2.5rem 2rem;
-  background: rgba(255, 255, 255, 0.85);
-  border-radius: 20px;
-  border: 1px solid rgba(212, 175, 55, 0.15);
-  box-shadow: 
-    0 20px 40px rgba(0, 0, 0, 0.12),
-    0 8px 30px rgba(212, 175, 55, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  margin-bottom: 2rem;
-  /* Modern frosted glass effect */
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  /* Subtle animation on open */
-  transform: translateY(20px);
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+/* Premium interior background texture */
+.menu-luxury-bg {
+  position: absolute;
+  inset: 0;
+  /* Sophisticated grid pattern */
+  background:
+    linear-gradient(rgba(255,255,255,0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.18) 1px, transparent 1px),
+    /* Subtle wood grain effect */
+    linear-gradient(
+      135deg,
+      rgba(212, 175, 55, 0.03),
+      rgba(163, 106, 43, 0.03) 50%,
+      rgba(212, 175, 55, 0.03)
+    );
+  background-size: 42px 42px, 42px 42px, 100% 100%;
+  opacity: 0.25;
+  pointer-events: none;
+  /* Interior design animation */
+  animation: interiorTextureFlow 20s linear infinite;
 }
 
-.menu-overlay.active .menu-nav {
-  transform: translateY(0);
+@keyframes interiorTextureFlow {
+  0% {
+    background-position: 0 0, 0 0, 0 0;
+  }
+  100% {
+    background-position: 42px 42px, 42px 42px, 100% 100%;
+  }
 }
 
-/* Premium menu links with modern styling */
-.menu-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  opacity: 0;
-  transform: translateY(40px) scale(0.95);
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+/* Animated luxury glows with interior theme */
+.menu-luxury-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  animation: menuGlowFloat 12s ease-in-out infinite alternate;
+  /* Interior lighting effect */
+  box-shadow: 0 0 60px rgba(212, 175, 55, 0.15);
+}
+
+.menu-luxury-glow.glow-1 {
+  width: 280px;
+  height: 280px;
+  top: 8%;
+  left: -50px;
+  background: radial-gradient(circle, 
+    rgba(212, 175, 55, 0.20), 
+    rgba(255, 248, 220, 0.05) 60%,
+    transparent 70%);
+  /* Warm interior lighting */
+  animation-duration: 14s;
+}
+
+.menu-luxury-glow.glow-2 {
+  width: 340px;
+  height: 340px;
+  right: -70px;
+  bottom: 4%;
+  background: radial-gradient(circle, 
+    rgba(163, 106, 43, 0.15), 
+    rgba(255, 255, 255, 0.03) 60%,
+    transparent 70%);
+  /* Cool ambient lighting */
+  animation-duration: 16s;
+}
+
+@keyframes menuGlowFloat {
+  from {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-20px) translateX(25px) rotate(5deg);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-18px) translateX(20px) rotate(0deg);
+    opacity: 0.8;
+  }
+}
+
+/* Interior-themed menu shell */
+.menu-shell {
   position: relative;
-  z-index: 1001;
-  width: 100%;
-  padding: 1.4rem 1.8rem;
-  border-radius: 16px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
-  border: 1px solid rgba(212, 175, 55, 0.2);
-  box-shadow: 
-    0 8px 25px rgba(0, 0, 0, 0.08),
-    0 4px 15px rgba(212, 175, 55, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  margin: 0.4rem 0;
-  /* Modern hover effects */
+  width: min(760px, 100%);
+  padding: clamp(1.4rem, 2.5vw, 2rem);
+  border-radius: 32px;
+  /* Premium interior materials */
+  background:
+    linear-gradient(145deg, 
+      rgba(255,255,255,0.92), 
+      rgba(248,246,241,0.88),
+      rgba(255,255,255,0.90));
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  /* Interior design shadowing */
+  box-shadow:
+    0 35px 90px rgba(44, 36, 31, 0.15),
+    0 12px 35px rgba(212, 175, 55, 0.18),
+    inset 0 1px 0 rgba(255,255,255,0.8),
+    /* Interior depth effect */
+    inset 0 -2px 10px rgba(0,0,0,0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   overflow: hidden;
+  transform: translateY(30px) scale(0.96);
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  /* Interior material texture */
+  border-image: linear-gradient(135deg, rgba(212,175,55,0.3), transparent) 1;
 }
 
-.menu-link::before {
+.menu-overlay.active .menu-shell {
+  transform: translateY(0) scale(1);
+}
+
+/* Premium border with interior design elements */
+.menu-shell::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: -1;
+  inset: 0;
+  padding: 1px;
+  border-radius: 32px;
+  background: linear-gradient(
+    135deg,
+    rgba(212,175,55,0.55),
+    rgba(255,255,255,0.15),
+    rgba(198,167,109,0.40),
+    rgba(255,255,255,0.10)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  /* Interior design animation */
+  animation: borderGlowPulse 4s ease-in-out infinite;
 }
 
-.menu-overlay.active .menu-link {
-  opacity: 1;
-  transform: translateY(0) scale(1);
+@keyframes borderGlowPulse {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.01);
+  }
+}
+
+/* Interior-themed decorative elements */
+.menu-shell::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.15), transparent 70%);
+  filter: blur(20px);
+  opacity: 0;
+  animation: decorativeElement 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes decorativeElement {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.8) rotate(0deg);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.2) rotate(180deg);
+  }
 }
 
 .menu-overlay.active .menu-link:nth-child(1) { transition-delay: 0.15s; }
@@ -1278,4 +1383,881 @@ main .page-banner {
 .logo-image {
   transform-style: preserve-3d;
   perspective: 1000px;
+}
+
+/* ========================================
+   CINEMATIC LUXURY ENHANCEMENTS
+   ======================================== */
+
+/* Cinematic Gold Glow Effects */
+.cinematic-gold-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(212, 175, 55, 0.35) 0%,
+    rgba(255, 248, 220, 0.15) 40%,
+    transparent 70%
+  );
+  filter: blur(20px);
+  opacity: 0;
+  animation: cinematicGlowPulse 8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes cinematicGlowPulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+/* Floating Ambient Light */
+.ambient-light {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    transparent 70%
+  );
+  animation: ambientLightFloat 15s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes ambientLightFloat {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(20px, -20px) rotate(5deg);
+  }
+  50% {
+    transform: translate(-20px, 20px) rotate(-5deg);
+  }
+  75% {
+    transform: translate(10px, 10px) rotate(2deg);
+  }
+}
+
+/* Premium Glass Depth Effects */
+.glass-depth-layer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0.05),
+    rgba(0, 0, 0, 0.05)
+  );
+  opacity: 0;
+  animation: glassDepthReveal 1.5s ease-out;
+  z-index: 2;
+}
+
+@keyframes glassDepthReveal {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Elegant Reveal Animation */
+.elegant-reveal {
+  animation: elegantEntrance 1.2s cubic-bezier(0.25, 0.8, 0.25, 1) both;
+}
+
+@keyframes elegantEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Shimmer Sweep Effect */
+.shimmer-sweep {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: shimmerSweep 3s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 3;
+}
+
+@keyframes shimmerSweep {
+  0% {
+    left: -100%;
+  }
+  50% {
+    left: 100%;
+  }
+  100% {
+    left: -100%;
+  }
+}
+
+/* Luxury Hover Lift Enhancement */
+.luxury-hover-lift {
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transform-origin: center center;
+}
+
+.luxury-hover-lift:hover {
+  transform: translateY(-6px) scale(1.025) rotate(0.5deg);
+  box-shadow:
+    0 25px 50px rgba(44, 36, 31, 0.18),
+    0 12px 35px rgba(212, 175, 55, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* Refined Mobile Experience */
+@media (max-width: 768px) {
+  .luxury-hover-lift {
+    transition: all 0.3s ease;
+  }
+  
+  .luxury-hover-lift:hover {
+    transform: translateY(-4px) scale(1.015);
+    box-shadow:
+      0 15px 30px rgba(44, 36, 31, 0.15),
+      0 8px 20px rgba(212, 175, 55, 0.18);
+  }
+  
+  .cinematic-gold-glow {
+    filter: blur(15px);
+    animation-duration: 10s;
+  }
+  
+  .ambient-light {
+    animation-duration: 12s;
+  }
+}
+
+@media (max-width: 480px) {
+  .luxury-hover-lift:hover {
+    transform: translateY(-3px) scale(1.01);
+    box-shadow:
+      0 10px 20px rgba(44, 36, 31, 0.12),
+      0 6px 15px rgba(212, 175, 55, 0.15);
+  }
+  
+  .cinematic-gold-glow {
+    filter: blur(10px);
+    animation-duration: 8s;
+  }
+}
+
+/* Richer Typography Motion */
+.typography-motion {
+  position: relative;
+  display: inline-block;
+}
+
+.typography-motion::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(212, 175, 55, 0.1),
+    rgba(255, 255, 255, 0.05),
+    rgba(212, 175, 55, 0.1)
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+}
+
+.typography-motion:hover::before {
+  opacity: 1;
+  animation: typographyGlow 2s ease-in-out infinite;
+}
+
+@keyframes typographyGlow {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* Enhanced Menu Shell with Cinematic Effects */
+.menu-shell.cinematic-shell {
+  position: relative;
+  overflow: visible;
+}
+
+.menu-shell.cinematic-shell::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 32px;
+  background: linear-gradient(
+    135deg,
+    rgba(212,175,55,0.65),
+    rgba(255,255,255,0.2),
+    rgba(198,167,109,0.5),
+    rgba(255,255,255,0.15)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  animation: cinematicBorderGlow 4s ease-in-out infinite;
+}
+
+@keyframes cinematicBorderGlow {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(1);
+    filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.015);
+    filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.5));
+  }
+}
+
+/* Premium Menu Link Enhancements */
+.menu-link.cinematic-link {
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-link.cinematic-link::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.25), transparent 60%);
+  transform: translate(-50%, -50%);
+  transition: width 0.8s ease, height 0.8s ease;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.menu-link.cinematic-link:hover::after {
+  width: 150%;
+  height: 150%;
+  animation: ambientPulse 2s ease-in-out infinite;
+}
+
+@keyframes ambientPulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+/* Enhanced Menu Text with Richer Motion */
+.menu-text.cinematic-text {
+  position: relative;
+  display: inline-block;
+}
+
+.menu-text.cinematic-text::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: rgba(212, 175, 55, 0.3);
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+  opacity: 0;
+  animation: textEcho 3s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes textEcho {
+  0%, 100% {
+    opacity: 0;
+    transform: translate(2px, 2px) scale(1.02);
+  }
+  50% {
+    opacity: 0.4;
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+/* Premium Glass Overlay for Menu Shell */
+.menu-shell.glass-overlay {
+  position: relative;
+}
+
+.menu-shell.glass-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.25),
+    rgba(255, 255, 255, 0.05),
+    rgba(0, 0, 0, 0.08)
+  );
+  opacity: 0.8;
+  animation: glassOverlayFlow 6s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes glassOverlayFlow {
+  0%, 100% {
+    opacity: 0.6;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translateY(-5px);
+  }
+}
+
+/* Enhanced Menu Link Hover with Luxury Lift */
+.menu-link.luxury-lift:hover {
+  transform: translateY(-5px) scale(1.02) rotate(0.3deg);
+  box-shadow:
+    0 20px 40px rgba(44, 36, 31, 0.16),
+    0 10px 30px rgba(212, 175, 55, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  border-bottom: 2px solid rgba(212, 175, 55, 0.45);
+}
+
+/* Refined Mobile Hover Effects */
+@media (max-width: 768px) {
+  .menu-link.luxury-lift:hover {
+    transform: translateY(-3px) scale(1.015);
+    box-shadow:
+      0 15px 30px rgba(44, 36, 31, 0.14),
+      0 8px 20px rgba(212, 175, 55, 0.18);
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-link.luxury-lift:hover {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow:
+      0 10px 20px rgba(44, 36, 31, 0.12),
+      0 6px 15px rgba(212, 175, 55, 0.15);
+  }
+}
+
+/* Enhanced Menu Shell with Premium Depth */
+.menu-shell.premium-depth {
+  position: relative;
+  box-shadow:
+    0 40px 100px rgba(44, 36, 31, 0.18),
+    0 15px 40px rgba(212, 175, 55, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -3px 15px rgba(0,0,0,0.08);
+}
+
+.menu-shell.premium-depth::before {
+  animation: premiumDepthPulse 5s ease-in-out infinite;
+}
+
+@keyframes premiumDepthPulse {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+/* Cinematic Menu Reveal Sequence */
+.menu-overlay.active .menu-shell.cinematic-shell {
+  animation: cinematicShellReveal 1s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+@keyframes cinematicShellReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95) rotateX(-10deg);
+    transform-origin: center top;
+  }
+  50% {
+    transform: translateY(-10px) scale(1.02) rotateX(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateX(0deg);
+  }
+}
+
+/* Enhanced Menu Link Staggered Reveal */
+.menu-overlay.active .menu-link.cinematic-link {
+  animation: cinematicLinkReveal 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.menu-overlay.active .menu-link.cinematic-link:nth-child(1) { 
+  animation-delay: 0.25s; 
+}
+.menu-overlay.active .menu-link.cinematic-link:nth-child(2) { 
+  animation-delay: 0.35s; 
+}
+.menu-overlay.active .menu-link.cinematic-link:nth-child(3) { 
+  animation-delay: 0.45s; 
+}
+.menu-overlay.active .menu-link.cinematic-link:nth-child(4) { 
+  animation-delay: 0.55s; 
+}
+.menu-overlay.active .menu-link.cinematic-link:nth-child(5) { 
+  animation-delay: 0.65s; 
+}
+
+@keyframes cinematicLinkReveal {
+  from {
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* Premium Text Motion Enhancement */
+.menu-text.premium-motion {
+  animation: premiumTextMotion 0.5s ease-out;
+}
+
+.menu-text.premium-motion:hover {
+  animation: premiumTextHoverMotion 0.4s ease-out;
+}
+
+@keyframes premiumTextMotion {
+  from {
+    opacity: 0.8;
+    transform: translateY(3px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes premiumTextHoverMotion {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.02) rotate(0.2deg);
+  }
+}
+
+/* ========================================
+   INTERIOR-THEMED MENU LINK ENHANCEMENTS
+   ======================================== */
+
+/* Enhanced interior-themed menu links */
+.menu-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+  z-index: 1001;
+  width: 100%;
+  padding: 1.6rem 2rem;
+  border-radius: 20px;
+  /* Interior design materials */
+  background: 
+    linear-gradient(180deg, 
+      rgba(255, 255, 255, 0.94), 
+      rgba(248, 246, 241, 0.90),
+      rgba(255, 255, 255, 0.92));
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  /* Interior design shadowing */
+  box-shadow: 
+    0 12px 30px rgba(44, 36, 31, 0.12),
+    0 6px 20px rgba(212, 175, 55, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.03);
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  margin: 0.5rem 0;
+  /* Interior material effects */
+  overflow: hidden;
+  /* Subtle texture */
+  background-blend-mode: overlay, normal;
+}
+
+.menu-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, 
+    rgba(212, 175, 55, 0.08), 
+    rgba(255, 255, 255, 0.05),
+    rgba(212, 175, 55, 0.08));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+  /* Interior lighting effect */
+  filter: blur(1px);
+}
+
+.menu-link::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.15), transparent 60%);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+  z-index: -2;
+  pointer-events: none;
+}
+
+.menu-overlay.active .menu-link {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.menu-overlay.active .menu-link:nth-child(1) { transition-delay: 0.20s; }
+.menu-overlay.active .menu-link:nth-child(2) { transition-delay: 0.30s; }
+.menu-overlay.active .menu-link:nth-child(3) { transition-delay: 0.40s; }
+.menu-overlay.active .menu-link:nth-child(4) { transition-delay: 0.50s; }
+.menu-overlay.active .menu-link:nth-child(5) { transition-delay: 0.60s; }
+
+.menu-link:hover {
+  /* Interior design hover transformation */
+  background: 
+    linear-gradient(180deg, 
+      rgba(255, 255, 255, 0.98), 
+      rgba(250, 248, 243, 0.95),
+      rgba(255, 255, 255, 0.96));
+  border-color: rgba(212, 175, 55, 0.32);
+  transform: translateY(-3px) scale(1.015);
+  box-shadow: 
+    0 18px 40px rgba(44, 36, 31, 0.16),
+    0 10px 30px rgba(212, 175, 55, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.05);
+  /* Interior premium border effect */
+  border-bottom: 2px solid rgba(212, 175, 55, 0.38);
+}
+
+.menu-link:hover::before {
+  opacity: 0.8;
+}
+
+.menu-link:hover::after {
+  width: 120%;
+  height: 120%;
+}
+
+.menu-link:active {
+  transform: translateY(1px) scale(0.995);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* Interior-themed link line animation */
+.menu-link-line {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0.8), rgba(255, 255, 255, 0.3));
+  transform: translateY(-50%);
+  transition: width 0.6s ease;
+  border-radius: 1px;
+}
+
+.menu-link:hover .menu-link-line {
+  width: 100%;
+}
+
+/* Interior-themed arrow animation */
+.menu-arrow {
+  position: relative;
+  font-size: 1.2rem;
+  color: rgba(212, 175, 55, 0.8);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(0);
+  opacity: 0.8;
+}
+
+.menu-link:hover .menu-arrow {
+  transform: translateX(8px);
+  opacity: 1;
+  color: rgba(212, 175, 55, 1);
+}
+
+/* Enhanced menu text with interior design typography */
+.menu-text {
+  font-family: 'Playfair Display', 'Cormorant Garamond', 'DM Serif Display', serif;
+  font-size: clamp(1.3rem, 4vw, 2.2rem);
+  color: var(--color-dark-brown);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  /* Interior design text effects */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 2;
+}
+
+.menu-link:hover .menu-text {
+  color: var(--color-light-brown);
+  letter-spacing: 2px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  transform: translateX(2px);
+}
+
+/* Interior design hover effects for menu links */
+.menu-link:hover {
+  transform: translateY(-4px) scale(1.012);
+  border-color: rgba(212,175,55,0.34);
+  background: linear-gradient(180deg, rgba(255,255,255,1), rgba(248,245,239,0.95));
+  box-shadow:
+    0 18px 34px rgba(44, 36, 31, 0.10),
+    0 8px 22px rgba(212, 175, 55, 0.15);
+}
+
+/* Enhanced menu link animations */
+.menu-link {
+  animation: menuLinkReveal 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu-overlay.active .menu-link:nth-child(1) { 
+  animation-delay: 0.20s; 
+  animation-name: menuLinkRevealStagger;
+}
+.menu-overlay.active .menu-link:nth-child(2) { 
+  animation-delay: 0.30s; 
+  animation-name: menuLinkRevealStagger;
+}
+.menu-overlay.active .menu-link:nth-child(3) { 
+  animation-delay: 0.40s; 
+  animation-name: menuLinkRevealStagger;
+}
+.menu-overlay.active .menu-link:nth-child(4) { 
+  animation-delay: 0.50s; 
+  animation-name: menuLinkRevealStagger;
+}
+.menu-overlay.active .menu-link:nth-child(5) { 
+  animation-delay: 0.60s; 
+  animation-name: menuLinkRevealStagger;
+}
+
+@keyframes menuLinkReveal {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes menuLinkRevealStagger {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Enhanced menu text animations */
+.menu-text {
+  animation: menuTextReveal 0.4s ease;
+}
+
+.menu-link:hover .menu-text {
+  color: var(--color-light-brown);
+  letter-spacing: 0.08em;
+  transform: translateY(-1px);
+}
+
+@keyframes menuTextReveal {
+  from {
+    opacity: 0.8;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Premium arrow animations */
+.menu-arrow {
+  animation: arrowReveal 0.6s ease;
+}
+
+.menu-link:hover .menu-arrow {
+  transform: translateX(6px);
+  opacity: 1;
+}
+
+@keyframes arrowReveal {
+  from {
+    opacity: 0.75;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0.75;
+    transform: translateX(0);
+  }
+}
+
+/* Enhanced menu shell animations */
+.menu-shell {
+  animation: menuShellReveal 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu-overlay.active .menu-shell {
+  transform: translateY(0) scale(1);
+}
+
+@keyframes menuShellReveal {
+  from {
+    transform: translateY(24px) scale(0.98);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Premium glow effects for menu shell */
+.menu-shell::before {
+  animation: shellGlowPulse 3s ease-in-out infinite;
+}
+
+@keyframes shellGlowPulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+/* Enhanced responsive animations for mobile */
+@media (max-width: 768px) {
+  .menu-link {
+    padding: 1.4rem 1.8rem;
+    border-radius: 18px;
+  }
+  
+  .menu-text {
+    font-size: clamp(1.1rem, 5vw, 1.8rem);
+    letter-spacing: 1px;
+  }
+  
+  .menu-link:hover {
+    transform: translateY(-2px) scale(1.01);
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-link {
+    padding: 1.2rem 1.5rem;
+    border-radius: 16px;
+    margin: 0.4rem 0;
+  }
+  
+  .menu-text {
+    font-size: clamp(1rem, 6vw, 1.6rem);
+    letter-spacing: 0.5px;
+  }
+  
+  .menu-link:hover {
+    transform: translateY(-1px) scale(1.005);
+  }
+}
+
+/* Menu Scroll Container */
+.menu-scroll-container {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 1rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 215, 0, 0.3) transparent;
+}
+
+.menu-scroll-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.menu-scroll-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.menu-scroll-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 215, 0, 0.3);
+  border-radius: 3px;
+  border: 1px solid rgba(255, 215, 0, 0.1);
+}
+
+.menu-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 215, 0, 0.5);
 }

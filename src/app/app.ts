@@ -46,6 +46,54 @@ export class App implements AfterViewInit {
     this.router.navigate(['/']);
   }
 
+  // Enhanced scrolling functionality for all menu items
+  scrollToSection(sectionId: string, event: Event) {
+    event.preventDefault();
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start',
+        inline: 'nearest'
+      });
+    }
+    this.closeMenu();
+  }
+
+  // Scroll to specific sections with offset
+  scrollToSectionWithOffset(sectionId: string, offset: number = 0) {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+    this.closeMenu();
+  }
+
+  // Enhanced scroll behavior for smooth scrolling
+  initSmoothScrolling() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = anchor.getAttribute('href');
+        if (target && target !== '#') {
+          const element = document.querySelector(target);
+          if (element) {
+            element.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        }
+      });
+    });
+  }
+
   @HostListener('window:scroll')
   onWindowScroll() {
     this.isScrolled = window.scrollY > 50;

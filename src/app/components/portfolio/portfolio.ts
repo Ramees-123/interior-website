@@ -17,17 +17,17 @@ export class Portfolio implements OnInit, AfterViewInit, OnDestroy {
   pauseTimeouts: Map<Element, any> = new Map();
 
   ngOnInit() {
+    // Initialize after component is fully loaded
     setTimeout(() => {
-      this.initializeAllSlideshows();
       this.setupCategoryFilters();
-    }, 100);
+      this.initializeAnimations();
+    }, 200);
   }
 
   ngAfterViewInit(): void {
+    // Main initialization - only called once
     setTimeout(() => {
       this.initializeAllSlideshows();
-      this.setupCategoryFilters();
-      this.initializeAnimations();
       this.initializeHoverPreview();
     }, 200);
   }
@@ -79,6 +79,10 @@ export class Portfolio implements OnInit, AfterViewInit, OnDestroy {
 
     containers.forEach(container => {
 
+      // 🚀 Prevent duplicate init
+      if (container.getAttribute('data-initialized') === 'true') return;
+      container.setAttribute('data-initialized', 'true');
+
       const slides = container.querySelectorAll('.slideshow-slide');
       const prevBtn = container.querySelector('.prev-btn') as HTMLElement;
       const nextBtn = container.querySelector('.next-btn') as HTMLElement;
@@ -92,10 +96,18 @@ export class Portfolio implements OnInit, AfterViewInit, OnDestroy {
       // ✅ HOVER PAUSE
       container.addEventListener('mouseenter', () => {
         this.stopSlideshow(container);
+
+        // also clear any pending resume timeout
+        clearTimeout(this.pauseTimeouts.get(container));
       });
 
       container.addEventListener('mouseleave', () => {
-        this.startSlideshow(container);
+        // small delay to avoid flicker
+        const timeout = setTimeout(() => {
+          this.startSlideshow(container);
+        }, 300);
+
+        this.pauseTimeouts.set(container, timeout);
       });
 
       // ✅ NEXT / PREV CLICK (TEMP PAUSE)
@@ -174,37 +186,69 @@ export class Portfolio implements OnInit, AfterViewInit, OnDestroy {
     const interval = this.slideshowIntervals.get(container);
     if (interval) {
       clearInterval(interval);
+      this.slideshowIntervals.delete(container); // 🔥 IMPORTANT
     }
   }
 
   // ---------------- PREVIEW ----------------
   initializeHoverPreview() {
-    const images = document.querySelectorAll('.slideshow-slide img');
     const overlay = document.querySelector('.image-preview-overlay') as HTMLElement;
     const previewImg = document.querySelector('.preview-img') as HTMLImageElement;
 
-    images.forEach(img => {
-      img.addEventListener('click', (e) => {
+    if (!overlay || !previewImg) return;
+
+    // 🔥 Use event delegation (fixes dynamic elements issue)
+    document.addEventListener('click', (e) => {
+      const img = (e.target as HTMLElement).closest('img');
+
+      if (img && img.closest('.slideshow-slide')) {
         e.stopPropagation();
 
-        const container = (img as HTMLElement).closest('.project-slideshow');
+        const image = img as HTMLImageElement;
 
-        if (container) {
-          this.stopSlideshow(container);
-        }
+        // stop slideshow of clicked image
+        const container = image.closest('.project-slideshow');
+        if (container) this.stopSlideshow(container);
 
-        previewImg.src = (img as HTMLImageElement).src;
+        // show preview
+        previewImg.src = image.src;
         overlay.classList.add('show');
-      });
+      }
     });
 
+    // ✅ close preview
     overlay.addEventListener('click', () => {
       overlay.classList.remove('show');
 
-      // resume all
+      // resume all slideshows
       document.querySelectorAll('.project-slideshow').forEach(container => {
         this.startSlideshow(container);
       });
+    });
+
+    // Prevent closing when clicking image itself
+    previewImg.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+  }
+
+  private showImagePreview(img: HTMLImageElement, overlay: HTMLElement, previewImg: HTMLImageElement) {
+    const container = img.closest('.project-slideshow');
+
+    if (container) {
+      this.stopSlideshow(container);
+    }
+
+    previewImg.src = img.src;
+    overlay.classList.add('show');
+  }
+
+  private closeImagePreview(overlay: HTMLElement) {
+    overlay.classList.remove('show');
+
+    // resume all
+    document.querySelectorAll('.project-slideshow').forEach(container => {
+      this.startSlideshow(container);
     });
   }
 
@@ -212,12 +256,12 @@ export class Portfolio implements OnInit, AfterViewInit, OnDestroy {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('animate-in');
+          entry.target.classList.add('show');
         }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.2 });
 
-    document.querySelectorAll('.section-header, .clients-section, .projects-cta')
+    document.querySelectorAll('.fade-in-up, .section-header, .clients-section, .projects-cta')
       .forEach(el => observer.observe(el));
   }
 
