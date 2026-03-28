@@ -1,10 +1,10 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-portfolio',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: './portfolio.html',
   styleUrl: './portfolio.css',
 })

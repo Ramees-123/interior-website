@@ -1336,54 +1336,23 @@ main .page-banner {
 /* ========================================
    PREMIUM LOGO ANIMATIONS
    ======================================== */
-
-/* Smooth Continuous Rotation Animation */
 @keyframes smoothRotate {
-  from {
-    transform: rotateY(0deg) rotateZ(0deg);
-  }
-  50% {
-    transform: rotateY(180deg) rotateZ(2deg);
-  }
-  to {
-    transform: rotateY(360deg) rotateZ(0deg);
-  }
+  from { transform: rotateY(0deg) rotateZ(0deg); }
+  50% { transform: rotateY(180deg) rotateZ(2deg); }
+  to { transform: rotateY(360deg) rotateZ(0deg); }
 }
 
-/* Subtle 3D Tilt Rotation */
 @keyframes tilt3DRotate {
-  0% {
-    transform: perspective(1000px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
-  }
-  25% {
-    transform: perspective(1000px) rotateX(5deg) rotateY(180deg) rotateZ(-2deg);
-  }
-  50% {
-    transform: perspective(1000px) rotateX(0deg) rotateY(360deg) rotateZ(0deg);
-  }
-  75% {
-    transform: perspective(1000px) rotateX(-5deg) rotateY(540deg) rotateZ(2deg);
-  }
-  to {
-    transform: perspective(1000px) rotateX(0deg) rotateY(720deg) rotateZ(0deg);
-  }
+  0% { transform: perspective(1000px) rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+  25% { transform: perspective(1000px) rotateX(5deg) rotateY(180deg) rotateZ(-2deg); }
+  50% { transform: perspective(1000px) rotateX(0deg) rotateY(360deg) rotateZ(0deg); }
+  75% { transform: perspective(1000px) rotateX(-5deg) rotateY(540deg) rotateZ(2deg); }
+  to { transform: perspective(1000px) rotateX(0deg) rotateY(720deg) rotateZ(0deg); }
 }
 
-/* Apply smooth rotation to logo on hover */
-.logo:hover .logo-image {
-  animation: smoothRotate 3s cubic-bezier(0.43, 0.13, 0.23, 0.96) infinite;
-}
-
-/* Apply premium 3D rotation on header scroll-state hover */
-.header.scrolled .logo:hover .logo-image {
-  animation: tilt3DRotate 4s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
-}
-
-/* Optional: Always-on subtle idle animation */
-.logo-image {
-  transform-style: preserve-3d;
-  perspective: 1000px;
-}
+.logo:hover .logo-image { animation: smoothRotate 3s cubic-bezier(0.43, 0.13, 0.23, 0.96) infinite; }
+.header.scrolled .logo:hover .logo-image { animation: tilt3DRotate 4s cubic-bezier(0.34, 1.56, 0.64, 1) infinite; }
+.logo-image { transform-style: preserve-3d; perspective: 1000px; }
 
 /* ========================================
    CINEMATIC LUXURY ENHANCEMENTS
