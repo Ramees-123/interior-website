@@ -20,23 +20,26 @@
 <a id="home"></a>
 
 <!-- Header -->
-<header class="header" [class.scrolled]="isScrolled">
-  <div class="header-top-shine"></div>
-  <div class="header-ambient-glow"></div>
+<header class="header cinematic-header" [class.scrolled]="isScrolled">
+  <div class="header-glass-layer"></div>
+  <div class="header-shine-sweep"></div>
+  <div class="header-light-orb orb-left"></div>
+  <div class="header-light-orb orb-right"></div>
 
   <div class="header-container">
     <!-- Hamburger Menu -->
-    <button class="hamburger" (click)="toggleMenu()" [class.active]="isMenuOpen" aria-label="Toggle menu">
+    <button class="hamburger premium-hamburger" (click)="toggleMenu()" [class.active]="isMenuOpen" aria-label="Toggle menu">
       <span></span>
       <span></span>
       <span></span>
     </button>
 
     <!-- Logo and Company Name -->
-    <div class="logo-container">
-      <div class="logo-luxury-ring"></div>
+    <div class="logo-container cinematic-logo-container">
+      <div class="logo-halo"></div>
+      <div class="logo-frame"></div>
 
-      <a routerLink="/" class="logo" (click)="scrollTop()">
+      <a routerLink="/" class="logo cinematic-logo" (click)="scrollTop()">
         <img
           src="assets/andspacio-logo.png"
           alt="Andspacio logo"
@@ -49,13 +52,13 @@
         <div class="logo-text-fallback" style="display:none">Andspacio</div>
       </a>
 
-      <div class="company-name">
+      <div class="company-name premium-company-name">
         <div class="company-title">andspacio</div>
         <div class="company-subtitle">INTERIOR DESIGN STUDIO</div>
       </div>
     </div>
 
-    <!-- Spacer for centering -->
+    <!-- Spacer -->
     <div class="header-spacer"></div>
   </div>
 </header>

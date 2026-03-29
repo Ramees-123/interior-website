@@ -21,6 +21,7 @@ export class Portfolio implements OnInit, AfterViewInit, OnDestroy {
     setTimeout(() => {
       this.setupCategoryFilters();
       this.initializeAnimations();
+      this.initializeFilterState();
     }, 200);
   }
 
@@ -61,15 +62,24 @@ export class Portfolio implements OnInit, AfterViewInit, OnDestroy {
     const projects = document.querySelectorAll('.project-item');
 
     projects.forEach(project => {
-      const projectCategory = project.querySelector('.project-category')?.textContent?.toLowerCase();
+      const projectCategory = project.querySelector('.project-category')?.textContent?.toLowerCase().trim();
 
-      if (category === 'all' || projectCategory === category) {
+      if (category === 'all' || projectCategory === category.toLowerCase()) {
         project.classList.add('show');
         project.classList.remove('hide');
       } else {
         project.classList.add('hide');
         project.classList.remove('show');
       }
+    });
+  }
+
+  initializeFilterState() {
+    // Ensure all projects are visible by default
+    const projects = document.querySelectorAll('.project-item');
+    projects.forEach(project => {
+      project.classList.add('show');
+      project.classList.remove('hide');
     });
   }
 

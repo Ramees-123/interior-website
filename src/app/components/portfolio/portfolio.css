@@ -1,4 +1,24 @@
 /* ========================================
+   FILTER CLASSES
+   ======================================== */
+.project-item.show {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+
+.project-item.hide {
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  pointer-events: none;
+}
+
+/* ========================================
    PAGE BANNER
    ======================================== */
 .page-banner {
@@ -230,72 +250,120 @@
 }
 
 /* ========================================
-   PROJECTS SECTION
+   PREMIUM LUXURY SECTION HEADING
    ======================================== */
-.projects-section {
-  padding: clamp(3rem, 8vw, 6rem) 0;
-  background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+
+.section-header.projects-luxury-header,
+.section-header.luxury-clients-header {
   position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: clamp(2.4rem, 5vw, 4rem);
+  padding: 0 0 1.4rem;
+}
+
+.section-header.projects-luxury-header::after,
+.section-header.luxury-clients-header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(212,175,55,0.85),
+    rgba(212,175,55,0.18),
+    transparent 72%
+  );
+}
+
+.section-heading-shell {
+  max-width: 760px;
+}
+
+.section-eyebrow {
+  display: inline-block;
+  margin-bottom: 0.9rem;
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  background: rgba(212, 175, 55, 0.10);
+  border: 1px solid rgba(212, 175, 55, 0.26);
+  color: var(--color-brand-gold);
+  font-family: var(--font-secondary);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  box-shadow: 0 8px 22px rgba(212,175,55,0.08);
+}
+
+.section-header.projects-luxury-header h2,
+.section-header.luxury-clients-header h2 {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-primary);
+  font-size: clamp(1.5rem, 3.2vw, 2.7rem);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: #1b1815;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+.section-subtext {
+  margin: 0;
+  max-width: 620px;
+  font-family: var(--font-secondary);
+  font-size: clamp(0.92rem, 1.4vw, 1.05rem);
+  line-height: 1.9;
+  color: #7b746d;
+}
+
+.luxury-view-all {
+  flex-shrink: 0;
+  align-self: flex-end;
+  margin: 0;
+  padding: 0.65rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(212,175,55,0.20);
+  background: rgba(255,255,255,0.70);
+  color: #8d7a60;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* ========================================
+   OUR PROJECTS - PREMIUM LUXURY
+   ======================================== */
+
+.projects-section {
+  position: relative;
+  padding: clamp(4rem, 8vw, 6.5rem) 0;
+  background:
+    radial-gradient(circle at top left, rgba(212,175,55,0.08), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(163,106,43,0.08), transparent 30%),
+    linear-gradient(180deg, #fcfbf8 0%, #f4efe8 100%);
+  overflow: hidden;
 }
 
 .projects-section::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--color-gold), var(--color-light-brown));
+  inset: 0;
+  background:
+    linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.16;
+  pointer-events: none;
 }
 
-.section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: clamp(2rem, 5vw, 4rem);
+.projects-section > .container {
   position: relative;
-}
-
-.section-header::after {
-  content: '';
-  position: absolute;
-  bottom: -16px;
-  left: 0;
-  width: 60px;
-  height: 3px;
-  background: linear-gradient(90deg, var(--color-gold), var(--color-light-brown));
-  border-radius: 2px;
-}
-
-.section-header h2 {
-  font-family: 'Playfair Display', 'Cormorant Garamond', 'DM Serif Display', serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: clamp(1.3rem, 3.5vw, 2.5rem);
-  color: #1a1a1a;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin: 0;
-}
-
-.view-all {
-  font-family: var(--font-secondary);
-  font-size: clamp(0.75rem, 1.2vw, 0.9rem);
-  font-weight: 500;
-  color: #888;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  padding: 6px 16px;
-  border-radius: 20px;
-  border: 1px solid transparent;
-}
-
-.view-all:hover {
-  color: var(--color-gold);
-  border-color: var(--color-gold);
-  background: rgba(212,175,55,0.08);
+  z-index: 2;
 }
 
 /* ========================================
@@ -305,57 +373,6 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: clamp(1.2rem, 2.5vw, 2.2rem);
-}
-
-.project-item {
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  background: rgba(255,255,255,0.75);
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 6px 24px rgba(0,0,0,0.08);
-  border: 1px solid rgba(0,0,0,0.05);
-  position: relative;
-}
-
-/* premium hover lift */
-.project-item:hover {
-  transform: translateY(-12px) scale(1.02);
-  box-shadow: 0 30px 80px rgba(0,0,0,0.2);
-}
-
-/* luxury gradient glow */
-.project-item::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 20px;
-  background: linear-gradient(120deg, transparent, rgba(212,175,55,0.2), transparent);
-  opacity: 0;
-  transition: 0.4s;
-}
-
-.project-item:hover::after {
-  opacity: 1;
-}
-
-.project-item::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--color-gold), var(--color-light-brown));
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s ease;
-  z-index: 1;
-}
-
-.project-item:hover::before {
-  transform: scaleX(1);
-}
-
-.project-item.hide {
-  display: none;
 }
 
 /* ========================================
@@ -498,95 +515,213 @@
 }
 
 /* ========================================
-   PROJECT DETAILS
+   PROJECT BOX - ULTRA PREMIUM CARD
    ======================================== */
+
+.project-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.96) 0%,
+      rgba(249,246,241,0.98) 100%
+    );
+  border: 1px solid rgba(212, 175, 55, 0.16);
+  box-shadow:
+    0 16px 40px rgba(44, 36, 31, 0.08),
+    0 6px 18px rgba(212, 175, 55, 0.06),
+    inset 0 1px 0 rgba(255,255,255,0.85);
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s ease,
+    border-color 0.35s ease;
+}
+
+.project-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    rgba(212,175,55,0.95),
+    rgba(196,167,125,0.45),
+    transparent
+  );
+  z-index: 4;
+}
+
+.project-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(212,175,55,0.08),
+      transparent 38%,
+      rgba(255,255,255,0.04) 60%,
+      transparent 100%
+    );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.project-item:hover {
+  transform: translateY(-12px);
+  border-color: rgba(212, 175, 55, 0.28);
+  box-shadow:
+    0 28px 70px rgba(44, 36, 31, 0.14),
+    0 10px 28px rgba(212, 175, 55, 0.12),
+    inset 0 1px 0 rgba(255,255,255,0.92);
+}
+
+.project-item:hover::after {
+  opacity: 1;
+}
+
+/* ========================================
+   PROJECT DETAILS - PREMIUM NAME BLOCK
+   ======================================== */
+
 .project-details {
-  padding: clamp(1rem, 2vw, 1.5rem);
+  position: relative;
+  padding: 1.35rem 1.3rem 1.45rem;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.82),
+      rgba(247,243,237,0.96)
+    );
+}
+
+.project-details::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 1.3rem;
+  right: 1.3rem;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(212,175,55,0.20),
+    rgba(212,175,55,0.05),
+    transparent
+  );
 }
 
 .project-category {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  padding: 4px 13px;
+  border-radius: 999px;
+  background: rgba(212,175,55,0.10);
+  border: 1px solid rgba(212,175,55,0.24);
+  color: var(--color-brand-gold);
   font-family: var(--font-secondary);
-  font-size: 0.72rem;
+  font-size: 0.70rem;
   font-weight: 700;
-  color: var(--color-gold);
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  margin-bottom: 0.6rem;
-  padding: 3px 10px;
-  background: rgba(212,175,55,0.1);
-  border: 1px solid rgba(212,175,55,0.3);
-  border-radius: 20px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.55);
   transition: all 0.3s ease;
 }
 
 .project-item:hover .project-category {
-  background: rgba(212,175,55,0.2);
-  border-color: rgba(212,175,55,0.5);
+  background: rgba(212,175,55,0.16);
+  border-color: rgba(212,175,55,0.36);
 }
 
 .project-details h3 {
-  font-family: 'Playfair Display', 'Cormorant Garamond', serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: clamp(1rem, 2vw, 1.3rem);
-  color: #1a1a1a;
-  margin-bottom: 0.3rem;
-  line-height: 1.3;
-  transition: color 0.3s ease;
+  margin: 0.8rem 0 0.32rem;
+  font-family: var(--font-primary);
+  font-size: clamp(1.05rem, 1.9vw, 1.38rem);
+  font-weight: 500;
+  line-height: 1.24;
+  letter-spacing: 0.03em;
+  color: #1d1814;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .project-item:hover .project-details h3 {
   color: var(--color-dark-brown);
+  transform: translateX(2px);
 }
 
 .project-details p {
-  font-family: var(--font-secondary);
-  font-size: clamp(0.82rem, 1.2vw, 0.92rem);
-  color: #777;
-  line-height: 1.5;
   margin: 0;
+  font-family: var(--font-secondary);
+  font-size: 0.92rem;
+  font-weight: 500;
+  line-height: 1.6;
+  color: #8a8178;
+  letter-spacing: 0.02em;
 }
 
 /* ========================================
-   CLIENTS SECTION
+   OUR CLIENTS - PREMIUM LUXURY
    ======================================== */
+
 .clients-section {
-  padding: clamp(3rem, 8vw, 6rem) 0;
-  background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
   position: relative;
-  opacity: 1 !important;
-  visibility: visible !important;
+  padding: clamp(4rem, 8vw, 6.2rem) 0;
+  background:
+    radial-gradient(circle at top right, rgba(212,175,55,0.08), transparent 26%),
+    radial-gradient(circle at bottom left, rgba(163,106,43,0.08), transparent 28%),
+    linear-gradient(180deg, #f7f4ef 0%, #ffffff 100%);
+  overflow: hidden;
 }
 
 .clients-section::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--color-gold), var(--color-light-brown));
+  inset: 0;
+  background:
+    linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px);
+  background-size: 44px 44px;
+  opacity: 0.14;
+  pointer-events: none;
 }
 
-.clients-header {
-  margin-bottom: clamp(2rem, 5vw, 4rem);
+.clients-section > .container {
+  position: relative;
+  z-index: 2;
 }
 
 .clients-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: clamp(1rem, 2.5vw, 2rem);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.6rem);
 }
 
 .client-card {
   position: relative;
-  height: clamp(130px, 18vw, 200px);
-  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 6px 24px rgba(0,0,0,0.08);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  background: rgba(255,255,255,0.6);
-  border: 1px solid rgba(0,0,0,0.06);
-  opacity: 1 !important;
+  min-height: clamp(155px, 18vw, 210px);
+  border-radius: 26px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.94),
+      rgba(247,243,237,0.98)
+    );
+  border: 1px solid rgba(212,175,55,0.16);
+  box-shadow:
+    0 14px 34px rgba(44,36,31,0.08),
+    0 5px 16px rgba(212,175,55,0.05),
+    inset 0 1px 0 rgba(255,255,255,0.82);
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s ease,
+    border-color 0.35s ease;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
@@ -594,35 +729,42 @@
 .client-card::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--color-gold), var(--color-light-brown));
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s ease;
-  z-index: 2;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    rgba(212,175,55,0.92),
+    rgba(196,167,125,0.34),
+    transparent
+  );
+  z-index: 3;
 }
 
-.client-card:hover {
-  transform: translateY(-10px) scale(1.03);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.14);
-  border-color: rgba(212,175,55,0.25);
-}
-
-.client-card:hover::before {
-  transform: scaleX(1);
-}
-
-/* Glow effect */
 .client-card::after {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 16px;
-  box-shadow: 0 0 30px rgba(212,175,55,0.2);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(212,175,55,0.09),
+      transparent 40%,
+      rgba(255,255,255,0.04) 65%,
+      transparent 100%
+    );
   opacity: 0;
-  transition: opacity 0.4s;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
   z-index: 1;
+}
+
+.client-card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(212,175,55,0.28);
+  box-shadow:
+    0 24px 56px rgba(44,36,31,0.12),
+    0 8px 24px rgba(212,175,55,0.10),
+    inset 0 1px 0 rgba(255,255,255,0.90);
 }
 
 .client-card:hover::after {
@@ -632,37 +774,43 @@
 .client-logo {
   position: absolute;
   inset: 0;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1;
-  transition: all 0.4s ease;
+  padding: 1.3rem;
 }
 
 .client-logo img {
-  max-width: 75%;
-  max-height: 75%;
+  max-width: 70%;
+  max-height: 70%;
   object-fit: contain;
-  filter: grayscale(100%) opacity(0.75);
-  transition: all 0.4s ease;
-  border-radius: 6px;
+  border-radius: 10px;
+  filter: grayscale(100%) opacity(0.80);
+  transition: filter 0.35s ease, transform 0.35s ease;
 }
 
 .client-card:hover .client-logo img {
   filter: grayscale(0%) opacity(1);
-  transform: scale(1.08);
+  transform: scale(1.06);
 }
 
 .client-overlay {
   position: absolute;
-  bottom: 0; left: 0; right: 0;
-  background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.78) 100%);
-  padding: clamp(1rem, 2vw, 1.8rem);
-  color: #fff;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 4;
+  padding: 1.25rem 1rem 1rem;
+  background:
+    linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(20,16,14,0.80) 100%
+    );
   opacity: 0;
-  transform: translateY(12px);
-  transition: all 0.4s ease;
-  z-index: 2;
+  transform: translateY(14px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
 .client-card:hover .client-overlay {
@@ -671,19 +819,24 @@
 }
 
 .client-overlay h4 {
-  font-family: var(--font-secondary);
-  font-size: clamp(0.85rem, 1.5vw, 1.1rem);
-  font-weight: 700;
-  margin: 0 0 3px;
-  text-transform: uppercase;
+  margin: 0 0 0.24rem;
+  font-family: var(--font-primary);
+  font-size: clamp(0.95rem, 1.4vw, 1.12rem);
+  font-weight: 500;
   letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #ffffff;
+  line-height: 1.25;
 }
 
 .client-overlay p {
-  font-family: var(--font-secondary);
-  font-size: clamp(0.72rem, 1vw, 0.85rem);
-  color: rgba(255,255,255,0.8);
   margin: 0;
+  font-family: var(--font-secondary);
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.78);
+  text-transform: uppercase;
 }
 
 /* ========================================
@@ -841,39 +994,296 @@
 }
 
 /* ========================================
-   SCROLL REVEAL ANIMATIONS
+   LUXURY ANIMATIONS - PROJECTS & CLIENTS
    ======================================== */
-.fade-in-up {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.8s ease;
+
+/* static premium polish - no hidden/reveal */
+.project-item,
+.client-card {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  animation: none !important;
 }
 
-.fade-in-up.show {
+/* smooth premium transitions only */
+.project-item,
+.client-card,
+.project-details h3,
+.project-details p,
+.project-category,
+.client-logo img,
+.client-overlay,
+.client-overlay h4,
+.client-overlay p,
+.project-item::before,
+.project-item::after,
+.client-card::before,
+.client-card::after {
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease,
+    background 0.35s ease,
+    color 0.35s ease,
+    opacity 0.35s ease,
+    filter 0.35s ease,
+    letter-spacing 0.35s ease;
+}
+
+/* static elegant shine */
+.project-item::after,
+.client-card::after {
+  opacity: 1;
+  background:
+    linear-gradient(
+      120deg,
+      transparent 0%,
+      transparent 44%,
+      rgba(255,255,255,0.05) 50%,
+      transparent 56%,
+      transparent 100%
+    );
+  background-size: 220% 100%;
+  background-position: -180% 0;
+  animation: none !important;
+}
+
+/* no moving gold top line */
+.project-item::before,
+.client-card::before {
+  background-size: 100% 100%;
+  animation: none !important;
+}
+
+/* calm premium hover */
+.project-item:hover {
+  transform: translateY(-4px) !important;
+  box-shadow:
+    0 22px 48px rgba(44, 36, 31, 0.12),
+    0 8px 22px rgba(212, 175, 55, 0.08),
+    inset 0 1px 0 rgba(255,255,255,0.92);
+}
+
+.client-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow:
+    0 20px 42px rgba(44,36,31,0.10),
+    0 8px 20px rgba(212,175,55,0.06),
+    inset 0 1px 0 rgba(255,255,255,0.90);
+}
+
+/* keep slideshow image smooth but not over-animated */
+.project-item .slideshow-slide.active img {
+  animation: none !important;
+  transform: scale(1.03);
+  filter: brightness(0.95);
+}
+
+.project-item:hover .slideshow-slide.active img {
+  transform: scale(1.05);
+  filter: brightness(1);
+}
+
+/* subtle category polish */
+.project-category::after,
+.project-category::before {
+  animation: none !important;
+}
+
+.project-item:hover .project-category {
+  background: rgba(212,175,55,0.14);
+  border-color: rgba(212,175,55,0.32);
+}
+
+/* refined text movement only */
+.project-item:hover .project-details h3 {
+  transform: translateX(2px);
+  letter-spacing: 0.04em;
+}
+
+.project-item:hover .project-details p {
+  transform: translateX(2px);
+  color: #6f655c;
+}
+
+/* client logo only simple premium change */
+.client-logo img {
+  animation: none !important;
+  filter: grayscale(100%) opacity(0.80);
+}
+
+.client-card:hover .client-logo img {
+  transform: scale(1.04);
+  filter: grayscale(0%) opacity(1);
+}
+
+/* client overlay simple fade */
+.client-overlay {
+  opacity: 0;
+  transform: translateY(10px);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+}
+
+.client-card:hover .client-overlay {
   opacity: 1;
   transform: translateY(0);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.client-card:hover .client-overlay h4 {
+  transform: translateX(2px);
+  letter-spacing: 0.08em;
+}
+
+.client-card:hover .client-overlay p {
+  transform: translateX(2px);
+  opacity: 0.9;
 }
 
 /* ========================================
-   RESPONSIVE
+   KEYFRAMES
    ======================================== */
-@media (max-width: 1024px) {
-  .projects-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
 
-  .clients-grid {
-    grid-template-columns: repeat(2, 1fr);
+@keyframes luxuryCardReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(36px) scale(0.96);
+    filter: blur(2px);
   }
-
-  .page-banner {
-    min-height: 80vh;
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
   }
 }
 
+@keyframes luxurySweep {
+  0% {
+    background-position: -160% 0;
+  }
+  100% {
+    background-position: 180% 0;
+  }
+}
+
+@keyframes luxuryHoverFloat {
+  0%, 100% {
+    transform: translateY(-12px);
+  }
+  50% {
+    transform: translateY(-16px);
+  }
+}
+
+@keyframes clientHoverFloat {
+  0%, 100% {
+    transform: translateY(-10px);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes tagShine {
+  0%, 100% {
+    left: -140%;
+  }
+  50% {
+    left: 160%;
+  }
+}
+
+@keyframes titleLuxuryShift {
+  0% {
+    transform: translateX(0);
+    letter-spacing: 0.03em;
+  }
+  100% {
+    transform: translateX(2px);
+    letter-spacing: 0.05em;
+  }
+}
+
+@keyframes logoBreath {
+  0%, 100% {
+    transform: scale(1);
+    filter: grayscale(100%) opacity(0.80);
+  }
+  50% {
+    transform: scale(1.02);
+    filter: grayscale(100%) opacity(0.88);
+  }
+}
+
+@keyframes logoBreathHover {
+  0%, 100% {
+    transform: scale(1.06);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes overlayTitleRise {
+  0% {
+    opacity: 0.85;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes overlayTextRise {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 0.8;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cinematicZoomLuxury {
+  0% {
+    transform: scale(1.04);
+    filter: brightness(0.92);
+  }
+  100% {
+    transform: scale(1.14);
+    filter: brightness(1);
+  }
+}
+
+@keyframes goldLineFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+/* ========================================
+   MOBILE REFINEMENT
+   ======================================== */
+
 @media (max-width: 768px) {
-  .page-banner {
-    min-height: 70vh;
+  .project-item {
+    border-radius: 22px;
+  }
+
+  .project-details {
+    padding: 1.15rem 1.05rem 1.2rem;
+  }
+
+  .client-card {
+    border-radius: 22px;
   }
 
   .banner-content h1 {
@@ -902,6 +1312,20 @@
 
   .project-image {
     height: clamp(200px, 55vw, 280px);
+  }
+
+  .project-item:hover,
+  .client-card:hover {
+    animation: none;
+  }
+
+  .project-item,
+  .client-card {
+    animation-duration: 0.7s;
+  }
+
+  .project-item .slideshow-slide.active img {
+    animation-duration: 8s;
   }
 }
 
@@ -945,5 +1369,21 @@
   .projects-cta .btn-primary {
     width: 100%;
     text-align: center;
+  }
+
+  .project-details h3 {
+    font-size: 1rem;
+  }
+
+  .project-details p {
+    font-size: 0.86rem;
+  }
+
+  .client-overlay h4 {
+    font-size: 0.9rem;
+  }
+
+  .client-overlay p {
+    font-size: 0.70rem;
   }
 }

@@ -11,12 +11,12 @@
     />
   </div>
   <div class="banner-content">
-    <div class="banner-badge gold-accent">Since 2015</div>
+    <div class="banner-badge gold-accent">Since 2019</div>
     <h1>ABOUT US</h1>
     <p>Transforming spaces with passion and expertise</p>
     <div class="about-stats">
       <div class="stat-item">
-        <span class="stat-number">10+</span>
+        <span class="stat-number">6+</span>
         <span class="stat-label">Years Experience</span>
       </div>
       <div class="stat-item">
@@ -45,9 +45,9 @@
         />
       </div>
       <div class="about-text fade-in-up">
-        <h2>Designing Dreams Since 2015</h2>
+        <h2>Designing Dreams Since 2019</h2>
         <p>Andspacio is a premium interior design studio based in Calicut, Kerala. We specialize in creating sophisticated spaces that reflect the unique personalities and lifestyles of our clients.</p>
-        <p>With over 10 years of experience, our team of talented designers combines creativity, functionality, and attention to detail to transform ordinary spaces into extraordinary environments. From residential homes to commercial spaces, we bring the same level of passion and commitment to every project.</p>
+        <p>With over 6 years of experience, our team of talented designers combines creativity, functionality, and attention to detail to transform ordinary spaces into extraordinary environments. From residential homes to commercial spaces, we bring the same level of passion and commitment to every project.</p>
         <p>We believe that great design should be accessible to everyone. Our approach is collaborative, ensuring that your vision becomes a reality while we guide you through every step of the design process.</p>
       </div>
     </div>
@@ -59,7 +59,7 @@
   <div class="container">
     <div class="stats-grid">
       <div class="stat-item fade-in-up">
-        <div class="stat-number">10+</div>
+        <div class="stat-number">6+</div>
         <div class="stat-label">Years Experience</div>
       </div>
       <div class="stat-item fade-in-up">
@@ -108,32 +108,60 @@
 <section class="about-video">
   <div class="container">
     <div class="video-header fade-in-up">
+      <span class="video-eyebrow">Luxury Motion</span>
       <h2>Our Design Journey</h2>
-      <p>Experience the art of premium interior design</p>
+      <p>Experience the art of premium interior design through a cinematic visual story.</p>
     </div>
-    <div class="video-container fade-in-up">
-      <div class="video-wrapper portrait-video">
-        <video 
-          #designVideo
-          id="designVideo" 
-          controls 
-          preload="auto"
-          poster="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1200&q=80" 
-          class="premium-video"
-          width="100%" 
-          height="auto"
-          playsinline
-          loading="lazy">
-          <source src="/assets/InterioVedio.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-        <div class="video-overlay" #videoOverlay id="videoOverlay">
-          <div class="play-button" #playButton id="playButton">
-            <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="30" cy="30" r="28" stroke="white" stroke-width="4" opacity="0.8"/>
-              <polygon points="25,20 25,40 45,30" fill="white"/>
-            </svg>
+
+    <div class="video-showcase fade-in-up">
+      <div class="video-frame-glow"></div>
+      <div class="video-frame-line"></div>
+
+      <div class="video-container">
+        <div class="video-wrapper portrait-video luxury-video-shell">
+          <div class="video-shell-top"></div>
+          <div class="video-shell-bottom"></div>
+
+          <video
+            #designVideo
+            id="designVideo"
+            controls
+            preload="auto"
+            poster="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1200&q=80"
+            class="premium-video"
+            width="100%"
+            height="auto"
+            playsinline
+            loading="lazy">
+            <source src="/assets/InterioVedio.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+
+          <div class="video-overlay" #videoOverlay id="videoOverlay">
+            <div class="video-overlay-shine"></div>
+
+            <div class="play-button-wrap">
+              <div class="play-button" #playButton id="playButton">
+                <svg width="76" height="76" viewBox="0 0 76 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="38" cy="38" r="35" fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.85)" stroke-width="2.2"/>
+                  <circle cx="38" cy="38" r="28" fill="rgba(255,255,255,0.08)" stroke="rgba(212,175,55,0.45)" stroke-width="1.4"/>
+                  <path d="M33 27L51 38L33 49V27Z" fill="white"/>
+                </svg>
+              </div>
+              <span class="play-label">Play Showcase</span>
+            </div>
           </div>
+        </div>
+      </div>
+
+      <div class="video-meta">
+        <div class="video-meta-card">
+          <span class="meta-number">6+</span>
+          <span class="meta-text">Years of refined design experience</span>
+        </div>
+        <div class="video-meta-card">
+          <span class="meta-number">100+</span>
+          <span class="meta-text">Premium spaces thoughtfully transformed</span>
         </div>
       </div>
     </div>
