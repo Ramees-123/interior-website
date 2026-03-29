@@ -21,9 +21,12 @@
 
 <!-- Header -->
 <header class="header" [class.scrolled]="isScrolled">
+  <div class="header-top-shine"></div>
+  <div class="header-ambient-glow"></div>
+
   <div class="header-container">
     <!-- Hamburger Menu -->
-    <button class="hamburger" (click)="toggleMenu()" [class.active]="isMenuOpen">
+    <button class="hamburger" (click)="toggleMenu()" [class.active]="isMenuOpen" aria-label="Toggle menu">
       <span></span>
       <span></span>
       <span></span>
@@ -31,10 +34,21 @@
 
     <!-- Logo and Company Name -->
     <div class="logo-container">
+      <div class="logo-luxury-ring"></div>
+
       <a routerLink="/" class="logo" (click)="scrollTop()">
-        <img src="assets/andspacio-logo.png" alt="Andspacio logo" class="logo-image" loading="eager" width="120" height="60" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+        <img
+          src="assets/andspacio-logo.png"
+          alt="Andspacio logo"
+          class="logo-image"
+          loading="eager"
+          width="120"
+          height="60"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+        />
         <div class="logo-text-fallback" style="display:none">Andspacio</div>
       </a>
+
       <div class="company-name">
         <div class="company-title">andspacio</div>
         <div class="company-subtitle">INTERIOR DESIGN STUDIO</div>
@@ -98,18 +112,36 @@
 </main>
 
 <!-- Footer -->
-<footer class="footer">
+<footer class="footer premium-footer">
+  <div class="footer-glow"></div>
+  <div class="footer-shine"></div>
+
   <div class="footer-container">
     <div class="footer-logo">
-  <img src="assets/andspacio-logo.png" alt="andspacio logo" class="footer-logo-image" loading="lazy" width="120" height="60" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
-      <div class="footer-company">andspacio</div>
+      <div class="footer-logo-ring"></div>
+
+      <img
+        src="assets/andspacio-logo.png"
+        alt="andspacio logo"
+        class="footer-logo-image"
+        loading="lazy"
+        width="120"
+        height="60"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+      />
+
       <div class="footer-text-fallback" style="display:none">andspacio</div>
+      <div class="footer-company">andspacio</div>
+      <div class="footer-tagline">INTERIOR DESIGN STUDIO</div>
     </div>
+
     <div class="footer-info">
       <p class="footer-contact">+91 62388 35584</p>
       <p class="footer-location">Kozhikode, Kerala</p>
     </div>
+
     <div class="footer-line"></div>
-  <p class="footer-copyright">© 2026 Andspacio. All rights reserved.</p>
+
+    <p class="footer-copyright">© 2026 Andspacio. All rights reserved.</p>
   </div>
 </footer>
