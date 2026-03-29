@@ -279,7 +279,7 @@
   margin-bottom: clamp(1rem, 2vw, 1.5rem);
   text-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
   animation: fadeIn 1.2s ease-out 0.5s both;
-  font-style: italic;
+  font-style: normal;
 }
 
 .banner-content p {
@@ -392,7 +392,7 @@
   color: var(--color-dark-brown);
   margin-bottom: 1.5rem;
   position: relative;
-  font-style: italic;
+  font-style: normal;
 }
 
 .about-text h2::after {
@@ -592,7 +592,7 @@ section.services-section::before {
   color: var(--color-white);
   margin-bottom: 1rem;
   position: relative;
-  font-style: italic;
+  font-style: normal;
 }
 
 .services-section .section-header h2::after {

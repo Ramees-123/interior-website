@@ -3,7 +3,7 @@
    ======================================== */
 
 /* Google Fonts Import - Premium Typography */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Combine+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
 
 /* CSS Variables - Luxury Design System */
 :root {
@@ -20,9 +20,9 @@
   --color-brand-black: #000000;
   
   /* Typography */
-  --font-primary: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
-  --font-secondary: 'Poppins', 'Avenir', 'Montserrat', Arial, sans-serif;
-  --font-brand: 'Montserrat', 'Poppins', Arial, sans-serif;
+  --font-primary: 'Combine Serif', 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --font-secondary: 'Inter', 'Poppins', 'Avenir', 'Montserrat', Arial, sans-serif;
+  --font-brand: 'Inter', 'Montserrat', 'Poppins', Arial, sans-serif;
   
   /* Spacing */
   --spacing-xs: 0.5rem;
@@ -79,27 +79,30 @@ h1, h2, h3, h4 {
   font-family: var(--font-primary);
   font-weight: 400;
   letter-spacing: 0.02em;
+  font-style: normal;
 }
 
 h1 {
-  font-size: clamp(1.75rem, 5vw, 4rem);
-  line-height: 1.2;
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  line-height: 1.1;
+  margin-bottom: var(--spacing-lg);
 }
 
 h2 {
-  font-size: clamp(1.5rem, 4vw, 3rem);
-  margin-bottom: var(--spacing-md);
+  font-size: clamp(1.75rem, 5vw, 3.5rem);
+  margin-bottom: var(--spacing-xl);
 }
 
 h3 {
-  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-  margin-bottom: var(--spacing-sm);
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  margin-bottom: var(--spacing-md);
 }
 
 p {
   color: var(--color-warm-gray);
-  margin-bottom: 1rem;
-  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+  margin-bottom: var(--spacing-md);
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  line-height: 1.8;
 }
 
 /* Links */
@@ -151,6 +154,62 @@ img[loading="lazy"] {
 /* Section Spacing */
 section {
   padding: var(--spacing-xl) 0;
+}
+
+/* Enhanced Gold and Black Color Scheme */
+.gold-text {
+  color: var(--color-gold);
+  font-family: var(--font-primary);
+}
+
+.black-text {
+  color: var(--color-brand-black);
+  font-family: var(--font-secondary);
+}
+
+.gold-background {
+  background: linear-gradient(135deg, #D4AF37 0%, #A36A2B 100%);
+  color: white;
+}
+
+.black-background {
+  background: var(--color-brand-black);
+  color: var(--color-cream);
+}
+
+/* Premium text combinations */
+.luxury-text {
+  color: var(--color-brand-black);
+  font-family: var(--font-primary);
+  font-weight: 400;
+}
+
+.modern-text {
+  color: var(--color-charcoal);
+  font-family: var(--font-secondary);
+  font-weight: 300;
+}
+
+/* Enhanced spacing for luxury feel */
+.luxury-spacing {
+  padding: var(--spacing-xl) var(--spacing-lg);
+}
+
+.modern-spacing {
+  padding: var(--spacing-lg) var(--spacing-md);
+}
+
+/* Premium content blocks with more breathing room */
+.content-block {
+  margin-bottom: var(--spacing-xl);
+}
+
+.content-block h2 {
+  margin-bottom: var(--spacing-lg);
+}
+
+.content-block p {
+  margin-bottom: var(--spacing-md);
 }
 
 /* Page banner logo styling for interior pages */

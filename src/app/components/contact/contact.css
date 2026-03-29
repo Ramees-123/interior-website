@@ -58,7 +58,7 @@
   text-shadow: 0 6px 12px rgba(0,0,0,0.4);
   animation: fadeIn 1.2s ease-out 0.5s both;
   letter-spacing: 0.1em;
-  font-style: italic;
+  font-style: normal;
 }
 
 .banner-content p {
@@ -775,7 +775,7 @@
 .info-content h3 {
   font-family: var(--font-primary);
   font-size: clamp(1.15rem, 2vw, 1.5rem);
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
   color: var(--color-dark-brown);
   margin-bottom: 0.55rem;
@@ -946,7 +946,7 @@
 .modal-content h3 {
   font-family: var(--font-primary);
   font-size: clamp(1.5rem, 3vw, 2rem);
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
   color: var(--color-dark-brown);
   margin-bottom: 0.4rem;
@@ -1289,7 +1289,7 @@
 .form-header h2 {
   font-family: var(--font-primary);
   font-size: clamp(1.5rem, 3vw, 2.3rem);
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
   color: var(--color-dark-brown);
   margin-bottom: 0.6rem;
