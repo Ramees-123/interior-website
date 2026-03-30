@@ -105,20 +105,22 @@
 
 .stat-label {
   display: block;
-  font-family: var(--font-secondary);
-  font-size: clamp(0.6rem, 1.2vw, 0.7rem);
-  letter-spacing: 0.1em;
+  font-family: var(--font-primary);
+  font-size: clamp(0.65rem, 1.3vw, 0.75rem);
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-beige);
-  opacity: 0.8;
-  margin-bottom: 0.25rem;
+  color: var(--color-gold);
+  opacity: 0.95;
+  margin-bottom: 0.3rem;
 }
 
 .stat-value {
-  font-family: var(--font-primary);
-  font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+  font-family: var(--font-secondary);
+  font-size: clamp(0.85rem, 1.6vw, 1rem);
   color: var(--color-white);
-  font-weight: 600;
+  font-weight: 500;
+  letter-spacing: 0.03em;
 }
 
 /* ========================================
