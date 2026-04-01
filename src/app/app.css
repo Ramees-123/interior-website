@@ -919,14 +919,15 @@ main .page-banner {
       transparent 1px,
       transparent 8px
     );
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s ease;
+  transition: opacity 0.2s ease-out, visibility 0.2s ease;
   overflow-y: auto;
   /* Interior-themed cursor */
   cursor: default;
+  will-change: opacity, visibility;
 }
 
 .menu-overlay.active {
@@ -1040,10 +1041,11 @@ main .page-banner {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   overflow: hidden;
-  transform: translateY(30px) scale(0.96);
-  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(0) scale(1);
+  transition: transform 0.3s ease-out;
   /* Interior material texture */
   border-image: linear-gradient(135deg, rgba(212,175,55,0.3), transparent) 1;
+  will-change: transform;
 }
 
 .menu-overlay.active .menu-shell {
@@ -2222,11 +2224,11 @@ main .page-banner {
   transform: translateY(0) scale(1);
 }
 
-.menu-overlay.active .menu-link:nth-child(1) { transition-delay: 0.20s; }
-.menu-overlay.active .menu-link:nth-child(2) { transition-delay: 0.30s; }
-.menu-overlay.active .menu-link:nth-child(3) { transition-delay: 0.40s; }
-.menu-overlay.active .menu-link:nth-child(4) { transition-delay: 0.50s; }
-.menu-overlay.active .menu-link:nth-child(5) { transition-delay: 0.60s; }
+.menu-overlay.active .menu-link:nth-child(1) { transition-delay: 0.05s; }
+.menu-overlay.active .menu-link:nth-child(2) { transition-delay: 0.08s; }
+.menu-overlay.active .menu-link:nth-child(3) { transition-delay: 0.11s; }
+.menu-overlay.active .menu-link:nth-child(4) { transition-delay: 0.14s; }
+.menu-overlay.active .menu-link:nth-child(5) { transition-delay: 0.17s; }
 
 .menu-link:hover {
   /* Interior design hover transformation */

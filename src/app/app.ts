@@ -148,20 +148,8 @@ export class App implements AfterViewInit {
     this.isMenuOpen = !this.isMenuOpen;
     if (this.isMenuOpen) {
       document.body.style.overflow = 'hidden';
-      // Animate menu items using CSS classes
-      const menuLinks = document.querySelectorAll('.menu-link');
-      menuLinks.forEach((link, index) => {
-        setTimeout(() => {
-          link.classList.add('active');
-        }, index * 100);
-      });
     } else {
       document.body.style.overflow = '';
-      // Remove animation classes
-      const menuLinks = document.querySelectorAll('.menu-link');
-      menuLinks.forEach(link => {
-        link.classList.remove('active');
-      });
     }
   }
 
