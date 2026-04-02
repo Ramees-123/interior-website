@@ -46,7 +46,7 @@
       </div>
       <div class="about-text fade-in-up">
         <h2>Designing Dreams Since 2019</h2>
-        <p>Andspacio is a premium interior design studio based in Calicut, Kerala. We specialize in creating sophisticated spaces that reflect the unique personalities and lifestyles of our clients.</p>
+        <p>Andspacio is a premium interior design studio based in Calicut, Kerala and Bangalore. We specialize in creating sophisticated spaces that reflect the unique personalities and lifestyles of our clients.</p>
         <p>With over 6 years of experience, our team of talented designers combines creativity, functionality, and attention to detail to transform ordinary spaces into extraordinary environments. From residential homes to commercial spaces, we bring the same level of passion and commitment to every project.</p>
         <p>We believe that great design should be accessible to everyone. Our approach is collaborative, ensuring that your vision becomes a reality while we guide you through every step of the design process.</p>
       </div>
@@ -99,6 +99,82 @@
         <div class="value-icon">✦</div>
         <h3>Sustainability</h3>
         <p>We are committed to sustainable design practices and eco-friendly materials for a better future without compromising on luxury and aesthetics.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Premium Project Video Showcase -->
+<section class="project-video-showcase">
+  <div class="container">
+    <div class="showcase-header fade-in-up">
+      <span class="showcase-eyebrow">Featured Project</span>
+      <h2>Cinematic Experience</h2>
+      <p>Immerse yourself in the artistry of our signature project through this exclusive visual journey.</p>
+    </div>
+
+    <div class="showcase-wrapper fade-in-up">
+      <div class="showcase-frame">
+        <div class="frame-glow"></div>
+        <div class="frame-border"></div>
+        
+        <div class="video-theater">
+          <div class="theater-backdrop"></div>
+          <div class="theater-light"></div>
+          
+          <div class="video-stage">
+            <video
+              #projectVideo
+              id="projectVideo"
+              controls
+              preload="auto"
+              poster="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1200&q=80"
+              class="theater-video"
+              width="100%"
+              height="auto"
+              playsinline
+              loading="lazy">
+              <source src="/assets/project2.MOV" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+
+            <div class="theater-overlay" #theaterOverlay id="theaterOverlay">
+              <div class="overlay-shimmer"></div>
+              
+              <div class="theater-play">
+                <div class="play-icon" #theaterPlayBtn id="theaterPlayBtn">
+                  <svg width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="45" cy="45" r="42" fill="rgba(255,255,255,0.08)" stroke="rgba(212,175,55,0.7)" stroke-width="2.5"/>
+                    <circle cx="45" cy="45" r="34" fill="rgba(212,175,55,0.12)" stroke="rgba(255,255,255,0.3)" stroke-width="1.2"/>
+                    <path d="M38 30L58 45L38 60V30Z" fill="white" filter="url(#playGlow)"/>
+                    <defs>
+                      <filter id="playGlow" x="-20%" y="-20%" width="140%" height="140%">
+                        <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur"/>
+                        <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                      </filter>
+                    </defs>
+                  </svg>
+                </div>
+                <span class="play-text">Watch Project Film</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="showcase-info">
+        <div class="info-card">
+          <span class="info-label">Project Type</span>
+          <span class="info-value">Luxury Residential</span>
+        </div>
+        <div class="info-card">
+          <span class="info-label">Location</span>
+          <span class="info-value">Calicut, Kerala</span>
+        </div>
+        <div class="info-card">
+          <span class="info-label">Year</span>
+          <span class="info-value">2024</span>
+        </div>
       </div>
     </div>
   </div>

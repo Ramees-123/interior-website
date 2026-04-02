@@ -647,10 +647,11 @@ section {
   width: 100%;
   max-width: 720px;
   margin: 0 auto;
-  padding: 0;
-  display: grid;
-  place-items: center;
-  row-gap: 1rem;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.05rem;
   text-align: center;
 }
 
@@ -668,9 +669,10 @@ section {
 .footer-logo {
   position: relative;
   width: 100%;
-  display: grid;
-  place-items: center;
-  row-gap: 0.35rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 .footer-logo-ring {
@@ -725,33 +727,44 @@ section {
   position: relative;
   z-index: 2;
   margin: 0;
-  font-family: var(--font-secondary);
-  font-size: 1rem;
-  font-weight: 400;
-  letter-spacing: 0.22em;
-  color: var(--color-brand-gold);
+  padding: 0;
+  font-family: 'Poppins', 'Inter', 'Montserrat', Arial, sans-serif;
+  font-size: clamp(1.6rem, 5vw, 2.2rem);
+  font-weight: 500;
+  letter-spacing: 0.52em;
+  color: #A36A2B;
   text-transform: none;
+  line-height: 1.2;
+  text-shadow: none;
+  width: 100%;
+  display: block;
 }
 
 .footer-tagline {
   position: relative;
   z-index: 2;
   margin: 0;
-  font-family: var(--font-secondary);
-  font-size: 0.60rem;
-  font-weight: 700;
+  padding: 0;
+  font-family: 'Montserrat', 'Poppins', 'Inter', Arial, sans-serif;
+  font-size: clamp(0.52rem, 1.5vw, 0.75rem);
+  font-weight: 600;
   letter-spacing: 0.24em;
-  color: var(--color-brand-black);
+  color: #2C2C2C;
   text-transform: uppercase;
-  opacity: 0.9;
+  opacity: 1;
+  line-height: 1.3;
+  word-spacing: normal;
+  width: 100%;
+  display: block;
 }
 
 /* info block */
 .footer-info {
   width: 100%;
-  display: grid;
-  place-items: center;
-  row-gap: 0.45rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .footer-contact {
@@ -816,7 +829,7 @@ section {
   }
 
   .footer-container {
-    row-gap: 0.9rem;
+    gap: 0.9rem;
   }
 
   .footer-logo-image {
@@ -1049,5 +1062,99 @@ section {
   
   .footer-copyright {
     font-size: 0.7rem;
+  }
+}
+
+/* FOOTER BRAND BLOCK - MATCH REFERENCE */
+.footer-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  text-align: center;
+}
+
+.footer-logo-image {
+  width: auto;
+  height: 96px;   /* increase logo size */
+  max-height: 96px;
+  object-fit: contain;
+  margin-bottom: 14px;
+}
+
+.footer-brand-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  gap: 0.2rem;
+  text-align: center;
+}
+
+/* Updated andspacio - matches loading screen */
+.footer-company {
+  font-family: 'Inter', 'Poppins', 'Montserrat', Arial, sans-serif;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: #A36A2B;
+  text-transform: none;
+  line-height: 1.2;
+  margin: 0;
+  padding: 0;
+  font-size: 39px;
+}
+
+/* Updated INTERIOR DESIGN STUDIO - matches loading screen */
+.footer-tagline {
+  font-family: 'Inter', 'Poppins', 'Montserrat', Arial, sans-serif;
+  font-size: clamp(0.65rem, 2vw, 0.85rem);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #2C2C2C;
+  text-transform: uppercase;
+  line-height: 1.4;
+  margin: 0;
+  padding: 0;
+  white-space: normal;
+  word-spacing: 0.08em;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .footer-logo-image {
+    height: 84px;
+    max-height: 84px;
+    margin-bottom: 12px;
+  }
+
+  .footer-company {
+    font-size: clamp(1.3rem, 4.5vw, 1.9rem);
+    letter-spacing: 0.12em;
+  }
+
+  .footer-tagline {
+    font-size: clamp(0.45rem, 1.3vw, 0.65rem);
+    letter-spacing: 0.24em;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-logo-image {
+    height: 76px;
+    max-height: 76px;
+    margin-bottom: 10px;
+  }
+
+  .footer-company {
+    font-size: 1.4rem;
+    letter-spacing: 0.52em;
+  }
+
+  .footer-tagline {
+    font-size: 0.48rem;
+    letter-spacing: 0.24em;
   }
 }

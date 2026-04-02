@@ -1561,6 +1561,464 @@ section::after {
 }
 
 /* ========================================
+   PREMIUM PROJECT VIDEO SHOWCASE (project2.MOV)
+   ======================================== */
+
+.project-video-showcase {
+  position: relative;
+  padding: clamp(5rem, 10vw, 8rem) 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.06), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(163, 106, 43, 0.06), transparent 40%),
+    linear-gradient(180deg, #0f0c0a 0%, #1a1410 30%, #0f0c0a 100%);
+  overflow: hidden;
+}
+
+.project-video-showcase::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(212, 175, 55, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 175, 55, 0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Animated ambient light orbs */
+.project-video-showcase::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.08), transparent 70%);
+  filter: blur(80px);
+  animation: ambientFloat 15s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes ambientFloat {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-50px, 30px) scale(1.1); }
+  100% { transform: translate(20px, -40px) scale(0.95); }
+}
+
+.showcase-header {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+  margin: 0 auto 4rem;
+  text-align: center;
+}
+
+.showcase-eyebrow {
+  display: inline-block;
+  margin-bottom: 1.2rem;
+  padding: 0.55rem 1.3rem;
+  border-radius: 999px;
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  color: var(--color-gold);
+  font-family: var(--font-secondary);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.1);
+}
+
+.showcase-header h2 {
+  margin-bottom: 1.2rem;
+  font-family: var(--font-primary);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--color-white);
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.showcase-header p {
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  line-height: 1.9;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+/* ========================================
+   SHOWCASE WRAPPER - CINEMA FRAME
+   ======================================== */
+
+.showcase-wrapper {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.showcase-frame {
+  position: relative;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border-radius: 36px;
+  background: linear-gradient(
+    145deg,
+    rgba(30, 24, 18, 0.95),
+    rgba(20, 16, 12, 0.98),
+    rgba(26, 20, 16, 0.95)
+  );
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  box-shadow:
+    0 50px 150px rgba(0, 0, 0, 0.5),
+    0 20px 60px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(212, 175, 55, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.frame-glow {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.15), transparent 70%);
+  filter: blur(60px);
+  opacity: 0.6;
+  pointer-events: none;
+  animation: frameGlowPulse 8s ease-in-out infinite;
+}
+
+@keyframes frameGlowPulse {
+  0%, 100% { opacity: 0.4; transform: translateX(-50%) scale(1); }
+  50% { opacity: 0.7; transform: translateX(-50%) scale(1.15); }
+}
+
+.frame-border {
+  position: absolute;
+  inset: 0;
+  border-radius: 36px;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(212, 175, 55, 0.4),
+    transparent 30%,
+    rgba(212, 175, 55, 0.1) 60%,
+    transparent
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ========================================
+   VIDEO THEATER - DARK CINEMA MODE
+   ======================================== */
+
+.video-theater {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.theater-backdrop {
+  position: absolute;
+  inset: -30px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(212, 175, 55, 0.08) 0%,
+    rgba(15, 12, 10, 0.9) 70%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.theater-light {
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 200px;
+  background: linear-gradient(
+    180deg,
+    rgba(212, 175, 55, 0.06) 0%,
+    transparent 100%
+  );
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.video-stage {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+}
+
+.theater-video {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 20px;
+  background: #000;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.5),
+    0 0 60px rgba(212, 175, 55, 0.05);
+}
+
+/* ========================================
+   THEATER OVERLAY - PREMIUM PLAY BUTTON
+   ======================================== */
+
+.theater-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  cursor: pointer;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+  transition: opacity 0.4s ease, background 0.4s ease;
+}
+
+.theater-overlay:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.35) 50%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+}
+
+.video-stage.playing .theater-overlay {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.overlay-shimmer {
+  position: absolute;
+  top: -150%;
+  left: -30%;
+  width: 40%;
+  height: 400%;
+  transform: rotate(15deg);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.08),
+    rgba(212, 175, 55, 0.06),
+    transparent
+  );
+  filter: blur(15px);
+  animation: shimmerSweep 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmerSweep {
+  0% { transform: translateX(-250%) rotate(15deg); opacity: 0; }
+  15% { opacity: 0.6; }
+  45% { opacity: 0.3; }
+  100% { transform: translateX(450%) rotate(15deg); opacity: 0; }
+}
+
+.theater-play {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.play-icon {
+  width: 110px;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.12),
+    rgba(255, 255, 255, 0.05)
+  );
+  border: 2px solid rgba(212, 175, 55, 0.5);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.3),
+    0 0 40px rgba(212, 175, 55, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: theaterPulse 3s ease-in-out infinite;
+}
+
+@keyframes theaterPulse {
+  0%, 100% {
+    box-shadow:
+      0 20px 50px rgba(0, 0, 0, 0.3),
+      0 0 40px rgba(212, 175, 55, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow:
+      0 25px 60px rgba(0, 0, 0, 0.4),
+      0 0 60px rgba(212, 175, 55, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+}
+
+.play-icon:hover {
+  transform: scale(1.08);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.1)
+  );
+  border-color: rgba(212, 175, 55, 0.8);
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.4),
+    0 0 80px rgba(212, 175, 55, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.play-text {
+  font-family: var(--font-secondary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* ========================================
+   SHOWCASE INFO CARDS
+   ======================================== */
+
+.showcase-info {
+  display: flex;
+  justify-content: center;
+  gap: clamp(1rem, 2vw, 2rem);
+  margin-top: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.info-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: clamp(1rem, 2vw, 1.5rem) clamp(1.5rem, 3vw, 2.5rem);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0.02)
+  );
+  border: 1px solid rgba(212, 175, 55, 0.12);
+  border-radius: 20px;
+  min-width: 180px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.info-card:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.04)
+  );
+  border-color: rgba(212, 175, 55, 0.25);
+  transform: translateY(-4px);
+}
+
+.info-label {
+  font-family: var(--font-secondary);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.info-value {
+  font-family: var(--font-primary);
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--color-gold);
+  letter-spacing: 0.03em;
+}
+
+/* ========================================
+   RESPONSIVE - PROJECT VIDEO SHOWCASE
+   ======================================== */
+
+@media (max-width: 768px) {
+  .project-video-showcase {
+    padding: clamp(3rem, 6vw, 5rem) 0;
+  }
+
+  .showcase-frame {
+    padding: 1rem;
+    border-radius: 24px;
+  }
+
+  .theater-video {
+    max-width: 350px;
+  }
+
+  .play-icon {
+    width: 90px;
+    height: 90px;
+  }
+
+  .showcase-info {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .info-card {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .showcase-header h2 {
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+  }
+
+  .theater-video {
+    max-width: 280px;
+    border-radius: 16px;
+  }
+
+  .play-icon {
+    width: 75px;
+    height: 75px;
+  }
+
+  .play-text {
+    font-size: 0.7rem;
+  }
+}
+
+/* ========================================
    PREMIUM LUXURY VIDEO SECTION
    ======================================== */
 
