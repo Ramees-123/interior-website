@@ -2138,6 +2138,23 @@
   animation: statusBlink 2s ease-in-out infinite;
 }
 
+.status-dot.closed {
+  background: #dc3545;
+  box-shadow: 0 0 8px rgba(220, 53, 69, 0.6);
+  animation: statusBlinkClosed 2s ease-in-out infinite;
+}
+
+@keyframes statusBlinkClosed {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
 @keyframes studioPulse {
   0%, 100% {
     transform: scale(1);

@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, computed, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -9,7 +9,7 @@ import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } 
   templateUrl: './contact.html',
   styleUrl: './contact.css',
 })
-export class Contact {
+export class Contact implements OnDestroy {
   // Form data model for new premium form
   formData = {
     name: '',
@@ -36,11 +36,53 @@ export class Contact {
   showEmailModal = signal(false);
   showLocationModal = signal(false);
   
+  // Studio status - real-time open/closed status
+  private statusCheckInterval: any;
+  currentTime = signal(new Date());
+  
+  // Business hours configuration (24-hour format)
+  private readonly openingHour = 9;  // 9:00 AM
+  private readonly closingHour = 18; // 6:00 PM
+  
+  isOpen = computed(() => {
+    const now = this.currentTime();
+    const day = now.getDay();
+    const hour = now.getHours();
+    
+    // Sunday is 0, Saturday is 6
+    // Closed on Sunday
+    if (day === 0) return false;
+    
+    // Open from 9:00 AM to 6:00 PM (18:00) on Mon-Sat
+    return hour >= this.openingHour && hour < this.closingHour;
+  });
+  
+  statusText = computed(() => {
+    return this.isOpen() ? 'Currently Open' : 'Currently Closed';
+  });
+  
+  statusDotClass = computed(() => {
+    return this.isOpen() ? 'status-dot open' : 'status-dot closed';
+  });
+  
+  constructor() {
+    // Update time every minute for real-time status
+    this.statusCheckInterval = setInterval(() => {
+      this.currentTime.set(new Date());
+    }, 60000); // Check every minute
+  }
+  
+  ngOnDestroy(): void {
+    if (this.statusCheckInterval) {
+      clearInterval(this.statusCheckInterval);
+    }
+  }
+  
   // Contact Information
   private locationAddress = 'Kozhikode, Kerala';
   private phoneNumber = '+91 62388 35584';
   private emailAddress = 'andspacio@gmail.com';
-  private googleMapsUrl = 'https://maps.app.goo.gl/WQ6vCrF5PEztmFSw9?g_st=aw';
+  private googleMapsUrl = 'https://maps.app.goo.gl/KUDLWjPfT2b5Tc6fA?g_st=aw';
   
   // Web3Forms Access Key - Get free key from https://web3forms.com
   // This is a demo key - replace with your own key

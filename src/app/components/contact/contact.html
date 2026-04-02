@@ -277,12 +277,12 @@
           <span class="studio-icon">🏢</span>
           <div>
             <div class="studio-title">Office Hours</div>
-            <div class="studio-hours">Mon - Sat: 10:00 AM - 7:00 PM</div>
+            <div class="studio-hours">Mon - Sat: 9:00 AM - 6:00 PM</div>
           </div>
         </div>
         <div class="studio-status">
-          <span class="status-dot"></span>
-          Currently Open
+          <span [class]="statusDotClass()"></span>
+          {{ statusText() }}
         </div>
       </div>
 
@@ -313,7 +313,7 @@
 
       <div class="map-actions">
         <a
-          href="https://maps.app.goo.gl/WQ6vCrF5PEztmFSw9?g_st=aw"
+          href="https://maps.app.goo.gl/KUDLWjPfT2b5Tc6fA?g_st=aw"
           target="_blank"
           rel="noopener noreferrer"
           class="premium-map-btn"
@@ -385,7 +385,7 @@
 
       <div class="modal-actions">
         <a
-          href="https://maps.app.goo.gl/WQ6vCrF5PEztmFSw9?g_st=aw"
+          href="https://maps.app.goo.gl/KUDLWjPfT2b5Tc6fA?g_st=aw"
           target="_blank"
           rel="noopener noreferrer"
           class="modal-btn premium-map-btn"
