@@ -149,9 +149,9 @@
 }
 
 .company-title {
-  font-family: var(--font-primary);
+  font-family: 'Ebisu Extra Light', var(--font-primary);
   font-size: 2.2rem;
-  font-weight: 500;
+  font-weight: 200;
   letter-spacing: 4px;
   color: var(--color-white);
   text-transform: uppercase;
