@@ -845,16 +845,6 @@ section {
     max-height: 48px;
   }
 
-  .footer-company {
-    font-size: 0.92rem;
-    letter-spacing: 0.18em;
-  }
-
-  .footer-tagline {
-    font-size: 0.50rem;
-    letter-spacing: 0.18em;
-  }
-
   .footer-contact {
     font-size: 0.92rem;
   }
@@ -880,16 +870,6 @@ section {
 
   .footer-logo-image {
     max-height: 42px;
-  }
-
-  .footer-company {
-    font-size: 0.82rem;
-    letter-spacing: 0.13em;
-  }
-
-  .footer-tagline {
-    font-size: 0.44rem;
-    letter-spacing: 0.10em;
   }
 
   .footer-contact {
@@ -1010,10 +990,6 @@ section {
     padding: 0 1.5rem;
   }
   
-  .footer-company {
-    font-size: 1.4rem;
-  }
-  
   .footer-contact {
     font-size: 1rem;
   }
@@ -1057,10 +1033,6 @@ section {
     max-height: 50px;
   }
   
-  .footer-company {
-    font-size: 1.2rem;
-  }
-  
   .footer-contact {
     font-size: 0.9rem;
   }
@@ -1102,10 +1074,10 @@ section {
   text-align: center;
 }
 
-/* Updated andspacio - matches loading screen */
+/* FOOTER RESPONSIVE TEXT - Responsive from 57px to 1488px width at 658px height */
 .footer-company {
   font-family: 'Ebisu Extra Light', 'Inter', 'Poppins', 'Montserrat', Arial, sans-serif;
-  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-size: clamp(1.8rem, 5vw, 2.4rem);
   font-weight: 200;
   letter-spacing: 0.08em;
   color: #A36A2B;
@@ -1113,15 +1085,13 @@ section {
   line-height: 1.2;
   margin: 0;
   padding: 0;
-  font-size: 39px;
 }
 
-/* Updated INTERIOR DESIGN STUDIO - matches loading screen */
 .footer-tagline {
   font-family: 'Inter', 'Poppins', 'Montserrat', Arial, sans-serif;
-  font-size: clamp(0.65rem, 2vw, 0.85rem);
+  font-size: clamp(0.5rem, 1.8vw, 0.75rem);
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.15em;
   color: #2C2C2C;
   text-transform: uppercase;
   line-height: 1.4;
@@ -1131,7 +1101,7 @@ section {
   word-spacing: 0.08em;
 }
 
-/* MOBILE */
+/* Responsive adjustments - maintains design consistency matching first image */
 @media (max-width: 768px) {
   .footer-logo-image {
     height: 84px;
@@ -1140,13 +1110,11 @@ section {
   }
 
   .footer-company {
-    font-size: clamp(1.3rem, 4.5vw, 1.9rem);
-    letter-spacing: 0.12em;
+    font-size: clamp(1.6rem, 5.8vw, 2.4rem);
   }
 
   .footer-tagline {
-    font-size: clamp(0.45rem, 1.3vw, 0.65rem);
-    letter-spacing: 0.24em;
+    font-size: clamp(0.45rem, 1.8vw, 0.rem);
   }
 }
 
@@ -1158,12 +1126,12 @@ section {
   }
 
   .footer-company {
-    font-size: 1.4rem;
-    letter-spacing: 0.12em;
+    font-size: clamp(1.95rem, 6.6vw, 3.1rem);
   }
 
   .footer-tagline {
-    font-size: 0.48rem;
-    letter-spacing: 0.24em;
+    
+
+            font-size: clamp(0.6rem, 2.08vw, 0.9rem);
   }
 }
