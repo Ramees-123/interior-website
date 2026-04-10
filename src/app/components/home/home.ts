@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, signal, ElementRef, ViewChild, AfterViewInit, inject } from '@angular/core';
+﻿import { Component, OnInit, OnDestroy, signal, ElementRef, ViewChild, AfterViewInit, inject } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { NgFor } from '@angular/common';
 
@@ -14,7 +14,7 @@ export class Home implements OnInit, OnDestroy, AfterViewInit {
   heroImages = [
     'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920&q=80',
     'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1920&q=80',
-    'https://images.unsplash.com/photo-1615529328331-f8917597711f?w=1920&q=80',
+    'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1920&q=80',
     'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1920&q=80',
     'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=80'
   ];
