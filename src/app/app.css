@@ -643,11 +643,11 @@ main .page-banner {
 
 .company-title {
   font-family: 'Ebisu Extra Light', var(--font-secondary);
-  font-size: clamp(0.95rem, 3vw, 1.26rem);
+font-size: clamp(1.8rem, 5.7vw, 2.4rem);
   font-weight: 200;
   color: var(--color-brand-gold);
-  letter-spacing: 0.22em;
-  line-height: 1.15;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
   text-transform: none;
   transition:
     color 0.35s ease,
@@ -659,10 +659,10 @@ main .page-banner {
 
 .company-subtitle {
   font-family: var(--font-secondary);
-  font-size: clamp(0.44rem, 1.15vw, 0.66rem);
+  font-size: clamp(0.58rem, 1.8vw, 0.87rem);
   font-weight: 700;
   color: var(--color-brand-black);
-  letter-spacing: clamp(0.16em, 0.45vw, 0.28em);
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   line-height: 1.25;
   opacity: 0.9;
@@ -677,25 +677,25 @@ main .page-banner {
 }
 
 .logo-container:hover .company-title {
-  letter-spacing: 0.26em;
+  letter-spacing: 0.08em;
   transform: translateY(-1px);
   text-shadow: 0 3px 10px rgba(212, 175, 55, 0.18);
 }
 
 .logo-container:hover .company-subtitle {
   opacity: 1;
-  letter-spacing: clamp(0.18em, 0.55vw, 0.34em);
+  letter-spacing: 0.15em;
   transform: translateY(1px);
 }
 
 .header.scrolled .company-title {
-  font-size: 1.08rem;
-  letter-spacing: 0.20em;
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
+  letter-spacing: 0.08em;
 }
 
 .header.scrolled .company-subtitle {
-  font-size: 0.56rem;
-  letter-spacing: 0.24em;
+  font-size: clamp(0.45rem, 1.8vw, 0.65rem);
+  letter-spacing: 0.15em;
 }
 
 /* Hamburger Menu */
@@ -1609,11 +1609,11 @@ main .page-banner {
 
 .company-title {
   font-family: 'Ebisu Extra Light', var(--font-secondary);
-  font-size: clamp(0.95rem, 3vw, 1.26rem);
+  font-size: clamp(1.8rem, 5.79vw, 2.8rem);
   font-weight: 200;
   color: var(--color-brand-gold);
-  letter-spacing: 0.22em;
-  line-height: 1.15;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
   text-transform: none;
   transition:
     color 0.35s ease,
@@ -1625,10 +1625,10 @@ main .page-banner {
 
 .company-subtitle {
   font-family: var(--font-secondary);
-  font-size: clamp(0.44rem, 1.15vw, 0.66rem);
+  font-size: clamp(0.58rem, 1.8vw, 0.87rem);
   font-weight: 700;
   color: var(--color-brand-black);
-  letter-spacing: clamp(0.16em, 0.45vw, 0.28em);
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   line-height: 1.25;
   opacity: 0.9;
@@ -1643,25 +1643,25 @@ main .page-banner {
 }
 
 .logo-container:hover .company-title {
-  letter-spacing: 0.26em;
+  letter-spacing: 0.08em;
   transform: translateY(-1px);
   text-shadow: 0 3px 10px rgba(212, 175, 55, 0.18);
 }
 
 .logo-container:hover .company-subtitle {
   opacity: 1;
-  letter-spacing: clamp(0.18em, 0.55vw, 0.34em);
+  letter-spacing: 0.15em;
   transform: translateY(1px);
 }
 
 .header.scrolled .company-title {
-  font-size: 1.08rem;
-  letter-spacing: 0.20em;
+  font-size: clamp(1.6rem, 5.5vw, 2.4rem);
+  letter-spacing: 0.08em;
 }
 
 .header.scrolled .company-subtitle {
-  font-size: 0.56rem;
-  letter-spacing: 0.24em;
+  font-size: clamp(0.51rem, 1.8vw, 0.76rem);
+  letter-spacing: 0.15em;
 }
 
 /* Hamburger Menu */
@@ -2523,3 +2523,7 @@ main .page-banner {
 .menu-scroll-container::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 215, 0, 0.5);
 }
+
+
+
+
