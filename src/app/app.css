@@ -105,7 +105,7 @@
   opacity: 0;
   animation: titleLetterSpacing 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
   text-align: center;
-  margin-bottom: 0.2rem;
+  margin-bottom: -1.25rem;
   text-shadow: none;
   line-height: 1.2;
   width: 100%;
