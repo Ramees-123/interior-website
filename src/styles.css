@@ -1135,3 +1135,113 @@ section {
             font-size: clamp(0.6rem, 2.08vw, 0.9rem);
   }
 }
+
+/* ========================================
+   LUXURY SCROLL-REVEAL SYSTEM (GLOBAL)
+   ======================================== */
+
+.lux-reveal,
+.lux-reveal-left,
+.lux-reveal-right,
+.lux-reveal-scale {
+  opacity: 0;
+  transition: opacity 0.9s cubic-bezier(0.4,0,0.2,1),
+              transform 0.9s cubic-bezier(0.4,0,0.2,1);
+  will-change: opacity, transform;
+}
+
+.lux-reveal          { transform: translateY(48px); }
+.lux-reveal-left     { transform: translateX(-48px); }
+.lux-reveal-right    { transform: translateX(48px); }
+.lux-reveal-scale    { transform: translateY(32px) scale(0.96); }
+
+.lux-reveal.lux-visible,
+.lux-reveal-left.lux-visible,
+.lux-reveal-right.lux-visible,
+.lux-reveal-scale.lux-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* grid stagger */
+.features-grid  .feature-card:nth-child(2),
+.process-grid   .process-card:nth-child(2),
+.projects-grid  .project-card:nth-child(2) { transition-delay: 0.12s; }
+
+.features-grid  .feature-card:nth-child(3),
+.process-grid   .process-card:nth-child(3),
+.projects-grid  .project-card:nth-child(3) { transition-delay: 0.24s; }
+
+.features-grid  .feature-card:nth-child(4),
+.process-grid   .process-card:nth-child(4) { transition-delay: 0.36s; }
+
+/* ========================================
+   GLOBAL SECTION EYEBROW
+   ======================================== */
+
+.section-eyebrow {
+  display: inline-block;
+  margin-bottom: 1rem;
+  padding: 0.45rem 1.2rem;
+  border-radius: 999px;
+  background: rgba(212,175,55,0.10);
+  border: 1px solid rgba(212,175,55,0.28);
+  color: var(--color-gold);
+  font-family: var(--font-secondary);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* ========================================
+   SMOOTH SCROLL UPGRADE
+   ======================================== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Refined scrollbar */
+::-webkit-scrollbar       { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #d4af37, #c4a77d);
+  border-radius: 10px;
+}
+
+/* ========================================
+   LUXURY BUTTON MICRO-INTERACTIONS
+   ======================================== */
+
+.btn-primary,
+.btn-secondary,
+.btn-secondary-dark {
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1),
+              box-shadow 0.35s ease,
+              background 0.35s ease,
+              color 0.35s ease;
+}
+
+.btn-primary:active,
+.btn-secondary:active,
+.btn-secondary-dark:active {
+  transform: translateY(0) scale(0.97) !important;
+}
+
+/* ========================================
+   IMAGE HOVER — slow luxury zoom
+   ======================================== */
+
+.project-card img,
+.about-image img,
+.service-image img,
+.team-image img {
+  transition: transform 0.8s cubic-bezier(0.4,0,0.2,1),
+              filter 0.8s ease;
+}
+
+.project-card:hover img  { transform: scale(1.06); }
+.about-image:hover img   { transform: scale(1.04); }
+.service-row:hover .service-image img { transform: scale(1.04); }
+.team-card:hover .team-image img      { transform: scale(1.06); }

@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-about',
@@ -6,231 +6,121 @@ import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
   templateUrl: './about.html',
   styleUrl: './about.css',
 })
-export class About implements AfterViewInit {
-  // Original video elements
+export class About implements AfterViewInit, OnDestroy {
   @ViewChild('designVideo', { static: false }) videoElement!: ElementRef<HTMLVideoElement>;
   @ViewChild('videoOverlay', { static: false }) overlayElement!: ElementRef<HTMLDivElement>;
   @ViewChild('playButton', { static: false }) playButtonElement!: ElementRef<HTMLDivElement>;
-
-  // New project video showcase elements
   @ViewChild('projectVideo', { static: false }) projectVideoElement!: ElementRef<HTMLVideoElement>;
   @ViewChild('theaterOverlay', { static: false }) theaterOverlayElement!: ElementRef<HTMLDivElement>;
   @ViewChild('theaterPlayBtn', { static: false }) theaterPlayBtnElement!: ElementRef<HTMLDivElement>;
 
+  private observers: IntersectionObserver[] = [];
+  private countUpStarted = false;
+
   ngAfterViewInit() {
-    console.log('About component initialized, setting up video functionality');
     this.initVideo();
     this.initProjectVideo();
+    this.initScrollReveal();
+    this.initCountUp();
+  }
+
+  ngOnDestroy() {
+    this.observers.forEach(o => o.disconnect());
+  }
+
+  // ── Scroll reveal ──────────────────────────────────────────────────────────
+  private initScrollReveal() {
+    const elements = document.querySelectorAll<HTMLElement>(
+      '.lux-reveal, .lux-reveal-left, .lux-reveal-right, .lux-reveal-scale'
+    );
+    if (!elements.length) return;
+
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          (entry.target as HTMLElement).classList.add('lux-visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+    elements.forEach(el => obs.observe(el));
+    this.observers.push(obs);
+  }
+
+  // ── Count-up numbers ───────────────────────────────────────────────────────
+  private initCountUp() {
+    const statEls = document.querySelectorAll<HTMLElement>('.stat-count');
+    if (!statEls.length) return;
+
+    const obs = new IntersectionObserver((entries) => {
+      if (this.countUpStarted) return;
+      const visible = entries.some(e => e.isIntersecting);
+      if (!visible) return;
+      this.countUpStarted = true;
+      obs.disconnect();
+
+      statEls.forEach(el => {
+        const target = parseFloat(el.dataset['target'] || '0');
+        const suffix = el.dataset['suffix'] || '';
+        const duration = 1800;
+        const start = performance.now();
+        const step = (now: number) => {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const value = Math.round(eased * target);
+          el.textContent = value + suffix;
+          if (progress < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0.3 });
+
+    statEls.forEach(el => obs.observe(el));
+    this.observers.push(obs);
+  }
+
+  // ── Video helpers ──────────────────────────────────────────────────────────
+  private playVideo(video: HTMLVideoElement, container: HTMLElement) {
+    video.play().then(() => container.classList.add('playing'))
+      .catch(() => { video.play(); container.classList.add('playing'); });
+  }
+
+  private bindVideo(
+    video: HTMLVideoElement | undefined,
+    overlay: HTMLElement | undefined,
+    btn: HTMLElement | undefined,
+    container: HTMLElement | null
+  ) {
+    if (!video || !overlay || !btn || !container) return;
+    const play = () => this.playVideo(video, container);
+    overlay.addEventListener('click', play);
+    btn.addEventListener('click', play);
+    video.addEventListener('play',  () => container.classList.add('playing'));
+    video.addEventListener('pause', () => container.classList.remove('playing'));
+    video.addEventListener('ended', () => container.classList.remove('playing'));
+    video.addEventListener('click', e => e.stopPropagation());
   }
 
   private initVideo() {
-    console.log('Initializing video functionality');
-    
-    const video = this.videoElement?.nativeElement;
-    const overlay = this.overlayElement?.nativeElement;
-    const playButton = this.playButtonElement?.nativeElement;
-    const wrapper = document.querySelector('.video-wrapper') as HTMLElement;
-    
-    console.log('Elements found:', {
-      video: !!video,
-      overlay: !!overlay,
-      playButton: !!playButton,
-      wrapper: !!wrapper
-    });
-
-    if (video && overlay && playButton && wrapper) {
-      // Direct play function
-      const playVideo = () => {
-        console.log('Play function called');
-        
-        // Try to play the video
-        try {
-          console.log('Attempting video.play()...');
-          const playPromise = video.play();
-          
-          if (playPromise !== undefined) {
-            playPromise.then(() => {
-              console.log('Video started playing');
-              wrapper.classList.add('playing');
-            }).catch((error) => {
-              console.log('Play promise rejected:', error);
-              try {
-                video.play();
-                wrapper.classList.add('playing');
-              } catch (e) {
-                console.log('Direct play also failed:', e);
-              }
-            });
-          } else {
-            console.log('No play promise, trying direct play');
-            video.play();
-            wrapper.classList.add('playing');
-          }
-        } catch (error) {
-          console.log('Initial play attempt failed:', error);
-          
-          // Fallback attempts
-          setTimeout(() => {
-            try {
-              console.log('Fallback attempt 1');
-              video.play();
-              wrapper.classList.add('playing');
-            } catch (e) {
-              console.log('Fallback 1 failed:', e);
-              
-              setTimeout(() => {
-                try {
-                  console.log('Fallback attempt 2');
-                  video.play();
-                  wrapper.classList.add('playing');
-                } catch (e2) {
-                  console.log('Fallback 2 failed:', e2);
-                }
-              }, 500);
-            }
-          }, 100);
-        }
-      }
-      
-      // Add click events to all interactive elements
-      overlay.addEventListener('click', playVideo);
-      playButton.addEventListener('click', playVideo);
-      
-      // Video state handlers
-      video.addEventListener('play', () => {
-        wrapper.classList.add('playing');
-        console.log('Video is now playing');
-      });
-      
-      video.addEventListener('pause', () => {
-        wrapper.classList.remove('playing');
-        console.log('Video is paused');
-      });
-      
-      video.addEventListener('ended', () => {
-        wrapper.classList.remove('playing');
-        console.log('Video ended');
-      });
-      
-      video.addEventListener('error', (e) => {
-        console.error('Video error occurred:', e);
-        wrapper.classList.remove('playing');
-      });
-      
-      // Prevent video controls from triggering play
-      video.addEventListener('click', (e) => {
-        e.stopPropagation();
-      });
-      
-      console.log('Video functionality initialized successfully');
-    } else {
-      console.log('Some video elements not found, retrying in 1 second...');
-      setTimeout(() => this.initVideo(), 1000);
-    }
+    setTimeout(() => {
+      this.bindVideo(
+        this.videoElement?.nativeElement,
+        this.overlayElement?.nativeElement,
+        this.playButtonElement?.nativeElement,
+        document.querySelector('.video-wrapper')
+      );
+    }, 300);
   }
 
   private initProjectVideo() {
-    console.log('Initializing project video showcase functionality');
-    
-    const video = this.projectVideoElement?.nativeElement;
-    const overlay = this.theaterOverlayElement?.nativeElement;
-    const playButton = this.theaterPlayBtnElement?.nativeElement;
-    const stage = document.querySelector('.video-stage') as HTMLElement;
-    
-    console.log('Project video elements found:', {
-      video: !!video,
-      overlay: !!overlay,
-      playButton: !!playButton,
-      stage: !!stage
-    });
-
-    if (video && overlay && playButton && stage) {
-      // Direct play function for theater video
-      const playTheaterVideo = () => {
-        console.log('Theater play function called');
-        
-        try {
-          console.log('Attempting theater video.play()...');
-          const playPromise = video.play();
-          
-          if (playPromise !== undefined) {
-            playPromise.then(() => {
-              console.log('Theater video started playing');
-              stage.classList.add('playing');
-            }).catch((error) => {
-              console.log('Theater play promise rejected:', error);
-              try {
-                video.play();
-                stage.classList.add('playing');
-              } catch (e) {
-                console.log('Theater direct play also failed:', e);
-              }
-            });
-          } else {
-            console.log('No play promise, trying direct play');
-            video.play();
-            stage.classList.add('playing');
-          }
-        } catch (error) {
-          console.log('Theater initial play attempt failed:', error);
-          
-          // Fallback attempts
-          setTimeout(() => {
-            try {
-              console.log('Theater fallback attempt 1');
-              video.play();
-              stage.classList.add('playing');
-            } catch (e) {
-              console.log('Theater fallback 1 failed:', e);
-              
-              setTimeout(() => {
-                try {
-                  console.log('Theater fallback attempt 2');
-                  video.play();
-                  stage.classList.add('playing');
-                } catch (e2) {
-                  console.log('Theater fallback 2 failed:', e2);
-                }
-              }, 500);
-            }
-          }, 100);
-        }
-      }
-      
-      // Add click events to all interactive elements
-      overlay.addEventListener('click', playTheaterVideo);
-      playButton.addEventListener('click', playTheaterVideo);
-      
-      // Video state handlers for theater
-      video.addEventListener('play', () => {
-        stage.classList.add('playing');
-        console.log('Theater video is now playing');
-      });
-      
-      video.addEventListener('pause', () => {
-        stage.classList.remove('playing');
-        console.log('Theater video is paused');
-      });
-      
-      video.addEventListener('ended', () => {
-        stage.classList.remove('playing');
-        console.log('Theater video ended');
-      });
-      
-      video.addEventListener('error', (e) => {
-        console.error('Theater video error occurred:', e);
-        stage.classList.remove('playing');
-      });
-      
-      // Prevent video controls from triggering play
-      video.addEventListener('click', (e) => {
-        e.stopPropagation();
-      });
-      
-      console.log('Theater video functionality initialized successfully');
-    } else {
-      console.log('Some theater video elements not found, retrying in 1 second...');
-      setTimeout(() => this.initProjectVideo(), 1000);
-    }
+    setTimeout(() => {
+      this.bindVideo(
+        this.projectVideoElement?.nativeElement,
+        this.theaterOverlayElement?.nativeElement,
+        this.theaterPlayBtnElement?.nativeElement,
+        document.querySelector('.video-stage')
+      );
+    }, 300);
   }
 }

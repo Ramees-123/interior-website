@@ -33,19 +33,38 @@ export class Home implements OnInit, OnDestroy, AfterViewInit {
     this.startSlideshow();
   }
   
+  private scrollObserver?: IntersectionObserver;
+
   ngAfterViewInit() {
-    // Add CSS animation classes for hero content
     if (this.heroContent?.nativeElement) {
       setTimeout(() => {
         this.heroContent.nativeElement.classList.add('hero-content-visible');
       }, 500);
     }
+    this.initScrollReveal();
+  }
+
+  private initScrollReveal() {
+    const els = document.querySelectorAll<HTMLElement>(
+      '.lux-reveal, .lux-reveal-left, .lux-reveal-right, .lux-reveal-scale'
+    );
+    if (!els.length) return;
+    this.scrollObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          (e.target as HTMLElement).classList.add('lux-visible');
+          this.scrollObserver!.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+    els.forEach(el => this.scrollObserver!.observe(el));
   }
   
   ngOnDestroy() {
     if (this.intervalId) {
       clearInterval(this.intervalId);
     }
+    this.scrollObserver?.disconnect();
   }
   
   startSlideshow() {
