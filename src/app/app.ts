@@ -12,6 +12,8 @@ export class App implements AfterViewInit {
   isScrolled = false;
   isMenuOpen = false;
   transparentHeader = true; // used to toggle transparent background on home
+  private readonly instagramUrl = 'https://www.instagram.com/andspacio_interior?igsh=MWk5MXJpbTh5dzNtaA==';
+  private readonly whatsappNumber = '916238835584';
 
   constructor(private router: Router) {
     // Show loader when navigation starts, hide when it ends
@@ -156,5 +158,15 @@ export class App implements AfterViewInit {
   closeMenu() {
     this.isMenuOpen = false;
     document.body.style.overflow = '';
+  }
+
+  openInstagram() {
+    window.open(this.instagramUrl, '_blank');
+  }
+
+  openWhatsAppChat() {
+    const message = encodeURIComponent(`Hello! I'm interested in your interior design services.`);
+    const whatsappUrl = `https://wa.me/${this.whatsappNumber}?text=${message}`;
+    window.open(whatsappUrl, '_blank');
   }
 }
