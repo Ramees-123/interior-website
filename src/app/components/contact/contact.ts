@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } 
   styleUrl: './contact.css',
 })
 export class Contact implements OnDestroy {
+  private readonly instagramUrl = 'https://www.instagram.com/andspacio_interior?igsh=MWk5MXJpbTh5dzNtaA==';
   // Form data model for new premium form
   formData = {
     name: '',
@@ -243,6 +244,11 @@ export class Contact implements OnDestroy {
     const whatsappUrl = `https://wa.me/916238835584?text=${message}`;
     window.open(whatsappUrl, '_blank');
     this.closePhoneModal();
+  }
+
+  openInstagram(event: Event) {
+    this.addRippleEffect(event);
+    window.open(this.instagramUrl, '_blank');
   }
   
   // Email Card - Opens Gmail modal
