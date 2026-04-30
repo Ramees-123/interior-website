@@ -1,20 +1,23 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Router } from '@angular/router';
+import { ImageOptimizationService } from '../../services/image-optimization.service';
 
 @Component({
   selector: 'app-portfolio',
-  imports: [CommonModule],
+  imports: [CommonModule, NgOptimizedImage],
   templateUrl: './portfolio.html',
   styleUrl: './portfolio.css',
 })
 export class Portfolio implements OnInit, AfterViewInit, OnDestroy {
 
   private router = inject(Router);
+  private imageOptimization = inject(ImageOptimizationService);
   currentCategory = 'all';
 
   slideshowIntervals: Map<Element, any> = new Map();
   pauseTimeouts: Map<Element, any> = new Map();
+  imageLoadingMap: Map<string, Set<number>> = new Map(); // Track which images are loaded per slideshow
 
   ngOnInit() {
     // Initialize after component is fully loaded
@@ -30,11 +33,13 @@ export class Portfolio implements OnInit, AfterViewInit, OnDestroy {
     setTimeout(() => {
       this.initializeAllSlideshows();
       this.initializeHoverPreview();
+      this.preloadVisibleImages();
     }, 200);
   }
 
   ngOnDestroy() {
     this.slideshowIntervals.forEach(interval => clearInterval(interval));
+    this.pauseTimeouts.forEach(timeout => clearTimeout(timeout));
   }
 
   // ---------------- FILTER ----------------
@@ -283,5 +288,79 @@ export class Portfolio implements OnInit, AfterViewInit, OnDestroy {
     this.router.navigate(['/contact']).then(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+  }
+
+  // ============ IMAGE OPTIMIZATION ============
+
+  /**
+   * Preload images that are visible in viewport
+   * Uses Intersection Observer to load images only when needed
+   */
+  private preloadVisibleImages() {
+    const imageObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const slideshow = entry.target as HTMLElement;
+          const slideshowId = slideshow.id;
+          
+          // Load the first/active image eagerly
+          this.preloadSlideshowImages(slideshow, 0);
+          
+          // Preload next 1-2 images to smooth transitions
+          this.preloadSlideshowImages(slideshow, 1);
+          this.preloadSlideshowImages(slideshow, 2);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.project-slideshow').forEach(slideshow => {
+      imageObserver.observe(slideshow);
+    });
+  }
+
+  /**
+   * Preload specific image in slideshow
+   * Marks images as eager loading when they're about to be shown
+   */
+  private preloadSlideshowImages(container: Element, imageOffset: number) {
+    const slides = container.querySelectorAll('.slideshow-slide');
+    const currentIndex = parseInt(container.getAttribute('data-index') || '0');
+    const targetIndex = (currentIndex + imageOffset) % slides.length;
+    
+    const targetSlide = slides[targetIndex] as HTMLElement;
+    if (targetSlide) {
+      const img = targetSlide.querySelector('img') as HTMLImageElement;
+      if (img && img.loading === 'lazy') {
+        // Change to eager loading for images about to be shown
+        img.loading = 'eager';
+        // Force load if not already loaded
+        img.src = img.getAttribute('data-src') || img.src;
+      }
+    }
+  }
+
+  /**
+   * Track image loading for analytics or progress indication
+   */
+  private markImageLoaded(slideshowId: string, imageIndex: number) {
+    if (!this.imageLoadingMap.has(slideshowId)) {
+      this.imageLoadingMap.set(slideshowId, new Set());
+    }
+    this.imageLoadingMap.get(slideshowId)!.add(imageIndex);
+  }
+
+  /**
+   * Get placeholder image for blur-up effect
+   */
+  getImagePlaceholder(): string {
+    return this.imageOptimization.getPlaceholder();
+  }
+
+  /**
+   * Check if image should use eager or lazy loading
+   */
+  shouldEagerLoad(index: number, isFirstSlide: boolean): boolean {
+    // Eager load first slide, lazy load rest
+    return index === 0 || isFirstSlide;
   }
 }
