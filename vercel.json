@@ -11,6 +11,10 @@
         {
           "key": "cache-control",
           "value": "public, max-age=31536000, immutable"
+        },
+        {
+          "key": "Content-Encoding",
+          "value": "gzip"
         }
       ]
     },
@@ -20,6 +24,10 @@
         {
           "key": "cache-control",
           "value": "public, max-age=31536000, immutable"
+        },
+        {
+          "key": "Content-Encoding",
+          "value": "gzip"
         }
       ]
     },
@@ -29,6 +37,10 @@
         {
           "key": "cache-control",
           "value": "public, max-age=31536000, immutable"
+        },
+        {
+          "key": "Content-Encoding",
+          "value": "gzip"
         }
       ]
     },
@@ -47,6 +59,10 @@
         {
           "key": "cache-control",
           "value": "public, max-age=3600, must-revalidate"
+        },
+        {
+          "key": "Content-Encoding",
+          "value": "gzip"
         }
       ]
     }

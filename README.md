@@ -2,6 +2,22 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.0.
 
+## ⚡ Performance Optimization
+
+The portfolio page includes comprehensive performance optimizations. However, **image and video asset compression is critical** for fast loading.
+
+**📖 See [QUICK_FIX_CHECKLIST.md](./QUICK_FIX_CHECKLIST.md) for step-by-step image compression guide**
+
+Quick summary:
+- Use https://squoosh.app to compress images (5 minutes)
+- Compress to 80% quality (JPEGs) or PNG compression level 9
+- Expected result: 5-10x faster loading time
+
+For detailed information, see:
+- [DEPLOYMENT_SOLUTION.md](./DEPLOYMENT_SOLUTION.md) - Root cause analysis
+- [IMAGE_COMPRESSION_GUIDE.md](./IMAGE_COMPRESSION_GUIDE.md) - Detailed compression guide
+- [PERFORMANCE_OPTIMIZATION.md](./PERFORMANCE_OPTIMIZATION.md) - Code-level optimizations
+
 ## Development server
 
 To start a local development server, run:

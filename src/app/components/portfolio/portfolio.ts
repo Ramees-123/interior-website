@@ -169,6 +169,9 @@ export class Portfolio implements OnInit, AfterViewInit, OnDestroy {
     }
 
     container.setAttribute('data-index', nextIndex.toString());
+    
+    // Preload the next image immediately when user navigates
+    this.preloadNextImage(container, nextIndex);
   }
 
   // ---------------- AUTO ----------------
@@ -191,6 +194,9 @@ export class Portfolio implements OnInit, AfterViewInit, OnDestroy {
       }
 
       container.setAttribute('data-index', nextIndex.toString());
+      
+      // Preload the next image for smooth transition
+      this.preloadNextImage(container, nextIndex);
 
     }, 5000);
 
@@ -301,14 +307,14 @@ export class Portfolio implements OnInit, AfterViewInit, OnDestroy {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const slideshow = entry.target as HTMLElement;
-          const slideshowId = slideshow.id;
           
-          // Load the first/active image eagerly
-          this.preloadSlideshowImages(slideshow, 0);
+          // Only preload the currently active slide, NOT future ones
+          // This significantly reduces bandwidth usage
+          const currentIndex = parseInt(slideshow.getAttribute('data-index') || '0');
+          this.preloadSlideshowImage(slideshow, currentIndex);
           
-          // Preload next 1-2 images to smooth transitions
-          this.preloadSlideshowImages(slideshow, 1);
-          this.preloadSlideshowImages(slideshow, 2);
+          // Unobserve after loading to save resources
+          imageObserver.unobserve(entry.target);
         }
       });
     }, { threshold: 0.1 });
@@ -319,21 +325,35 @@ export class Portfolio implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /**
-   * Preload specific image in slideshow
-   * Marks images as eager loading when they're about to be shown
+   * Preload a specific image in slideshow - aggressive lazy loading
+   * Only loads the image that's currently being shown
    */
-  private preloadSlideshowImages(container: Element, imageOffset: number) {
+  private preloadSlideshowImage(container: Element, imageIndex: number) {
     const slides = container.querySelectorAll('.slideshow-slide');
-    const currentIndex = parseInt(container.getAttribute('data-index') || '0');
-    const targetIndex = (currentIndex + imageOffset) % slides.length;
+    const targetSlide = slides[imageIndex] as HTMLElement;
     
-    const targetSlide = slides[targetIndex] as HTMLElement;
     if (targetSlide) {
       const img = targetSlide.querySelector('img') as HTMLImageElement;
       if (img && img.loading === 'lazy') {
-        // Change to eager loading for images about to be shown
+        // Only set to eager when absolutely needed
         img.loading = 'eager';
-        // Force load if not already loaded
+      }
+    }
+  }
+
+  /**
+   * Preload next image when user is about to see it
+   * Called during slideshow navigation
+   */
+  private preloadNextImage(container: Element, nextIndex: number) {
+    const slides = container.querySelectorAll('.slideshow-slide');
+    const nextSlide = slides[nextIndex] as HTMLElement;
+    
+    if (nextSlide) {
+      const img = nextSlide.querySelector('img') as HTMLImageElement;
+      if (img && img.loading === 'lazy') {
+        // Convert to eager loading just before showing
+        img.loading = 'eager';
         img.src = img.getAttribute('data-src') || img.src;
       }
     }
