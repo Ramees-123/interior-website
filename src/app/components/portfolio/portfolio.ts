@@ -1,11 +1,11 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, inject } from '@angular/core';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ImageOptimizationService } from '../../services/image-optimization.service';
 
 @Component({
   selector: 'app-portfolio',
-  imports: [CommonModule, NgOptimizedImage],
+  imports: [CommonModule],
   templateUrl: './portfolio.html',
   styleUrl: './portfolio.css',
 })
