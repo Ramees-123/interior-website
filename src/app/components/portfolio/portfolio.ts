@@ -29,11 +29,10 @@ export class Portfolio implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    // Main initialization - only called once
     setTimeout(() => {
       this.initializeAllSlideshows();
       this.initializeHoverPreview();
-      this.preloadVisibleImages();
+      this.startSlideshowsOnlyWhenVisible();
     }, 200);
   }
 
@@ -91,46 +90,31 @@ export class Portfolio implements OnInit, AfterViewInit, OnDestroy {
   // ---------------- INIT ----------------
   initializeAllSlideshows() {
     const containers = document.querySelectorAll('.project-slideshow');
-
     containers.forEach(container => {
-
-      // 🚀 Prevent duplicate init
       if (container.getAttribute('data-initialized') === 'true') return;
       container.setAttribute('data-initialized', 'true');
-
       const slides = container.querySelectorAll('.slideshow-slide');
       const prevBtn = container.querySelector('.prev-btn') as HTMLElement;
       const nextBtn = container.querySelector('.next-btn') as HTMLElement;
-
       if (slides.length > 0) {
         container.setAttribute('data-index', '0');
       }
-
-      this.startSlideshow(container);
-
-      // ✅ HOVER PAUSE
       container.addEventListener('mouseenter', () => {
         this.stopSlideshow(container);
-
-        // also clear any pending resume timeout
         clearTimeout(this.pauseTimeouts.get(container));
       });
-
       container.addEventListener('mouseleave', () => {
-        // small delay to avoid flicker
         const timeout = setTimeout(() => {
-          this.startSlideshow(container);
+          if (container.classList.contains('is-visible')) {
+            this.startSlideshow(container);
+          }
         }, 300);
-
         this.pauseTimeouts.set(container, timeout);
       });
-
-      // ✅ NEXT / PREV CLICK (TEMP PAUSE)
       prevBtn?.addEventListener('click', (e) => {
         e.stopPropagation();
         this.handleManualNavigation(container, -1);
       });
-
       nextBtn?.addEventListener('click', (e) => {
         e.stopPropagation();
         this.handleManualNavigation(container, 1);
@@ -298,29 +282,27 @@ export class Portfolio implements OnInit, AfterViewInit, OnDestroy {
 
   // ============ IMAGE OPTIMIZATION ============
 
-  /**
-   * Preload images that are visible in viewport
-   * Uses Intersection Observer to load images only when needed
-   */
-  private preloadVisibleImages() {
-    const imageObserver = new IntersectionObserver((entries) => {
+  private startSlideshowsOnlyWhenVisible() {
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
+        const slideshow = entry.target as HTMLElement;
         if (entry.isIntersecting) {
-          const slideshow = entry.target as HTMLElement;
-          
-          // Only preload the currently active slide, NOT future ones
-          // This significantly reduces bandwidth usage
+          slideshow.classList.add('is-visible');
           const currentIndex = parseInt(slideshow.getAttribute('data-index') || '0');
           this.preloadSlideshowImage(slideshow, currentIndex);
-          
-          // Unobserve after loading to save resources
-          imageObserver.unobserve(entry.target);
+          this.preloadNextImage(slideshow, currentIndex + 1);
+          this.startSlideshow(slideshow);
+        } else {
+          slideshow.classList.remove('is-visible');
+          this.stopSlideshow(slideshow);
         }
       });
-    }, { threshold: 0.1 });
-
+    }, {
+      rootMargin: '250px 0px',
+      threshold: 0.1
+    });
     document.querySelectorAll('.project-slideshow').forEach(slideshow => {
-      imageObserver.observe(slideshow);
+      observer.observe(slideshow);
     });
   }
 
@@ -347,14 +329,13 @@ export class Portfolio implements OnInit, AfterViewInit, OnDestroy {
    */
   private preloadNextImage(container: Element, nextIndex: number) {
     const slides = container.querySelectorAll('.slideshow-slide');
-    const nextSlide = slides[nextIndex] as HTMLElement;
-    
+    const safeIndex = nextIndex % slides.length;
+    const nextSlide = slides[safeIndex] as HTMLElement;
     if (nextSlide) {
       const img = nextSlide.querySelector('img') as HTMLImageElement;
-      if (img && img.loading === 'lazy') {
-        // Convert to eager loading just before showing
+      if (img) {
         img.loading = 'eager';
-        img.src = img.getAttribute('data-src') || img.src;
+        img.fetchPriority = 'low';
       }
     }
   }
