@@ -215,8 +215,9 @@ export class Portfolio implements OnInit, AfterViewInit, OnDestroy {
         const container = image.closest('.project-slideshow');
         if (container) this.stopSlideshow(container);
 
-        // show preview
-        previewImg.src = image.src;
+      // show preview - use data-full for full resolution, fallback to thumbnail
+        const fullSrc = image.getAttribute('data-full') || image.src;
+        previewImg.src = fullSrc;
         overlay.classList.add('show');
       }
     });
